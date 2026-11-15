@@ -127,3 +127,16 @@ context, real fullscreen across forward/backward/history topic changes,
 independent disclosures, print visibility, and landscape scroll reachability.
 The deployment permission change was checked locally; an actual Pages deployment
 is still not claimed.
+
+## Pages build follow-up
+
+The Pages build job failed in the browser test for interactive controls: Chromium
+used the focused slide selector's right-arrow key to select the next option,
+contrary to the test's assumption that the first slide would remain visible.
+The existing presentation handler already leaves selector keys to the browser.
+The regression now checks that the key is not prevented and that the native
+selection displays the corresponding slide, before checking the end of the talk.
+The original failure was reproduced locally with the Pages base path, and the
+corrected focused browser test passed.
+Astro check, seven unit tests, the Pages-base build, three production-output
+tests, and all eleven Chromium tests also passed locally after the correction.

@@ -86,7 +86,17 @@ test('source and interactive controls own their keys; end-of-talk does not loop'
   await page.keyboard.press('Escape');
   await expect(page.locator('.source-popover')).not.toHaveAttribute('open');
   await page.locator('[data-slide-select]').focus();
+  await page.evaluate(() => {
+    window.addEventListener('keydown', (event) => {
+      (window as Window & { selectorKeyPrevented?: boolean }).selectorKeyPrevented = event.defaultPrevented;
+    }, { once: true });
+  });
   await page.keyboard.press('ArrowRight');
+  expect(await page.evaluate(() => (window as Window & { selectorKeyPrevented?: boolean }).selectorKeyPrevented)).toBe(false);
+  await expect(page.locator('[data-slide-select]')).toHaveValue('discussion');
+  await expect(page.locator('#discussion')).toBeVisible();
+  await expect(page).toHaveURL(/\/copilot\/automations\/#discussion$/);
+  await page.locator('[data-slide-select]').selectOption('idea');
   await expect(page.locator('#idea')).toBeVisible();
   await page.locator('#idea h2').click();
   await page.keyboard.press('End');
