@@ -257,3 +257,19 @@ after report charts, fullscreen-preserving topic transitions, source-popover-onl
 Escape handling, all-slide print visibility, and overflow-safe alignment at
 short landscape sizes. Add focused regressions for the browser issues and keep
 the public session record aligned with checks actually performed.
+
+## Creation timeline follow-up within iteration 01
+
+Issue #3 extends the making-of page beyond the app-only account. Present the
+app's initial worktree and PR, side Copilot CLI review using `gh`, separate
+cloud code review, app-session corrections and Agent Merge, failed post-merge
+Pages build, and cloud-agent repair as a single timeline. Keep explanations and
+supporting records inline with native disclosures rather than requiring other
+pages or adding a modal framework.
+
+Preserve the supplied CLI evidence at `docs/iteration01-review/session.md` as a
+public-safe record supporting this iteration. The attachment returned HTTP 404;
+until available, label that file as an issue-based summary, not a transcript.
+Use the linked Actions logs and PR records for cloud findings and deployment
+outcomes. Attribute the cloud review's “mid” setting and Agent Merge to the
+presenter's account, without inferring model identities or Fusion settings.

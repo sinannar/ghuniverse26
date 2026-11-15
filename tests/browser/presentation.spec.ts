@@ -62,6 +62,7 @@ test('demo pauses are opt-in and Fusion uses the actual creation story', async (
   await page.screenshot({ path: test.info().outputPath('fusion-creation.png') });
   await page.getByRole('link', { name: /Conversation, plan, and session story/ }).click();
   await expect(page).toHaveURL(/\/making-of\/$/);
+  await page.getByText('Read the original app session story', { exact: true }).click();
   await expect(page.getByRole('heading', { name: 'Session context' })).toBeVisible();
   await expect(page.locator('.creation-record')).toContainText('Universe demo showcase');
   await expect(page.locator('.creation-record')).toContainText('iteration 01');
@@ -76,6 +77,62 @@ test('demo pauses are opt-in and Fusion uses the actual creation story', async (
   await expect(page.locator('#creation')).toBeVisible();
   await page.goto('./copilot/projects/');
   await expect(page.locator('[data-optional]')).toHaveCount(0);
+});
+
+test('creation timeline keeps review evidence and records on-page at desktop and mobile sizes', async ({ page }) => {
+  await page.goto('./making-of/');
+  const timeline = page.getByRole('list', { name: 'Creation timeline' });
+  await expect(timeline.locator(':scope > li')).toHaveCount(6);
+  await expect(timeline.locator(':scope > li > h2')).toHaveText([
+    'Copilot app · create the presentation and PR #1',
+    'Copilot CLI · review PR #1 on the side',
+    'Cloud code review · a second review track',
+    'Copilot app · apply corrections, then Agent Merge',
+    'Pages · the post-merge build failed',
+    'Cloud agent · fix the test and deploy',
+  ]);
+  await expect(page.locator('.creation-record')).toContainText('their order here does not imply');
+  const url = page.url();
+  for (const viewport of [{ width: 1440, height: 900 }, { width: 390, height: 844 }]) {
+    await page.setViewportSize(viewport);
+    for (const summary of [
+      'What the cloud review found',
+      'Review corrections and their validation',
+      'Why a merged PR still needed a follow-up',
+      'The repair and the verified outcome',
+      'Read the Copilot CLI side-review record',
+      'Read the discovery conversation',
+      'Read the implementation plan',
+    ]) {
+      const control = page.getByText(summary, { exact: true });
+      await control.focus();
+      await page.keyboard.press('Enter');
+      await expect(control.locator('..')).toHaveAttribute('open');
+      expect(page.url()).toBe(url);
+      expect(await page.evaluate(() => document.documentElement.scrollWidth - innerWidth)).toBeLessThanOrEqual(1);
+      await page.keyboard.press('Enter');
+      await expect(control.locator('..')).not.toHaveAttribute('open');
+    }
+  }
+  await page.getByText('Read the Copilot CLI side-review record', { exact: true }).click();
+  await expect(page.getByText('The original attachment could not be copied or inspected.', { exact: false })).toBeVisible();
+  await expect(page.locator('.creation-record')).toContainText('not the attached transcript');
+  await page.getByText('What the cloud review found', { exact: true }).click();
+  await expect(timeline.getByRole('link', { name: 'cloud review job', exact: true })).toHaveAttribute('href', 'https://github.com/sinannar/ghuniverse26/actions/runs/43672715559/job/132686090551');
+  await page.getByText('The repair and the verified outcome', { exact: true }).click();
+  await expect(timeline.getByRole('link', { name: 'cloud repair job', exact: true })).toHaveAttribute('href', 'https://github.com/sinannar/ghuniverse26/actions/runs/43762614333/job/132960560040');
+});
+
+test('creation timeline and its disclosures work without JavaScript', async ({ browser, baseURL }) => {
+  const context = await browser.newContext({ javaScriptEnabled: false });
+  const page = await context.newPage();
+  await page.goto(`${baseURL}making-of/`);
+  await expect(page.getByRole('list', { name: 'Creation timeline' }).locator(':scope > li')).toHaveCount(6);
+  await page.getByText('Read the Copilot CLI side-review record', { exact: true }).click();
+  await expect(page.getByRole('heading', { name: 'Source and availability' })).toBeVisible();
+  await page.getByText('The repair and the verified outcome', { exact: true }).click();
+  await expect(page.getByRole('link', { name: 'subsequent Pages run' })).toBeVisible();
+  await context.close();
 });
 
 test('source and interactive controls own their keys; end-of-talk does not loop', async ({ page }) => {

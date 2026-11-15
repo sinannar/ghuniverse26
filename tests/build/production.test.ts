@@ -56,3 +56,34 @@ test('every slide target is rendered once and optional demos do not appear on un
     assert.ok(!html.includes('data-coverage-form'));
   }
 });
+
+test('making-of publishes one timeline with inline records and distinct cloud evidence', () => {
+  const html = read('making-of/index.html');
+  assert.match(html, /<ol class="creation-timeline" aria-label="Creation timeline">/);
+  const stages = [
+    'Copilot app · create the presentation and PR #1',
+    'Copilot CLI · review PR #1 on the side',
+    'Cloud code review · a second review track',
+    'Copilot app · apply corrections, then Agent Merge',
+    'Pages · the post-merge build failed',
+    'Cloud agent · fix the test and deploy',
+  ];
+  let previous = -1;
+  for (const stage of stages) {
+    const position = html.indexOf(stage);
+    assert.ok(position > previous, `Missing or out-of-order stage: ${stage}`);
+    previous = position;
+  }
+  for (const source of [
+    '43672715559/job/132686090551',
+    '43762614333/job/132960560040',
+    '43762250561/job/132960129681',
+    '43763557916',
+  ]) assert.ok(html.includes(`https://github.com/sinannar/ghuniverse26/actions/runs/${source}`));
+  assert.match(html, /not the attached transcript/);
+  assert.match(html, /HTTP 404/);
+  for (const summary of ['Read the Copilot CLI side-review record', 'Read the discovery conversation', 'Read the implementation plan']) {
+    assert.ok(html.includes(`<summary>${summary}</summary>`));
+  }
+  assert.doesNotMatch(html, /href="[^"]*\/(?:iteration01|iteration01-review)\/[^"]*"/);
+});

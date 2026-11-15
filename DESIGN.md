@@ -94,7 +94,10 @@ topic while screen presentation continues to show one at a time.
 The public "How this was built" companion is a reading surface, not another
 slide chapter. Use an ink-on-paper column up to 960px wide, chapter-colored
 quotation rules, simple tables, and native expandable sections for the longer
-conversation and plan. Keep a direct return link to the Fusion slide.
+conversation and plan. Present the creation, parallel reviews, corrections,
+merge, build failure, and repair as a numbered timeline with inline expandable
+explanations and supporting records, not separate reading pages or modal UI.
+Keep a direct return link to the Fusion slide.
 
 ## Do's and Don'ts
 

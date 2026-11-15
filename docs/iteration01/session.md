@@ -1,11 +1,28 @@
-# Built with Fusion, shaped by conversation
+# How this was built
 
-I used **Copilot Fusion in the GitHub Copilot app** to create the first version
-of this Astro presentation. The website is both the presentation and an example
-of working with Copilot: describe the outcome, inspect the result, correct the
-direction, and keep the decisions.
+From the first Copilot app worktree to review, merge, and a repaired Pages build:
+this presentation was built through several connected sessions, not one prompt.
+This is still **iteration 01**.
 
-## Session context
+The timeline follows the presenter's account, the preserved app records, and
+the linked GitHub Actions logs and PR discussions. The CLI and cloud reviews
+were separate review tracks after PR #1 opened; their order here does not imply
+one depended on the other. Expand any step to read its explanation without
+leaving this page. Source links are optional.
+
+<ol class="creation-timeline" aria-label="Creation timeline">
+<li>
+
+## Copilot app · create the presentation and PR #1
+
+The presenter used **Copilot Fusion in the GitHub Copilot app** to initialize
+the repository content in a worktree and open the first pull request. Conversation
+turned the initial recap-like implementation into a data-first slide presentation.
+
+<details>
+<summary>Read the original app session story</summary>
+
+### Session context
 
 | Detail | Context |
 | --- | --- |
@@ -21,7 +38,7 @@ This is a curated account of the conversation, not a raw session export.
 The record does not claim a particular Fusion effort level, underlying model,
 model count, cost, or speed improvement: those details have not been established.
 
-## The first attempt missed the brief
+### The first attempt missed the brief
 
 The initial implementation looked too much like a scrolling recap website.
 The feedback was direct:
@@ -31,7 +48,7 @@ The feedback was direct:
 That correction changed the experience to a slide canvas. The recap remained
 the information source, not the design to reproduce.
 
-## Planning narrowed the talk
+### Planning narrowed the talk
 
 Coverage was chosen chapter by chapter: all four Platform announcements;
 Fusion, Projects, and Automations for Copilot; all seven Octoverse stories;
@@ -44,7 +61,7 @@ inside Octoverse at the presenter's request. Another instruction set the opening
 
 The result starts with the pushes comparison rather than a title screen.
 
-## The creation process became the Fusion example
+### The creation process became the Fusion example
 
 The presenter described the demo direction during planning:
 
@@ -54,14 +71,14 @@ Fusion's example is this site's actual initial creation. Stacked PRs and CLI
 attachments remain optional live-demo pauses; the other topics do not promise
 demonstrations that have not been decided.
 
-## What this demonstrates
+### What this demonstrates
 
 The useful story is not a one-shot prompt producing a perfect website.
 It is a visible cycle of intent, implementation, review, and correction in the
 GitHub Copilot app. The preserved conversation and plan below show how the
 presenter kept control of the scope and the result.
 
-## How the website works
+### How the website works
 
 Astro builds the presentation into static HTML, CSS, and a small TypeScript
 browser script. There is no backend, runtime announcement feed, or slide-library
@@ -73,7 +90,7 @@ dependency.
 | Slides | A shared `Presentation.astro` component, with topic-specific slide composition |
 | Navigation | Keyboard and button controls, topic jumps, URL hashes, and Astro client-side routing that retains fullscreen between topics |
 | Charts | Accessible HTML/CSS bars with visible data, units, reporting periods, and source notes |
-| This creation story | Markdown from `docs/iteration01/`, rendered by Astro rather than copied into the page |
+| This creation story | Markdown from `docs/iteration01/` and `docs/iteration01-review/`, rendered on one page by Astro |
 | Hosting | A static build deployed by GitHub Actions to GitHub Pages; deployment metadata supplies the URL base |
 
 The implementation was refined after review, including the switch from recap
@@ -81,7 +98,7 @@ layout to slides, the report-data opening, and fitting dense charts to projector
 viewports. Automated checks cover content, slide destinations, generated links,
 keyboard navigation, optional demos, and desktop/mobile layout.
 
-## Keeping the next conversation grounded
+### Keeping the next conversation grounded
 
 The repository's `AGENTS.md`, Copilot instructions, and GitHub Copilot app
 configuration direct agents to the iteration guide in `docs/README.md`.
@@ -93,7 +110,7 @@ The app configuration includes manual Setup and Run commands. Repository
 configuration changes need to be reviewed and accepted in the GitHub Copilot app
 before the app applies them.
 
-## Implementation checks
+### Implementation checks
 
 The initial implementation passed Astro's type/content checks, six unit/content tests, three
 generated-output tests, and six Chromium presentation tests. The production
@@ -103,10 +120,58 @@ conversation, returning to the Fusion slide, and responsive presentation layout.
 
 The Copilot app and deployment workflow files were parsed as YAML, and the shared
 instruction references were checked locally. Actual GitHub Pages publication
-and acceptance of the app configuration remain separate user actions; this
-record does not claim either has happened.
+and acceptance of the app configuration remained separate user actions at that
+point. The later deployment outcome appears below; acceptance of the app
+configuration is not established.
 
-## Review feedback and corrections
+</details>
+</li>
+<li>
+
+## Copilot CLI · review PR #1 on the side
+
+When the first PR opened, the presenter started a separate **Copilot CLI**
+session to review it using **GitHub CLI (`gh`)**. This was a side review,
+not part of the app's original creation session and not the cloud code review.
+
+The public-safe CLI session record is included in the expandable records below.
+The supplied attachment currently returns HTTP 404, so the record preserves
+the issue's account rather than claiming to reproduce an unread transcript.
+
+</li>
+<li>
+
+## Cloud code review · a second review track
+
+On **15 November 2026, 03:31–03:36 UTC**, Copilot Code Review ran against
+the first PR. The presenter describes its setting as **“mid”**; this is a
+presenter-supplied detail, not an inferred Fusion setting or model identity.
+
+<details>
+<summary>What the cloud review found</summary>
+
+The [cloud review job](https://github.com/sinannar/ghuniverse26/actions/runs/43672715559/job/132686090551)
+records review comments covering Pages permissions, missing report context,
+fullscreen transitions, Escape handling, print visibility, and short-screen
+overflow. The [PR #1 discussions](https://github.com/sinannar/ghuniverse26/pull/1/files)
+also contain two earlier comments overlapping the permissions and fullscreen
+findings. These are six distinct issues, not eight independent bugs.
+
+The job completing successfully means the review ran, not that the PR had no
+findings or that the presentation had deployed successfully.
+
+</details>
+</li>
+<li>
+
+## Copilot app · apply corrections, then Agent Merge
+
+The existing Copilot app session was reused to fix the review findings.
+The presenter reports using **Agent Merge** to merge PR #1. The merge was
+followed by a separate Pages workflow, not an automatic guarantee of deployment.
+
+<details>
+<summary>Review corrections and their validation</summary>
 
 The pull-request review identified six distinct issues. Browser regressions
 reproduced the five presentation issues before the fixes; the missing Pages
@@ -125,10 +190,48 @@ After the fixes, Astro check, seven unit/content tests, three production-output
 tests, and eleven Chromium tests passed. The added cases cover visible report
 context, real fullscreen across forward/backward/history topic changes,
 independent disclosures, print visibility, and landscape scroll reachability.
-The deployment permission change was checked locally; an actual Pages deployment
-is still not claimed.
+The deployment permission change was checked locally. At this stage, that did
+not establish a successful Pages deployment.
 
-## Pages build follow-up
+</details>
+</li>
+<li>
+
+## Pages · the post-merge build failed
+
+PR #1 merged on **15 November 2026**. The Pages workflow then failed in a
+Chromium keyboard test: pressing Right Arrow in a focused native slide selector
+changed the selection, while the test incorrectly expected the first slide
+to remain visible.
+
+<details>
+<summary>Why a merged PR still needed a follow-up</summary>
+
+The [failed Pages build](https://github.com/sinannar/ghuniverse26/actions/runs/43762250561/job/132960129681)
+shows the type, unit, build, and generated-output checks completing before the
+browser suite reported **10 passing tests and one failure**. A retry also failed.
+The failing assertion expected `#idea` to remain visible after the selector's
+native keyboard behavior moved to another slide. This was a test assumption,
+not a need to intercept the browser's selector keys.
+
+</details>
+</li>
+<li>
+
+## Cloud agent · fix the test and deploy
+
+A separate **Copilot cloud agent** session handled the Actions failure in PR #2.
+That PR merged at **21:24 UTC** on 15 November; the subsequent Pages deployment
+completed successfully at **21:26 UTC**.
+
+<details>
+<summary>The repair and the verified outcome</summary>
+
+The [cloud repair job](https://github.com/sinannar/ghuniverse26/actions/runs/43762614333/job/132960560040)
+links back to the failed build and records the agent run. Its runner logs alone
+are not a full conversation transcript. [PR #2](https://github.com/sinannar/ghuniverse26/pull/2)
+identifies the resulting change: fix the selector keyboard regression and update
+this iteration record, without changing production slide handling.
 
 The Pages build job failed in the browser test for interactive controls: Chromium
 used the focused slide selector's right-arrow key to select the next option,
@@ -140,3 +243,26 @@ The original failure was reproduced locally with the Pages base path, and the
 corrected focused browser test passed.
 Astro check, seven unit tests, the Pages-base build, three production-output
 tests, and all eleven Chromium tests also passed locally after the correction.
+
+The [subsequent Pages run](https://github.com/sinannar/ghuniverse26/actions/runs/43763557916)
+is recorded as successful. This supersedes the earlier session's “deployment
+not yet verified” status; it does not claim a particular model, cost, or speedup.
+
+</details>
+</li>
+</ol>
+
+## Timeline update validation
+
+For this making-of update, Astro check reported no diagnostics, all seven
+unit/content tests passed, and the static build completed. All four
+generated-output tests and thirteen Chromium tests passed at both `/` and a
+supplied `/pages-test` base. Coverage includes timeline order, evidence links,
+keyboard-operated disclosures, responsive width, JavaScript-free access, and
+the existing presentation behavior. Manual browser inspection also checked the
+timeline and its expandable cloud-review explanation.
+
+Secret scanning found no secrets in the changed files. CodeQL classified the
+static content/UI and test changes as trivial and skipped analysis; this is not
+a claim that a CodeQL code scan ran. The CLI attachment remained unavailable
+(HTTP 404), so the side-review record is an explicitly labeled issue summary.

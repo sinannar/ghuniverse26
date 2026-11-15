@@ -97,6 +97,10 @@
   .creation-record details { border-block-start: 1px solid var(--line); padding-block: 1.25rem; }
   .creation-record summary { font-weight: 600; }
   .creation-record__document { padding-block: 1rem; }
+  .creation-record .creation-timeline { list-style: none; padding-left: 1.5rem; border-left: 2px solid var(--accent-strong); counter-reset: creation-step; }
+  .creation-timeline > li { position: relative; padding-bottom: 1.5rem; counter-increment: creation-step; }
+  .creation-timeline > li::before { content: counter(creation-step, decimal-leading-zero); position: absolute; top: 0.25rem; right: calc(100% + 0.75rem); background: var(--paper); color: var(--accent-strong); font-weight: 700; font-size: 0.8rem; white-space: nowrap; }
+  .creation-timeline > li > h2 { font-size: clamp(1.4rem, 3vw, 2rem); }
 }
 @layer slides {
   .slide-deck { display: flex; flex-direction: column; flex: 1; min-height: 0; }

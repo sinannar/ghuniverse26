@@ -62,8 +62,12 @@ PRs and CLI attachments are optional demo candidates, not promised demonstration
 "How this was built" is a public companion to the slides, accessible from the
 footer and Fusion's creation story. It explains the initial work with Copilot
 Fusion in the GitHub Copilot app, the review and corrections, and the Astro
-implementation. The page renders the preserved plan, discovery Q&A, and session
-record from `docs/iteration01/`. It is a curated account, not a raw session export.
+implementation. A single-page timeline distinguishes the app, side CLI review,
+cloud review, app corrections and Agent Merge, failed Pages build, and cloud
+repair. Expandable explanations render the preserved plan, discovery Q&A, and
+session record from `docs/iteration01/`, plus the supporting
+`docs/iteration01-review/session.md`. It is a curated account, not a raw session
+export; unavailable evidence is labeled rather than reconstructed.
 
 The active iteration is identified in `docs/README.md`; this work remains
 iteration 01 until the user explicitly starts a new one. Repository agent and
