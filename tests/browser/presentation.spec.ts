@@ -82,16 +82,38 @@ test('demo pauses are opt-in and Fusion uses the actual creation story', async (
 test('creation timeline keeps review evidence and records on-page at desktop and mobile sizes', async ({ page }) => {
   await page.goto('./making-of/');
   const timeline = page.getByRole('list', { name: 'Creation timeline' });
-  await expect(timeline.locator(':scope > li')).toHaveCount(6);
+  const steps = timeline.locator(':scope > li');
+  await expect(steps).toHaveCount(5);
   await expect(timeline.locator(':scope > li > h2')).toHaveText([
     'Copilot app · create the presentation and PR #1',
-    'Copilot CLI · review PR #1 on the side',
-    'Cloud code review · a second review track',
+    'Parallel reviews · PR #1',
     'Copilot app · apply corrections, then Agent Merge',
     'Pages · the post-merge build failed',
     'Cloud agent · fix the test and deploy',
   ]);
-  await expect(page.locator('.creation-record')).toContainText('their order here does not imply');
+  const reviews = steps.nth(1).getByRole('list', { name: 'Parallel reviews' });
+  await expect(reviews.locator(':scope > li > h3')).toHaveText([
+    'Copilot CLI · review PR #1 on the side',
+    'Cloud code review · a second review track',
+  ]);
+  await expect(timeline).toContainText('share step 02');
+  const colors = ['rgb(52, 125, 59)', 'rgb(154, 77, 0)', 'rgb(52, 125, 59)', 'rgb(180, 35, 24)', 'rgb(52, 125, 59)'];
+  for (const [index, color] of colors.entries()) {
+    await expect(steps.nth(index).locator(':scope > h2')).toHaveCSS('color', color);
+    expect(await steps.nth(index).evaluate(element => getComputedStyle(element, '::before').color)).toBe(color);
+  }
+  for (const heading of await reviews.locator('h3').all()) {
+    await expect(heading).toHaveCSS('color', colors[1]);
+  }
+  for (const type of ['unknown', null]) {
+    await steps.first().evaluate((element, value) => {
+      if (value === null) element.removeAttribute('data-session-type');
+      else element.setAttribute('data-session-type', value);
+    }, type);
+    await expect(steps.first().locator('h2')).toHaveCSS('color', 'rgb(9, 105, 218)');
+    expect(await steps.first().evaluate(element => getComputedStyle(element, '::before').color)).toBe('rgb(9, 105, 218)');
+  }
+  await steps.first().evaluate(element => element.setAttribute('data-session-type', 'change'));
   const url = page.url();
   for (const viewport of [{ width: 1440, height: 900 }, { width: 390, height: 844 }]) {
     await page.setViewportSize(viewport);
@@ -127,7 +149,9 @@ test('creation timeline and its disclosures work without JavaScript', async ({ b
   const context = await browser.newContext({ javaScriptEnabled: false });
   const page = await context.newPage();
   await page.goto(`${baseURL}making-of/`);
-  await expect(page.getByRole('list', { name: 'Creation timeline' }).locator(':scope > li')).toHaveCount(6);
+  const timeline = page.getByRole('list', { name: 'Creation timeline' });
+  await expect(timeline.locator(':scope > li')).toHaveCount(5);
+  await expect(timeline.getByRole('list', { name: 'Parallel reviews' }).locator(':scope > li')).toHaveCount(2);
   await page.getByText('Read the Copilot CLI side-review record', { exact: true }).click();
   await expect(page.getByRole('heading', { name: 'Source and availability' })).toBeVisible();
   await page.getByText('The repair and the verified outcome', { exact: true }).click();

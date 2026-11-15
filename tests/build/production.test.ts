@@ -60,6 +60,9 @@ test('every slide target is rendered once and optional demos do not appear on un
 test('making-of publishes one timeline with inline records and distinct cloud evidence', () => {
   const html = read('making-of/index.html');
   assert.match(html, /<ol class="creation-timeline" aria-label="Creation timeline">/);
+  assert.match(html, /<li data-session-type="review">\s*<h2[^>]*>Parallel reviews · PR #1<\/h2>[\s\S]*?<ul class="creation-reviews" aria-label="Parallel reviews">\s*<li data-session-type="review">[\s\S]*?Copilot CLI · review PR #1 on the side[\s\S]*?<\/li>\s*<li data-session-type="review">[\s\S]*?Cloud code review · a second review track[\s\S]*?<\/li>\s*<\/ul>\s*<\/li>/);
+  assert.equal((html.match(/<li data-session-type="change">/g) || []).length, 3);
+  assert.match(html, /<li data-session-type="failure">\s*<h2[^>]*>Pages · the post-merge build failed<\/h2>/);
   const stages = [
     'Copilot app · create the presentation and PR #1',
     'Copilot CLI · review PR #1 on the side',
