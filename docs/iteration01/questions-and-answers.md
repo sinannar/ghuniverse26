@@ -186,3 +186,26 @@ existing iteration. The changes restore report summaries after charts, preserve
 fullscreen between topics, scope Escape to source popovers, correct print
 visibility and short-screen overflow, and grant the Pages build its required
 read permission. This does not add a chapter or start a new iteration.
+
+## Making-of timeline and side review
+
+**Issue #3, user account (summary):** The Copilot app initialized the content in
+a worktree and created PR #1. A side Copilot CLI session reviewed it using `gh`,
+and Copilot Code Review also ran in the cloud with a setting the user calls
+“mid”. The app session was reused for fixes, Agent Merge merged the PR, and a
+separate cloud session fixed the subsequent Actions failure.
+
+**User clarification (verbatim):**
+
+> making of page, or known as how this built, should be timeline without navigation to other pages, maybe pop ups on the timeline...
+
+**Implementation decision:** Use one chronological reading surface with native
+expandable explanations and the preserved discovery, plan, and side-review
+records on that same page. Cloud review and CLI review are distinct tracks;
+their relative completion order is not established. The linked Actions jobs
+provide evidence for the cloud review and repair, with PR #2 and the subsequent
+successful Pages run confirming the repair outcome.
+
+**Evidence limitation:** The supplied CLI attachment returned HTTP 404.
+`docs/iteration01-review/session.md` explicitly records that limitation and
+summarizes only the issue's account; it is not a recovered transcript.
