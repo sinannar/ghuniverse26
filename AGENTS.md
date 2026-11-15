@@ -22,6 +22,12 @@ unrelated personal or workspace information out of them.
 
 ## Implementation and verification
 
+For the making-of timeline, group concurrent sessions under one numbered process
+stage; do not imply sequential timestamps or invent missing times. Classify
+timeline items with `data-session-type`: `change` is green, `review` orange,
+and `failure` red. Unknown or missing types default to blue for later review.
+Keep session labels and explanations visible so color is not the only cue.
+
 Use the existing Astro components and typed content. Internal URLs go through
 `src/lib/navigation.ts`; local development uses `/`, while the Pages workflow
 provides deployment-specific origin and base values.

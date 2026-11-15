@@ -209,3 +209,17 @@ successful Pages run confirming the repair outcome.
 **Evidence limitation:** The supplied CLI attachment returned HTTP 404.
 `docs/iteration01-review/session.md` explicitly records that limitation and
 summarizes only the issue's account; it is not a recovered transcript.
+
+## Timeline concurrency and colors
+
+**Issue #5, user correction (summary):** CLI and cloud code review happened
+around the same time and should share one logical timestamp in the process.
+Code-change sessions should be green, both reviews orange, and the Pages build
+failure red. Unrecognized session types should default to blue for later review.
+Update the shared agent instructions, Copilot instructions, and design guidance
+so future sessions preserve the convention.
+
+**Implementation decision:** Replace the separate review numbers with one
+step 02 containing both labeled review tracks. This supersedes their previous
+sequential numbering, not the recorded cloud time or the separate evidence.
+No exact CLI clock time is inferred.

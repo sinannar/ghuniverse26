@@ -273,3 +273,13 @@ until available, label that file as an issue-based summary, not a transcript.
 Use the linked Actions logs and PR records for cloud findings and deployment
 outcomes. Attribute the cloud review's “mid” setting and Agent Merge to the
 presenter's account, without inferring model identities or Fusion settings.
+
+### Issue #5: shared review stage and semantic colors
+
+This refinement supersedes the six separately numbered timeline entries:
+group CLI and cloud reviews within the same process stage (step 02), preserving
+both tracks and their evidence without inventing matching clock times. Color
+code-change sessions green, reviews orange, and the Pages failure red.
+Unrecognized or missing session types default to blue for later review.
+Keep the convention in `AGENTS.md`, `.github/copilot-instructions.md`, and
+`DESIGN.md` for future timeline edits. This remains iteration 01.

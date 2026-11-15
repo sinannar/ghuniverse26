@@ -48,6 +48,13 @@ chart bars and headings. Idea and demo slides invert to ink; Fusion's creation
 story uses a full pink field. Comparison bars are neutral rather than competing
 with the current observation.
 
+The making-of timeline uses session semantics instead of chapter colors:
+code changes (`data-session-type="change"`) are green `#347d3b`, reviews
+(`review`) orange `#9a4d00`, and build failures (`failure`) red `#b42318`.
+Unknown or missing session types default to blue `#0969da` for later review.
+Apply these colors to stage numbers and session headings, with a neutral main
+timeline rule. Retain descriptive labels rather than relying on color alone.
+
 ## Typography
 
 Use the system sans-serif stack without remote fonts. Large, tightly spaced
@@ -98,6 +105,9 @@ conversation and plan. Present the creation, parallel reviews, corrections,
 merge, build failure, and repair as a numbered timeline with inline expandable
 explanations and supporting records, not separate reading pages or modal UI.
 Keep a direct return link to the Fusion slide.
+Concurrent sessions share one numbered process stage. In particular, CLI and
+cloud code review are two tracks within step 02, not successive timestamps.
+Keep their separate evidence and explanations; do not invent an exact CLI time.
 
 ## Do's and Don'ts
 

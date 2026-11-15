@@ -6,12 +6,12 @@ This is still **iteration 01**.
 
 The timeline follows the presenter's account, the preserved app records, and
 the linked GitHub Actions logs and PR discussions. The CLI and cloud reviews
-were separate review tracks after PR #1 opened; their order here does not imply
-one depended on the other. Expand any step to read its explanation without
+were parallel review tracks after PR #1 opened and share one process stage,
+not sequential timestamps. Expand any step to read its explanation without
 leaving this page. Source links are optional.
 
 <ol class="creation-timeline" aria-label="Creation timeline">
-<li>
+<li data-session-type="change">
 
 ## Copilot app · create the presentation and PR #1
 
@@ -126,9 +126,17 @@ configuration is not established.
 
 </details>
 </li>
-<li>
+<li data-session-type="review">
 
-## Copilot CLI · review PR #1 on the side
+## Parallel reviews · PR #1
+
+These reviews happened around the same time. They share step 02 rather than
+implying that one followed the other; an exact CLI timestamp is not established.
+
+<ul class="creation-reviews" aria-label="Parallel reviews">
+<li data-session-type="review">
+
+### Copilot CLI · review PR #1 on the side
 
 When the first PR opened, the presenter started a separate **Copilot CLI**
 session to review it using **GitHub CLI (`gh`)**. This was a side review,
@@ -139,9 +147,9 @@ The supplied attachment currently returns HTTP 404, so the record preserves
 the issue's account rather than claiming to reproduce an unread transcript.
 
 </li>
-<li>
+<li data-session-type="review">
 
-## Cloud code review · a second review track
+### Cloud code review · a second review track
 
 On **15 November 2026, 03:31–03:36 UTC**, Copilot Code Review ran against
 the first PR. The presenter describes its setting as **“mid”**; this is a
@@ -162,7 +170,9 @@ findings or that the presentation had deployed successfully.
 
 </details>
 </li>
-<li>
+</ul>
+</li>
+<li data-session-type="change">
 
 ## Copilot app · apply corrections, then Agent Merge
 
@@ -195,7 +205,7 @@ not establish a successful Pages deployment.
 
 </details>
 </li>
-<li>
+<li data-session-type="failure">
 
 ## Pages · the post-merge build failed
 
@@ -216,7 +226,7 @@ not a need to intercept the browser's selector keys.
 
 </details>
 </li>
-<li>
+<li data-session-type="change">
 
 ## Cloud agent · fix the test and deploy
 
@@ -266,3 +276,29 @@ Secret scanning found no secrets in the changed files. CodeQL classified the
 static content/UI and test changes as trivial and skipped analysis; this is not
 a claim that a CodeQL code scan ran. The CLI attachment remained unavailable
 (HTTP 404), so the side-review record is an explicitly labeled issue summary.
+
+## Shared review stage and semantic colors — issue #5
+
+The presenter clarified that the CLI and cloud reviews happened around the same
+time. They now share numbered step 02, with separate track headings and evidence;
+this supersedes their previous sequential numbers without inventing a CLI
+timestamp or changing the recorded cloud time.
+
+Session headings and stage numbers now use green for code changes, orange for
+reviews, and red for the Pages build failure. Unknown or missing session types
+fall back to blue for later review. The main rule stays neutral, and descriptive
+labels remain visible independently of color. Shared agent, Copilot, and design
+instructions preserve these conventions for subsequent sessions.
+
+Focused validation passed: Astro check with no diagnostics, seven unit/content
+tests, four generated-output tests, and both timeline Chromium tests. The
+browser regressions check the shared review stage, all six session colors,
+unknown and missing type fallbacks, desktop/mobile disclosures, and access
+without JavaScript. The static build and generated-link checks also passed.
+
+Final validation at `/` also passed all thirteen Chromium tests. Manual browser
+inspection confirmed the shared review stage, semantic heading colors, and
+inline cloud-review disclosure, with no horizontal overflow at 390px. A
+read-only code review found no significant issues, and secret scanning detected
+no secrets. CodeQL classified the static content/UI and test changes as trivial
+and skipped analysis; no CodeQL code scan is claimed.
