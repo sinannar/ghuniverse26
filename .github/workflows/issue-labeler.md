@@ -19,15 +19,15 @@ tools:
     toolsets: [issues]
 safe-outputs:
   remove-labels:
-    allowed: [bug, enhancement, documentation, accessibility, question]
+    allowed: [bug, enhancement, documentation, accessibility, question, maintenance]
     max: 1
     target: triggering
   add-labels:
-    allowed: [bug, enhancement, documentation, accessibility, question]
+    allowed: [bug, enhancement, documentation, accessibility, question, maintenance]
     issues: true
     pull-requests: false
     max: 1
-    max-labels: 5
+    max-labels: 6
     target: triggering
 ---
 
@@ -35,7 +35,8 @@ safe-outputs:
 
 Classify the triggering issue from its title and description only. The managed
 labels are `bug`, `enhancement`, `documentation`, `accessibility`, and
-`question`; never add, remove, create, or infer any other label.
+`question`, and `maintenance`; never add, remove, create, or infer any other
+label.
 
 Determine every managed label clearly supported by the issue:
 
@@ -44,6 +45,8 @@ Determine every managed label clearly supported by the issue:
 - `documentation`: missing, inaccurate, or requested documentation.
 - `accessibility`: a barrier affecting people with disabilities.
 - `question`: a request for information, help, or clarification.
+- `maintenance`: repository upkeep such as dependency updates, CI or tooling
+  work, refactoring, configuration, or operational maintenance.
 
 Multiple labels are allowed when each has clear, independent support. For
 example, an accessibility defect may be both `bug` and `accessibility`.
