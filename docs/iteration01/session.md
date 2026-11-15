@@ -302,3 +302,17 @@ inline cloud-review disclosure, with no horizontal overflow at 390px. A
 read-only code review found no significant issues, and secret scanning detected
 no secrets. CodeQL classified the static content/UI and test changes as trivial
 and skipped analysis; no CodeQL code scan is claimed.
+
+## Repository issue-labeling automation
+
+The repository now includes an Agentic Workflow that classifies issues when
+they open or their title or description changes. It recomputes the managed
+labels `bug`, `enhancement`, `documentation`, `accessibility`, and `question`,
+preserving status and workflow labels outside that set. More than one managed
+label may apply to one issue.
+
+The workflow uses GitHub safe outputs to remove the prior managed labels and
+add the new set, rather than giving its agent write permissions. Its source and
+generated lock file compiled successfully with strict Agentic Workflows
+validation. Compilation confirms the workflow configuration, not a production
+run against an issue.
