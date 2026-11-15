@@ -295,3 +295,10 @@ tests, four generated-output tests, and both timeline Chromium tests. The
 browser regressions check the shared review stage, all six session colors,
 unknown and missing type fallbacks, desktop/mobile disclosures, and access
 without JavaScript. The static build and generated-link checks also passed.
+
+Final validation at `/` also passed all thirteen Chromium tests. Manual browser
+inspection confirmed the shared review stage, semantic heading colors, and
+inline cloud-review disclosure, with no horizontal overflow at 390px. A
+read-only code review found no significant issues, and secret scanning detected
+no secrets. CodeQL classified the static content/UI and test changes as trivial
+and skipped analysis; no CodeQL code scan is claimed.
