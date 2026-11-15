@@ -1,0 +1,16 @@
+---
+import { getCollection } from 'astro:content';
+import Presentation from '../../components/Presentation.astro';
+import { topics } from '../../data/topics';
+
+export async function getStaticPaths() {
+  return (await getCollection('topics')).map((entry) => ({
+    params: { category: entry.data.category, topic: entry.id },
+    props: { entry },
+  }));
+}
+const { entry } = Astro.props;
+const entries = (await getCollection('topics'))
+  .sort((a, b) => topics.findIndex((topic) => topic.id === a.id) - topics.findIndex((topic) => topic.id === b.id));
+---
+<Presentation entry={entry} entries={entries} />

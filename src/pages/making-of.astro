@@ -1,0 +1,22 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { href } from '../lib/navigation';
+import { Content as Session } from '../../docs/iteration01/session.md';
+import { Content as Conversation } from '../../docs/iteration01/questions-and-answers.md';
+import { Content as Plan } from '../../docs/iteration01/plan.md';
+---
+<BaseLayout title="How this presentation was made — Universe 2026" category="copilot">
+  <article class="creation-record">
+    <a class="back-link" href={href('copilot/fusion/#creation')}>← Return to the Fusion slide</a>
+    <Session />
+    <details>
+      <summary>Read the discovery conversation</summary>
+      <div class="creation-record__document"><Conversation /></div>
+    </details>
+    <details>
+      <summary>Read the implementation plan</summary>
+      <div class="creation-record__document"><Plan /></div>
+    </details>
+    <p><a href="https://github.com/sinannar/ghuniverse26/tree/main/docs/iteration01" target="_blank" rel="noreferrer">View the iteration records on GitHub ↗<span class="sr-only"> (opens in a new tab)</span></a></p>
+  </article>
+</BaseLayout>

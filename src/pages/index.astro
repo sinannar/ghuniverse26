@@ -1,0 +1,11 @@
+---
+import { getCollection } from 'astro:content';
+import Presentation from '../components/Presentation.astro';
+import { topics } from '../data/topics';
+
+const entries = (await getCollection('topics'))
+  .sort((a, b) => topics.findIndex((topic) => topic.id === a.id) - topics.findIndex((topic) => topic.id === b.id));
+const opening = entries.find((entry) => entry.id === 'momentum');
+if (!opening) throw new Error('The presentation must open with the Octoverse momentum story.');
+---
+<Presentation entry={opening} entries={entries} />

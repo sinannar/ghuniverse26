@@ -1,0 +1,36 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { categories, topics as topicOrder } from '../../data/topics';
+import { href, topicPath } from '../../lib/navigation';
+
+export function getStaticPaths() {
+  return categories.map((category) => ({ params: { category: category.id }, props: { category } }));
+}
+const { category } = Astro.props;
+const entries = await getCollection('topics', ({ data }) => data.category === category.id);
+const topics = entries.sort((a, b) => topicOrder.findIndex((t) => t.id === a.id) - topicOrder.findIndex((t) => t.id === b.id));
+---
+<BaseLayout title={`${category.name} — Universe 2026`} category={category.id} description={category.description}>
+  <section class="topic-chooser deck-canvas">
+    <div class="chooser-heading">
+      <a class="back-link" href={href()}>← Back to the opening data</a>
+      <h1>{category.name}<span aria-hidden="true">.</span></h1>
+      <p>{category.description}</p>
+    </div>
+    <div class="chooser-topics">
+        <ol class="topic-board">
+          {topics.map((topic, index) => (
+            <li>
+              <a class="topic-door" href={href(topicPath(category.id, topic.id))}>
+                <span class="topic-door__position">{String(index + 1).padStart(2, '0')}</span>
+                <h2>{topic.data.title}</h2><span aria-hidden="true">→</span>
+              </a>
+            </li>
+          ))}
+        </ol>
+      <a class="start-presentation" href={href(topicPath(category.id, topics[0].id))}>Present this chapter <span aria-hidden="true">→</span></a>
+      <p class="chooser-note">{topics.length} topics · Jump to any topic, or present them in order.</p>
+    </div>
+  </section>
+</BaseLayout>

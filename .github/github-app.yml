@@ -1,0 +1,14 @@
+instructions: |
+  Read AGENTS.md for repository instructions and docs/README.md for the active
+  iteration. Use its plan, discovery conversation, and session record as context,
+  and update the same iteration with material decisions and verified outcomes.
+  A new app session or revision does not start a new iteration.
+
+scripts:
+  - name: Setup
+    command: npm ci
+  - name: Run
+    command: npm run dev -- --host 127.0.0.1
+
+server_ready_pattern: 'Local:\s+(https?://\S+)'
+auto_open_in_browser: true
