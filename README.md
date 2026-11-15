@@ -1,3 +1,5 @@
+[![Deploy presentation to GitHub Pages](https://github.com/sinannar/ghuniverse26/actions/workflows/deploy.yml/badge.svg)](https://github.com/sinannar/ghuniverse26/actions/workflows/deploy.yml)
+
 # Universe 2026: the presentation
 
 An independent browser-based slide deck built with Astro and TypeScript.
