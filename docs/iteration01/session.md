@@ -120,8 +120,9 @@ conversation, returning to the Fusion slide, and responsive presentation layout.
 
 The Copilot app and deployment workflow files were parsed as YAML, and the shared
 instruction references were checked locally. Actual GitHub Pages publication
-and acceptance of the app configuration remained separate user actions at that point. The later deployment
-outcome appears below; acceptance of the app configuration is not established.
+and acceptance of the app configuration remained separate user actions at that
+point. The later deployment outcome appears below; acceptance of the app
+configuration is not established.
 
 </details>
 </li>
@@ -250,3 +251,18 @@ not yet verified” status; it does not claim a particular model, cost, or speed
 </details>
 </li>
 </ol>
+
+## Timeline update validation
+
+For this making-of update, Astro check reported no diagnostics, all seven
+unit/content tests passed, and the static build completed. All four
+generated-output tests and thirteen Chromium tests passed at both `/` and a
+supplied `/pages-test` base. Coverage includes timeline order, evidence links,
+keyboard-operated disclosures, responsive width, JavaScript-free access, and
+the existing presentation behavior. Manual browser inspection also checked the
+timeline and its expandable cloud-review explanation.
+
+Secret scanning found no secrets in the changed files. CodeQL classified the
+static content/UI and test changes as trivial and skipped analysis; this is not
+a claim that a CodeQL code scan ran. The CLI attachment remained unavailable
+(HTTP 404), so the side-review record is an explicitly labeled issue summary.
