@@ -1,0 +1,51 @@
+---
+import CategoryNav from '../components/CategoryNav.astro';
+import { type CategoryId } from '../data/topics';
+import { href } from '../lib/navigation';
+import { ClientRouter } from 'astro:transitions';
+import '../styles/global.css';
+
+interface Props { title?: string; description?: string; category?: CategoryId }
+const {
+  title = 'GitHub Universe 2026 — Presentation',
+  description = 'A browser-based presentation of GitHub Universe 2026: Octoverse data, Platform, and Copilot.',
+  category,
+} = Astro.props;
+---
+<!doctype html>
+<html lang="en" transition:animate="none">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content={description} />
+    <meta name="theme-color" content="#191822" />
+    <title>{title}</title>
+    <link rel="icon" type="image/svg+xml" href={href('favicon.svg')} />
+    <ClientRouter fallback="swap" />
+  </head>
+  <body class:list={[category ? `theme-${category}` : 'theme-home']}>
+    <!--
+      THESIS: The browser is the slide deck, not a recap website.
+      OWN-WORLD: Ink idea slides, light data slides, oversized type, three chapter colors.
+      STORY: Choose any topic, advance one slide at a time, pause for a real demo.
+      FIRST VIEWPORT: The report's 2024–2026 pushes comparison opens the talk; compact controls frame it.
+      FORM: Nonlinear chapter selection with linear slides inside each chosen topic.
+    -->
+    <a class="skip-link" href="#main">Skip to content</a>
+    <header class="site-header">
+      <a class="brand" href={href()} aria-label="Universe 2026 presentation home">Universe <strong>2026</strong><span class="brand-divider">/</span><span class="brand-format">Presentation</span></a>
+      <CategoryNav active={category} />
+      <button class="fullscreen-button" data-fullscreen hidden aria-pressed="false" aria-label="Enter fullscreen">⛶</button>
+    </header>
+    <p class="control-status" role="status" data-control-status></p>
+    <main id="main" tabindex="-1"><slot /></main>
+    <footer class="site-footer">
+      <span>Independent presentation · GitHub Universe 2026</span>
+      <span><kbd>←</kbd> <kbd>→</kbd> slides <span aria-hidden="true">/</span> <kbd>Esc</kbd> topic chooser</span>
+      <a href={href('making-of/')}>How this was built →</a>
+    </footer>
+    <script>
+      import '../scripts/presentation';
+    </script>
+  </body>
+</html>

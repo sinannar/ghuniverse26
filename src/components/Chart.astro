@@ -1,0 +1,25 @@
+---
+import type { Chart } from '../data/topics';
+import { reportUrl } from '../data/topics';
+interface Props { chart: Chart }
+const { chart } = Astro.props;
+const maximum = Math.max(...chart.rows.map((row) => row.value), 1);
+---
+<figure class="data-chart">
+  <figcaption>
+    <h2>{chart.title}</h2>
+    <p>{chart.unit}</p>
+  </figcaption>
+  <ul class="chart-rows" aria-label={chart.title}>
+    {chart.rows.map((row) => (
+      <li class:list={['chart-row', { 'chart-row--comparison': row.comparison }]}>
+        <div class="chart-row__label"><span>{row.label}</span><strong>{row.display}</strong></div>
+        <div class="chart-row__track" aria-hidden="true">
+          <div class="chart-row__bar" style={`--bar-width: ${(row.value / maximum) * 100}%`}></div>
+        </div>
+      </li>
+    ))}
+  </ul>
+  <p class="chart-note">{chart.note}</p>
+  <a class="chart-source" href={reportUrl} target="_blank" rel="noreferrer">Source: Octoverse 2026 ↗<span class="sr-only"> (opens in a new tab)</span></a>
+</figure>

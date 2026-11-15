@@ -1,0 +1,107 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Chart from './Chart.astro';
+import { categories, recapUrl } from '../data/topics';
+import { categoryPath, href, neighbors, topicPath } from '../lib/navigation';
+import { presentationSlides } from '../lib/slides';
+
+interface Props {
+  entry: CollectionEntry<'topics'>;
+  entries: CollectionEntry<'topics'>[];
+}
+const { entry, entries } = Astro.props;
+const topic = entry.data;
+const category = categories.find((category) => category.id === topic.category)!;
+const slides = presentationSlides(topic);
+const { previous, next, index } = neighbors(entries, entry.id);
+const previousSlideId = previous && presentationSlides(previous.data).filter((slide) => !slide.optional).at(-1)!.id;
+---
+<BaseLayout title={`${topic.title} — Universe 2026 presentation`} category={category.id} description={topic.summary}>
+  <article class="slide-deck" data-deck>
+    <h1 class="sr-only">{topic.title}</h1>
+    <div class="deck-topline">
+      <a data-overview href={href(categoryPath(category.id))}>☷ Choose a topic</a>
+      <span>{category.name} <span aria-hidden="true">/</span> {topic.title}</span>
+      <div class="deck-tools">
+        {topic.demo && <a class="demo-link" href="#demo">Optional demo ↗</a>}
+        <details class="source-popover">
+          <summary>Sources & context</summary>
+          <div>
+            {category.id !== 'octoverse' && <a href={recapUrl} target="_blank" rel="noreferrer">Universe 2026 recap ↗<span class="sr-only"> (opens in a new tab)</span></a>}
+            {topic.sources.map((source) => <a href={source.url} target="_blank" rel="noreferrer">{source.label} ↗<span class="sr-only"> (opens in a new tab)</span></a>)}
+            {topic.caveat && <p>{topic.caveat}</p>}
+            <small>Reviewed November 15, 2026. Product availability may change.</small>
+          </div>
+        </details>
+      </div>
+    </div>
+    <div class="slides">
+      {slides.map((slide) => (
+        <section
+          id={slide.id}
+          data-slide
+          data-slide-title={slide.label}
+          data-optional={slide.optional ? 'true' : undefined}
+          class:list={['slide', `slide--${slide.kind}`, { 'slide--opening': entry.id === 'momentum' && slide.id === 'chart-1' }]}
+          aria-label={slide.label}
+        >
+          {slide.kind === 'idea' && <>
+            <h2 tabindex="-1">{topic.headline}</h2>
+            <p class="slide-lead">{topic.summary}</p>
+          </>}
+          {slide.kind === 'chart' && <>
+            {entry.id === 'momentum' && slide.id === 'chart-1' && (
+              <div class="opening-statement">
+                <h2 tabindex="-1">{topic.headline}</h2>
+                <p>GitHub activity accelerated in 2026.<br />Let’s start with the evidence.</p>
+              </div>
+            )}
+            <Chart chart={topic.charts![slide.chartIndex!]} />
+          </>}
+          {slide.kind === 'discussion' && <>
+            <h2 tabindex="-1">{topic.title}</h2>
+            <div class="slide-points">
+              {topic.points.map((point) => <div><h3>{point.title}</h3><p>{point.text}</p></div>)}
+            </div>
+            <p class="discussion-takeaway">{topic.takeaway}</p>
+          </>}
+          {slide.kind === 'examples' && <>
+            <h2 tabindex="-1">Who’s building?</h2>
+            <div class="slide-examples">
+              {topic.examples!.map((example) => (
+                <a href={example.url} target="_blank" rel="noreferrer"><h3>{example.name} ↗<span class="sr-only"> (opens in a new tab)</span></h3><p>{example.description}</p></a>
+              ))}
+            </div>
+          </>}
+          {slide.kind === 'creation' && <>
+            <h2 tabindex="-1">This presentation<br />is the example.</h2>
+            <p class="slide-lead">{topic.creationStory}</p>
+            <a class="creation-source" href={href('making-of/')}>Conversation, plan, and session story →</a>
+          </>}
+          {slide.kind === 'demo' && <>
+            <h2 tabindex="-1">Over to<br />{topic.demo!.tool} ↗</h2>
+            <p class="slide-lead">{topic.demo!.cue}</p>
+            <p class="demo-return">Optional live-demo pause. Switch to your tools; this slide keeps your place.</p>
+          </>}
+        </section>
+      ))}
+    </div>
+    <nav class="slide-controls" aria-label="Slide controls">
+      <button data-slide-previous hidden aria-label="Previous slide">←</button>
+      <label class="slide-select-label">Slide <select data-slide-select aria-label="Choose slide">
+        {slides.map((slide) => <option value={slide.id}>{slide.label}</option>)}
+      </select></label>
+      <span class="slide-count" data-slide-count></span>
+      <span class="topic-position">Topic {index + 1} / {entries.length}</span>
+      <span class="next-hint" data-next-hint></span>
+      <button data-slide-next hidden aria-label="Next slide">→</button>
+    </nav>
+    <nav class="fallback-navigation" aria-label="Topic navigation">
+      {previous && <a data-previous-topic href={`${href(topicPath(previous.data.category, previous.id))}#${previousSlideId}`}>← {previous.data.title}</a>}
+      <a href={href(categoryPath(category.id))}>Choose a topic</a>
+      {next && <a data-next-topic href={href(topicPath(next.data.category, next.id))}>{next.data.title} →</a>}
+    </nav>
+    <p class="sr-only" aria-live="polite" data-slide-status></p>
+  </article>
+</BaseLayout>

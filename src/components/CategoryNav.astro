@@ -1,0 +1,18 @@
+---
+import { categories, type CategoryId } from '../data/topics';
+import { href, categoryPath } from '../lib/navigation';
+interface Props { active?: CategoryId }
+const { active } = Astro.props;
+---
+<nav class="category-nav" aria-label="Presentation categories">
+    {categories.map((category) => (
+      <a
+        href={href(categoryPath(category.id))}
+        class:list={['category-tab', `theme-${category.id}`, { 'is-active': active === category.id }]}
+        aria-current={active === category.id ? 'true' : undefined}
+      >
+        <span class="category-tab__dot" aria-hidden="true"></span>
+        <span>{category.name}</span>
+      </a>
+    ))}
+</nav>
