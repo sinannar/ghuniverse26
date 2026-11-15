@@ -302,27 +302,3 @@ inline cloud-review disclosure, with no horizontal overflow at 390px. A
 read-only code review found no significant issues, and secret scanning detected
 no secrets. CodeQL classified the static content/UI and test changes as trivial
 and skipped analysis; no CodeQL code scan is claimed.
-
-## Repository issue-labeling automation
-
-The repository now includes an Agentic Workflow that classifies issues when
-they open or their title or description changes. It recomputes the managed
-labels `bug`, `enhancement`, `documentation`, `accessibility`, and `question`,
-and `maintenance`, preserving status and workflow labels outside that set. More
-than one managed label may apply to one issue.
-
-The workflow uses GitHub safe outputs to remove the prior managed labels and
-add the new set, rather than giving its agent write permissions. Its source and
-generated lock file compiled successfully with strict Agentic Workflows
-validation. Compilation confirms the workflow configuration, not a production
-run against an issue.
-
-## Pull-request review automation
-
-The repository also includes an Agentic Workflow that assesses a pull request
-when it opens or receives new commits. It reads the title, description, changed
-files, and diff, then keeps one current safe-output comment on the pull request.
-The assessment covers concrete review findings and whether the description
-explains the whole branch with a compact summary, before-and-after evidence,
-and merge danger. It is read-only apart from that constrained comment output;
-fork pull requests remain outside the default trigger scope.
