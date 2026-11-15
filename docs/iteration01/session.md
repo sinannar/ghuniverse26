@@ -71,7 +71,7 @@ dependency.
 | --- | --- |
 | Presentation content | Typed topic definitions in `src/data/topics.ts`, validated by an Astro content collection |
 | Slides | A shared `Presentation.astro` component, with topic-specific slide composition |
-| Navigation | Keyboard and button controls, topic jumps, and URL hashes that keep the current slide |
+| Navigation | Keyboard and button controls, topic jumps, URL hashes, and Astro client-side routing that retains fullscreen between topics |
 | Charts | Accessible HTML/CSS bars with visible data, units, reporting periods, and source notes |
 | This creation story | Markdown from `docs/iteration01/`, rendered by Astro rather than copied into the page |
 | Hosting | A static build deployed by GitHub Actions to GitHub Pages; deployment metadata supplies the URL base |
@@ -95,7 +95,7 @@ before the app applies them.
 
 ## Implementation checks
 
-The site passed Astro's type/content checks, six unit/content tests, three
+The initial implementation passed Astro's type/content checks, six unit/content tests, three
 generated-output tests, and six Chromium presentation tests. The production
 and browser suites also passed with a supplied `/pages-test` deployment base,
 as well as at `/`. The tests cover the creation-story link, the preserved
@@ -105,3 +105,25 @@ The Copilot app and deployment workflow files were parsed as YAML, and the share
 instruction references were checked locally. Actual GitHub Pages publication
 and acceptance of the app configuration remain separate user actions; this
 record does not claim either has happened.
+
+## Review feedback and corrections
+
+The pull-request review identified six distinct issues. Browser regressions
+reproduced the five presentation issues before the fixes; the missing Pages
+permission was confirmed by inspecting the workflow.
+
+| Finding | Correction |
+| --- | --- |
+| Pages configuration could not be read by the build job | Grant `pages: read` alongside `contents: read` on that job |
+| Chart topics omitted their summaries | Follow the charts with a visible context slide, keeping the data-first opening |
+| Topic changes ended native fullscreen | Use Astro's built-in client router and reinitialize controls without accumulating event listeners |
+| Escape closed an unrelated creation-story disclosure | Limit that handler to the actual source popover |
+| Printing showed only the active slide | Override hidden slide visibility inside the reset cascade layer for print |
+| Short landscape screens clipped the start of oversized content | Use overflow-safe centering at all widths |
+
+After the fixes, Astro check, seven unit/content tests, three production-output
+tests, and eleven Chromium tests passed. The added cases cover visible report
+context, real fullscreen across forward/backward/history topic changes,
+independent disclosures, print visibility, and landscape scroll reachability.
+The deployment permission change was checked locally; an actual Pages deployment
+is still not claimed.

@@ -2,6 +2,7 @@
 import CategoryNav from '../components/CategoryNav.astro';
 import { type CategoryId } from '../data/topics';
 import { href } from '../lib/navigation';
+import { ClientRouter } from 'astro:transitions';
 import '../styles/global.css';
 
 interface Props { title?: string; description?: string; category?: CategoryId }
@@ -12,7 +13,7 @@ const {
 } = Astro.props;
 ---
 <!doctype html>
-<html lang="en">
+<html lang="en" transition:animate="none">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -20,6 +21,7 @@ const {
     <meta name="theme-color" content="#191822" />
     <title>{title}</title>
     <link rel="icon" type="image/svg+xml" href={href('favicon.svg')} />
+    <ClientRouter fallback="swap" />
   </head>
   <body class:list={[category ? `theme-${category}` : 'theme-home']}>
     <!--

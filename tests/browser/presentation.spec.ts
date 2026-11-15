@@ -131,3 +131,82 @@ test('without JavaScript, the report and ordinary topic links remain readable', 
   await expect(page.locator('[data-next-topic]')).toBeVisible();
   await context.close();
 });
+
+test('report context remains visible after the charts', async ({ page }) => {
+  await page.goto('./octoverse/global-growth/');
+  await expect(page.locator('#chart-1')).toBeVisible();
+  await page.keyboard.press('ArrowRight');
+  await expect(page.locator('#idea')).toBeVisible();
+  await expect(page.locator('#idea')).toContainText('more than 225 million developers');
+  await page.goto('./octoverse/languages/');
+  await page.keyboard.press('ArrowRight');
+  await expect(page.locator('#idea')).toBeVisible();
+  await expect(page.locator('#idea')).toContainText('TypeScript, Python, and JavaScript retained the top three places');
+});
+
+test('fullscreen survives forward, backward, and history topic transitions', async ({ page }) => {
+  await page.goto('./platform/stacked-pull-requests/#discussion');
+  const documentStart = await page.evaluate(() => performance.timeOrigin);
+  await page.getByRole('button', { name: 'Enter fullscreen' }).click();
+  await expect.poll(() => page.evaluate(() => document.fullscreenElement === document.documentElement)).toBe(true);
+  await page.locator('#discussion h2').click();
+  await page.keyboard.press('ArrowRight');
+  await expect(page).toHaveURL(/\/platform\/cli-attachments\/$/);
+  await expect(page.locator('#idea')).toBeVisible();
+  expect(await page.evaluate(() => performance.timeOrigin)).toBe(documentStart);
+  await expect.poll(() => page.evaluate(() => document.fullscreenElement === document.documentElement)).toBe(true);
+  await expect(page.getByRole('button', { name: 'Exit fullscreen' })).toHaveAttribute('aria-pressed', 'true');
+  await page.keyboard.press('ArrowLeft');
+  await expect(page.locator('#discussion')).toBeVisible();
+  await expect(page).toHaveURL(/\/platform\/stacked-pull-requests\/#discussion$/);
+  await expect.poll(() => page.evaluate(() => document.fullscreenElement === document.documentElement)).toBe(true);
+  await page.goBack();
+  await expect(page).toHaveURL(/\/platform\/cli-attachments\/$/);
+  await expect(page.locator('#idea')).toBeVisible();
+  await page.keyboard.press('ArrowRight');
+  await expect(page.locator('#discussion')).toBeVisible();
+  await page.keyboard.press('ArrowLeft');
+  await expect(page.locator('#idea')).toBeVisible();
+  await page.getByRole('button', { name: 'Exit fullscreen' }).click();
+  await expect.poll(() => page.evaluate(() => document.fullscreenElement === null)).toBe(true);
+});
+
+test('Escape leaves independent creation-story disclosures alone', async ({ page }) => {
+  await page.goto('./making-of/');
+  const disclosures = page.locator('.creation-record details');
+  await disclosures.nth(0).locator('summary').click();
+  await disclosures.nth(1).locator('summary').click();
+  await page.keyboard.press('Escape');
+  await expect(disclosures.nth(0)).toHaveAttribute('open');
+  await expect(disclosures.nth(1)).toHaveAttribute('open');
+  await expect(disclosures.nth(1).locator('summary')).toBeFocused();
+});
+
+test('print exposes every slide without exposing other hidden controls', async ({ page }) => {
+  await page.goto('./platform/stacked-pull-requests/');
+  await expect(page.locator('[data-slide]:visible')).toHaveCount(1);
+  const slideCount = await page.locator('[data-slide]').count();
+  await page.emulateMedia({ media: 'print' });
+  await expect(page.locator('[data-slide]:visible')).toHaveCount(slideCount);
+  await expect(page.locator('.site-header')).toBeHidden();
+  await page.emulateMedia({ media: 'screen' });
+  await expect(page.locator('[data-slide]:visible')).toHaveCount(1);
+});
+
+test('short landscape screens can scroll from the beginning to the end of oversized slides', async ({ page }) => {
+  await page.setViewportSize({ width: 844, height: 390 });
+  for (const [route, slideId] of [['octoverse/global-growth/', 'chart-1'], ['octoverse/industries/#discussion', 'discussion']]) {
+    await page.goto(`./${route}`);
+    const slide = page.locator(`#${slideId}`);
+    await expect(slide).toBeVisible();
+    const bounds = await slide.evaluate((element) => {
+      element.scrollTop = 0;
+      const start = element.firstElementChild!.getBoundingClientRect().top - element.getBoundingClientRect().top;
+      element.scrollTop = element.scrollHeight;
+      const end = element.lastElementChild!.getBoundingClientRect().bottom - element.getBoundingClientRect().bottom;
+      return { start, end };
+    });
+    expect(bounds.start, `${route}: clipped start`).toBeGreaterThanOrEqual(-1);
+    expect(bounds.end, `${route}: clipped end`).toBeLessThanOrEqual(1);
+  }
+});

@@ -245,3 +245,15 @@ block the curated presentation structure.
 This is a planning-only revision. No repository implementation changes are made
 for this revision until approval. Then save the revised plan and Q&A under
 `docs/iteration01/` before resuming implementation.
+
+## PR review follow-up within iteration 01
+
+After implementation and PR creation, the user requested applying review
+feedback. This continues the same approved iteration and does not change the
+chapter scope or the data-first opening.
+
+The review follow-up covers build-job Pages read permissions, visible context
+after report charts, fullscreen-preserving topic transitions, source-popover-only
+Escape handling, all-slide print visibility, and overflow-safe alignment at
+short landscape sizes. Add focused regressions for the browser issues and keep
+the public session record aligned with checks actually performed.

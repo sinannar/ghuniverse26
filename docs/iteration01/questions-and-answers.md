@@ -174,3 +174,15 @@ the Astro implementation and actual Fusion creation process, and keep the story
 backed by `docs/iteration01/`. Shared agent instructions, Copilot instructions,
 and GitHub Copilot app configuration point to the iteration workflow. These
 refinements do not start iteration 02.
+
+## PR review follow-up
+
+**User request:**
+
+> ok go get the review feedback and apply changes
+
+**Implementation summary:** Address the six distinct review findings in the
+existing iteration. The changes restore report summaries after charts, preserve
+fullscreen between topics, scope Escape to source popovers, correct print
+visibility and short-screen overflow, and grant the Pages build its required
+read permission. This does not add a chapter or start a new iteration.

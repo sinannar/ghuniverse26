@@ -65,6 +65,8 @@ Topic choosers use numbered, ruled rows.
 At 1000px, reduce shell spacing. At 700px, wrap chapter navigation and stack slide
 content; oversized mobile slides scroll internally. At heights below 760px,
 tighten typography and spacing so projector slides fit. No horizontal scrolling.
+Use overflow-safe centering at every width so short landscape viewports can
+scroll to both the beginning and the end of oversized slides.
 
 ## Elevation & Depth
 
@@ -85,6 +87,9 @@ Optional demos are explicitly labeled and skipped by normal progression.
 
 Visible focus rings, source links, hash-based slide destinations, fullscreen,
 and ordinary navigation without JavaScript are part of the interface.
+Chart topics retain a context slide after their evidence. Client-side topic
+transitions preserve native fullscreen. Print exposes all slides in the current
+topic while screen presentation continues to show one at a time.
 
 The public "How this was built" companion is a reading surface, not another
 slide chapter. Use an ink-on-paper column up to 960px wide, chapter-colored

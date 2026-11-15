@@ -36,3 +36,12 @@ test('the opening slide is report evidence and only the selected demos have opti
     }
   }
 });
+
+test('report charts are followed by visible topic context before the discussion', () => {
+  for (const topic of topics.filter((topic) => topic.charts?.length)) {
+    const slides = presentationSlides(topic);
+    const contextIndex = slides.findIndex((slide) => slide.kind === 'idea');
+    assert.equal(contextIndex, topic.charts!.length, `${topic.id} needs context after its charts`);
+    assert.ok(slides.findIndex((slide) => slide.kind === 'discussion') > contextIndex);
+  }
+});

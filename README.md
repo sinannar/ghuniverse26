@@ -65,6 +65,10 @@ shows one slide at a time; smaller screens can scroll an oversized slide.
 The fullscreen button is offered only when the browser supports the Fullscreen
 API. Browser-native fullscreen is also fine. Core content and ordinary navigation
 work without JavaScript. External sources open in a separate tab.
+Astro's client-side router keeps the fullscreen document intact when moving
+between topics and reinitializes the controls after each route change.
+Printing or saving to PDF includes all slides in the current topic, including
+optional demo slides, rather than only the selected slide.
 
 The website is not a simulation of GitHub or Copilot. Stacked PRs and CLI
 attachments have **optional** demo pauses, accessible from "Optional demo" or
@@ -112,7 +116,8 @@ To add a topic, add a uniquely named entry to `topics` with its category and
 sources. The collection, category page, static route, and Previous/Next order
 follow that array. No page template duplication is needed. The selected announcement topics follow the official recap. Octoverse has
 seven stories rather than one compressed report slide. Topics with data start
-with their charts; feature topics have a concise idea slide and talking points.
+with their charts, followed by a context slide that retains the topic summary;
+feature topics have a concise idea slide and talking points.
 Do not add a demo property to undecided topics unless their demos are confirmed.
 
 Charts are HTML/CSS with visible labels and values available to assistive

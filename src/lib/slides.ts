@@ -11,7 +11,8 @@ export interface PresentationSlide {
 export function presentationSlides(topic: Pick<Topic, 'charts' | 'examples' | 'creationStory' | 'demo'>): PresentationSlide[] {
   const slides: PresentationSlide[] = topic.charts?.length
     ? topic.charts.map((chart, index) => ({ id: `chart-${index + 1}`, label: chart.title, kind: 'chart', chartIndex: index }))
-    : [{ id: 'idea', label: 'The idea', kind: 'idea' }];
+    : [];
+  slides.push({ id: 'idea', label: topic.charts?.length ? 'The context' : 'The idea', kind: 'idea' });
   if (topic.examples?.length) slides.push({ id: 'examples', label: 'Real examples', kind: 'examples' });
   slides.push({ id: 'discussion', label: 'What it means', kind: 'discussion' });
   if (topic.creationStory) slides.push({ id: 'creation', label: 'Building this presentation', kind: 'creation' });
