@@ -5,11 +5,17 @@ import { Content as Session } from '../../docs/iteration01/session.md';
 import { Content as Conversation } from '../../docs/iteration01/questions-and-answers.md';
 import { Content as Plan } from '../../docs/iteration01/plan.md';
 import { Content as Review } from '../../docs/iteration01-review/session.md';
+import { Content as WorkflowSession } from '../../docs/iteration02/session.md';
+import { Content as WorkflowConversation } from '../../docs/iteration02/questions-and-answers.md';
+import { Content as WorkflowPlan } from '../../docs/iteration02/plan.md';
+import { Content as LocalReview } from '../../docs/iteration02-review/localreview.md';
+import { Content as CloudReview } from '../../docs/iteration02-review/cloudreview.md';
 ---
 <BaseLayout title="How this presentation was made — Universe 2026" category="copilot">
   <article class="creation-record">
     <a class="back-link" href={href('copilot/fusion/#creation')}>← Return to the Fusion slide</a>
     <Session />
+    <WorkflowSession />
     <h2>Supporting records</h2>
     <p>Read the preserved context here; no separate page is needed.</p>
     <details>
@@ -23,6 +29,22 @@ import { Content as Review } from '../../docs/iteration01-review/session.md';
     <details>
       <summary>Read the implementation plan</summary>
       <div class="creation-record__document"><Plan /></div>
+    </details>
+    <details>
+      <summary>Read the iteration 02 local CLI review</summary>
+      <div class="creation-record__document"><LocalReview /></div>
+    </details>
+    <details>
+      <summary>Read the iteration 02 cloud review</summary>
+      <div class="creation-record__document"><CloudReview /></div>
+    </details>
+    <details>
+      <summary>Read the iteration 02 discovery conversation</summary>
+      <div class="creation-record__document"><WorkflowConversation /></div>
+    </details>
+    <details>
+      <summary>Read the iteration 02 implementation plan</summary>
+      <div class="creation-record__document"><WorkflowPlan /></div>
     </details>
   </article>
 </BaseLayout>

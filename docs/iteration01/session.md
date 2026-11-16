@@ -2,7 +2,7 @@
 
 From the first Copilot app worktree to review, merge, and a repaired Pages build:
 this presentation was built through several connected sessions, not one prompt.
-This is still **iteration 01**.
+This first chapter covers **iteration 01**; iteration 02 follows below.
 
 The timeline follows the presenter's account, the preserved app records, and
 the linked GitHub Actions logs and PR discussions. The CLI and cloud reviews
@@ -103,8 +103,8 @@ keyboard navigation, optional demos, and desktop/mobile layout.
 The repository's `AGENTS.md`, Copilot instructions, and GitHub Copilot app
 configuration direct agents to the iteration guide in `docs/README.md`.
 That guide identifies the active iteration and the plan, Q&A, and session record
-to read and update. This work remains **iteration 01** until the presenter
-explicitly starts another iteration.
+to read and update. At that point the work remained **iteration 01** until the
+presenter explicitly started another iteration.
 
 The app configuration includes manual Setup and Run commands. Repository
 configuration changes need to be reviewed and accepted in the GitHub Copilot app

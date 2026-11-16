@@ -57,11 +57,11 @@ test('every slide target is rendered once and optional demos do not appear on un
   }
 });
 
-test('making-of publishes one timeline with inline records and distinct cloud evidence', () => {
+test('making-of publishes iteration timelines with inline records and distinct cloud evidence', () => {
   const html = read('making-of/index.html');
   assert.match(html, /<ol class="creation-timeline" aria-label="Creation timeline">/);
   assert.match(html, /<li data-session-type="review">\s*<h2[^>]*>Parallel reviews · PR #1<\/h2>[\s\S]*?<ul class="creation-reviews" aria-label="Parallel reviews">\s*<li data-session-type="review">[\s\S]*?Copilot CLI · review PR #1 on the side[\s\S]*?<\/li>\s*<li data-session-type="review">[\s\S]*?Cloud code review · a second review track[\s\S]*?<\/li>\s*<\/ul>\s*<\/li>/);
-  assert.equal((html.match(/<li data-session-type="change">/g) || []).length, 3);
+  assert.equal((html.match(/<li data-session-type="change">/g) || []).length, 6);
   assert.match(html, /<li data-session-type="failure">\s*<h2[^>]*>Pages · the post-merge build failed<\/h2>/);
   const stages = [
     'Copilot app · create the presentation and PR #1',
@@ -88,5 +88,12 @@ test('making-of publishes one timeline with inline records and distinct cloud ev
   for (const summary of ['Read the Copilot CLI side-review record', 'Read the discovery conversation', 'Read the implementation plan']) {
     assert.ok(html.includes(`<summary>${summary}</summary>`));
   }
-  assert.doesNotMatch(html, /href="[^"]*\/(?:iteration01|iteration01-review)\/[^"]*"/);
+  assert.match(html, /<ol class="creation-timeline" aria-label="Iteration 02 timeline">[\s\S]*?Skills · prepare the tools[\s\S]*?Copilot CLI · plan workflows and open PR #7[\s\S]*?<li data-session-type="review">\s*<h2[^>]*>Parallel reviews · PR #7<\/h2>[\s\S]*?<ul class="creation-reviews" aria-label="Iteration 02 parallel reviews">\s*<li data-session-type="review">[\s\S]*?Copilot CLI · local review[\s\S]*?<\/li>\s*<li data-session-type="review">[\s\S]*?Cloud Code Review · issue labeler review[\s\S]*?<\/li>\s*<\/ul>\s*<\/li>[\s\S]*?Cloud agent · address review feedback/);
+  for (const summary of ['Read the iteration 02 session record', 'Read the iteration 02 local CLI review', 'Read the iteration 02 cloud review', 'Read the iteration 02 discovery conversation', 'Read the iteration 02 implementation plan']) {
+    assert.ok(html.includes(`<summary>${summary}</summary>`));
+  }
+  for (const source of ['pull/7', 'pull/7#discussion_r4580921412', 'pull/7#pullrequestreview-5913526033', 'actions/runs/43775484590']) {
+    assert.ok(html.includes(`https://github.com/sinannar/ghuniverse26/${source}`));
+  }
+  assert.doesNotMatch(html, /href="[^"]*\/(?:iteration01|iteration01-review|iteration02|iteration02-review)\/[^"]*"/);
 });
