@@ -8,7 +8,7 @@ test('opens on real report evidence, not a title or a recap landing page', async
   await expect(page.locator('[data-slide]:visible')).toHaveCount(1);
   await expect(page.locator('#chart-1')).toBeVisible();
   for (const value of ['5.2B', '6.7B', '17.9B']) await expect(page.locator('#chart-1')).toContainText(value);
-  await expect(page.locator('.category-tab')).toHaveText(['Octoverse', 'Platform', 'Copilot', 'Sessions']);
+  await expect(page.locator('.category-tab')).toHaveText(['Octoverse', 'Platform', 'Badge', 'Copilot', 'Sessions']);
   await expect(page.getByRole('button', { name: 'Previous slide', exact: true })).toBeDisabled();
   await page.screenshot({ path: test.info().outputPath('opening-desktop.png') });
   await page.setViewportSize({ width: 390, height: 844 });
@@ -16,14 +16,28 @@ test('opens on real report evidence, not a title or a recap landing page', async
   expect(errors).toEqual([]);
 });
 
-test('the Platform chapter presents the programmable Universe badge and its guide', async ({ page }) => {
+test('the Platform chapter keeps its four announcement topics', async ({ page }) => {
   await page.goto('./platform/');
-  await expect(page.locator('.topic-door')).toHaveCount(5);
-  await page.getByRole('link', { name: /Universe badge/ }).click();
-  await expect(page.locator('#idea .slide-lead')).toContainText('programmable small computer');
+  await expect(page.locator('.topic-door')).toHaveCount(4);
+  await expect(page.getByRole('link', { name: /Universe badge/ })).toHaveCount(0);
+});
+
+test('the Badge chapter presents a distinct four-topic journey and build resources', async ({ page }) => {
+  await page.goto('./badge/');
+  await expect(page.locator('.topic-door h2')).toHaveText([
+    'Meet the badge', 'Built to interact', 'Apps for the event', 'Build for the badge',
+  ]);
+  await page.getByRole('link', { name: /Built to interact/ }).click();
+  await expect(page.locator('#idea .slide-lead')).toContainText('sensors and controls');
+  await page.getByText('Sources & context', { exact: true }).click();
+  await expect(page.locator('.source-popover a[href="https://github.com/badger/home/blob/main/hardware/README.md"]')).toBeVisible();
+  await page.goto('./badge/build-for-the-badge/');
   await page.getByText('Sources & context', { exact: true }).click();
   await expect(page.locator('.source-popover a[href="https://badger.github.io/"]')).toBeVisible();
-  await expect(page.locator('.source-popover a[href="https://badger.github.io/simulator/"]')).toBeVisible();
+  await expect(page.locator('.source-popover a[href="https://badger.github.io/editor"]')).toBeVisible();
+  await expect(page.locator('.source-popover')).toContainText('does not exactly model');
+  await page.setViewportSize({ width: 320, height: 720 });
+  expect(await page.evaluate(() => document.documentElement.scrollWidth - innerWidth)).toBeLessThanOrEqual(1);
 });
 
 test('keys traverse slides, cross topics, preserve hashes, and return to the chooser', async ({ page }) => {

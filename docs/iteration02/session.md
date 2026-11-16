@@ -256,9 +256,29 @@ guide, simulator, and badge repository. This adds one topic beyond the
 previously scoped four Platform recap announcements; the four chapters remain
 unchanged.
 
+This original outcome was superseded by the Badge chapter refinement below.
+
 Astro check reported no diagnostics. All 14 unit tests, the static build, all
 four generated-output tests, and all 16 Chromium tests passed. The generated-link
 check also verified the topic and exposed records after distinct headings were
 used for the plan and outcome.
+
+## Universe badge chapter refinement
+
+The presenter requested a separate Badge tab, a more detailed flow, and event
+photos. The badge now has its own chapter with four topics covering the
+hardware, interactive controls, shipped apps, and a build path. Platform again
+contains only its four recap announcements. The simulator link follows the
+current badge repository guide, and the content notes that the browser
+simulator does not model every custom 2026 hardware feature.
+
+No badge-specific event photos were found in the repository or the public
+sources checked. The presenter was asked for approved image files or source
+links; imagery remains pending that response.
+
+Astro check reported no errors, warnings, or hints. All 14 unit tests, the
+static build, all four production-output tests, and all 17 Chromium tests
+passed. The production checks verified generated topic routes and links; the
+browser test also checked for horizontal overflow at 320px.
 
 </details>

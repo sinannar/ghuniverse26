@@ -55,3 +55,15 @@ one exists. The presenter did not separately confirm the chapter placement.
 **Result:** The presenter signed in personally in the automation browser. The
 signed-in pages exposed the speakers' slide PDFs and AI-generated session
 summaries, which replaced the abstracts as the content source.
+
+## Universe badge chapter request
+
+User request (verbatim):
+
+> I think badge should be a seperate tab like copilot, platform, octaverse... It should have its own flow and pictures from event. more detailed presentation, instead of being part of platform
+
+Decision summary: move the badge from Platform into its own Badge chapter and
+expand it into a four-topic journey through hardware, event apps, and building
+for the badge. No badge-specific event photos were available in the repository
+or the public sources checked; approved photo files or source links were
+requested before adding imagery.

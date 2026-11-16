@@ -4,7 +4,7 @@ import { topics } from './data/topics';
 const topicsCollection = defineCollection({
   loader: async () => topics,
   schema: z.object({
-    category: z.enum(['octoverse', 'platform', 'copilot', 'sessions']),
+    category: z.enum(['octoverse', 'platform', 'badge', 'copilot', 'sessions']),
     title: z.string().min(1),
     headline: z.string().min(1),
     summary: z.string().min(1),
@@ -34,7 +34,7 @@ const topicsCollection = defineCollection({
       format: z.string(),
       steps: z.array(z.string()).optional(),
       related: z.object({
-        category: z.enum(['octoverse', 'platform', 'copilot', 'sessions']),
+        category: z.enum(['octoverse', 'platform', 'badge', 'copilot', 'sessions']),
         id: z.string(),
         title: z.string(),
       }).optional(),

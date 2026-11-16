@@ -21,6 +21,7 @@
     --pink: #f3a5c3;
     --mustard: #e5d36a;
     --teal: #8fd8e8;
+    --badge: #d9c6f2;
     --accent: var(--green);
     --accent-strong: #347d3b;
     color: var(--ink);
@@ -32,6 +33,7 @@
   .theme-home, .theme-platform { --accent: var(--green); --accent-strong: #347d3b; }
   .theme-copilot { --accent: var(--pink); --accent-strong: #b92961; }
   .theme-octoverse { --accent: var(--mustard); --accent-strong: #7d6a11; }
+  .theme-badge { --accent: var(--badge); --accent-strong: #684493; }
   .theme-sessions { --accent: var(--teal); --accent-strong: #0f6b7d; }
   body { min-width: 320px; min-height: 100svh; display: flex; flex-direction: column; font-size: 1rem; line-height: 1.5; }
   h1, h2, h3 { font-weight: 600; line-height: 1.08; letter-spacing: -0.035em; text-wrap: balance; }
@@ -202,8 +204,8 @@
   @media (max-width: 700px) {
     .site-header { flex-wrap: wrap; padding: 0.75rem 1rem; min-height: 96px; gap: 0.5rem; }
     .brand { flex: 1; }
-    .category-nav { order: 3; width: 100%; margin: 0; justify-content: space-between; gap: 0; }
-    .category-tab { padding: 0.35rem; font-size: 0.75rem; min-height: 30px; gap: 0.35rem; }
+    .category-nav { order: 3; width: 100%; margin: 0; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 0; }
+    .category-tab { justify-content: center; padding: 0.35rem 0.1rem; font-size: 0.65rem; min-height: 30px; gap: 0.25rem; }
     .fullscreen-button { width: 30px; height: 30px; font-size: 1.25rem; }
     .site-footer { min-height: 32px; padding: 0.5rem 1rem; font-size: 0.6rem; }
     .site-footer > span:first-child, .site-footer > span:nth-child(2) { display: none; }

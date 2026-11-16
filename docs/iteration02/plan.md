@@ -94,3 +94,10 @@ programmable small computer and points to the Badger Field Guide, browser
 simulator, and source repository. This adds one Platform topic beyond the four
 recap announcements, bringing the existing four-chapter presentation to 20
 topics; the data-first opening and chapter structure do not change.
+
+**Superseded by PR feedback:** The presenter asked for a separate Badge tab with
+its own flow and event pictures. The badge is now a fifth chapter with four
+topics: hardware, interactive controls, event apps, and a build path. Platform
+returns to its four recap announcements, and the presentation has five chapters
+and 23 topics. No badge-specific event photos were found in the repository or
+the public sources checked; approved photos or a source link are still needed.

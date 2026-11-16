@@ -52,14 +52,20 @@ test('session topics credit speakers, disclose their abstract basis, and link to
   assert.deepEqual(stacked.charts!.map((chart) => chart.rows.map((row) => row.display)), [['5 days', '~1 hour'], ['+9%', '5% faster']]);
 });
 
-test('the Universe badge topic describes the programmable badge and links its guide and simulator', () => {
-  const badge = topics.find((topic) => topic.id === 'universe-badge');
-  assert.ok(badge);
-  assert.equal(badge.category, 'platform');
-  assert.match(badge.summary, /programmable small computer/);
-  assert.match(badge.caveat ?? '', /Universe 2026 badge/);
-  assert.ok(badge.sources.some((source) => source.url === 'https://badger.github.io/'));
-  assert.ok(badge.sources.some((source) => source.url === 'https://badger.github.io/simulator/'));
+test('the Universe badge has its own chapter with a researched hardware-to-building flow', () => {
+  assert.deepEqual(categories.map((category) => category.id), ['octoverse', 'platform', 'badge', 'copilot', 'sessions']);
+  const badgeTopics = topics.filter((topic) => topic.category === 'badge');
+  assert.deepEqual(badgeTopics.map((topic) => topic.id), [
+    'universe-badge', 'badge-interactions', 'badge-apps', 'build-for-the-badge',
+  ]);
+  assert.equal(topics.filter((topic) => topic.category === 'platform').length, 4);
+  assert.match(badgeTopics[0].summary, /programmable computer/);
+  assert.match(badgeTopics[1].points[2].text, /Infrared transmit and receive hardware/);
+  assert.match(badgeTopics[2].points[1].text, /exchanges cards with nearby badges/);
+  assert.match(badgeTopics[3].caveat ?? '', /does not exactly model/);
+  assert.ok(badgeTopics[0].sources.some((source) => source.url === 'https://badger.github.io/'));
+  assert.ok(badgeTopics[3].sources.some((source) => source.url === 'https://badger.github.io/editor'));
+  assert.ok(badgeTopics[0].sources.some((source) => source.url === 'https://github.com/badger/home'));
 });
 
 test('Pages paths work at root and at the repository base without doubled separators', () => {
