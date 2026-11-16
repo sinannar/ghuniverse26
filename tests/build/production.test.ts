@@ -6,16 +6,17 @@ import { presentationSlides } from '../../src/lib/slides';
 import { topics } from '../../src/data/topics';
 
 const dist = path.resolve('dist');
-const files = readdirSync(dist, { recursive: true }).map(String);
+const files = readdirSync(dist, { recursive: true }).map((file) => String(file).replaceAll('\\', '/'));
 const pages = files.filter((file) => file.endsWith('.html')).sort();
 const read = (file: string) => readFileSync(path.join(dist, file), 'utf8');
 const basePath = `${(process.env.ASTRO_BASE || '/').replace(/\/$/, '')}/`;
 
-test('the build contains exactly the three approved chapters and fourteen chosen topics', () => {
+test('the build contains exactly the four approved chapters and nineteen chosen topics', () => {
   const expected = {
     octoverse: ['momentum', 'global-growth', 'industries', 'agentic-workflows', 'model-choice', 'languages', 'open-source'],
     platform: ['stacked-pull-requests', 'cli-attachments', 'issue-artifacts', 'pull-request-overview'],
     copilot: ['fusion', 'projects', 'automations'],
+    sessions: ['stacked-prs-in-practice', 'custom-review-instructions', 'model-harness', 'factory-mindset', 'worth-building'],
   };
   assert.deepEqual(pages, [
     'index.html', '404.html', 'making-of/index.html',

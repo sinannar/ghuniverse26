@@ -4,7 +4,7 @@ import { topics } from './data/topics';
 const topicsCollection = defineCollection({
   loader: async () => topics,
   schema: z.object({
-    category: z.enum(['octoverse', 'platform', 'copilot']),
+    category: z.enum(['octoverse', 'platform', 'copilot', 'sessions']),
     title: z.string().min(1),
     headline: z.string().min(1),
     summary: z.string().min(1),
@@ -28,6 +28,15 @@ const topicsCollection = defineCollection({
       name: z.string(), description: z.string(), url: z.string().url(),
     })).optional(),
     caveat: z.string().optional(),
+    session: z.object({
+      speakers: z.array(z.string()).min(1),
+      format: z.string(),
+      related: z.object({
+        category: z.enum(['octoverse', 'platform', 'copilot', 'sessions']),
+        id: z.string(),
+        title: z.string(),
+      }).optional(),
+    }).optional(),
     sources: z.array(z.object({ label: z.string(), url: z.string().url() })).min(1),
   }),
 });

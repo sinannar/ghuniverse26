@@ -44,13 +44,18 @@ The browser suite uses its own production preview on port 4322.
 ## Present
 
 The opening slide shows the report's 2024–2026 pushes comparison. The default
-order is **Octoverse → Platform → Copilot**, with 14 curated topics:
+order is **Octoverse → Platform → Copilot → Sessions**, with 19 curated topics:
 
 | Chapter | Topics |
 | --- | --- |
 | Octoverse | Momentum, global growth, industries, agentic workflows, model choice, language trends, open source |
 | Platform | Stacked PRs, CLI attachments, issue artifacts, PR overview |
 | Copilot | Fusion, Projects, Automations |
+| Sessions | Stacked PRs in practice, custom code review instructions, optimizing Copilot for every new model, the factory mindset, what's worth building |
+
+Session slides summarize the speakers' published slides and the event's
+AI-generated session summaries, credit the speakers, and link to the related
+announcement slide. The recordings were not reviewed.
 
 Security and Connectors are deliberately outside this talk. Developer trends
 remain inside Octoverse rather than becoming a duplicate chapter. Coverage was

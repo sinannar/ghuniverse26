@@ -8,7 +8,7 @@ import '../styles/global.css';
 interface Props { title?: string; description?: string; category?: CategoryId }
 const {
   title = 'GitHub Universe 2026 — Presentation',
-  description = 'A browser-based presentation of GitHub Universe 2026: Octoverse data, Platform, and Copilot.',
+  description = 'A browser-based presentation of GitHub Universe 2026: Octoverse data, Platform, Copilot, and selected sessions.',
   category,
 } = Astro.props;
 ---
@@ -26,7 +26,7 @@ const {
   <body class:list={[category ? `theme-${category}` : 'theme-home']}>
     <!--
       THESIS: The browser is the slide deck, not a recap website.
-      OWN-WORLD: Ink idea slides, light data slides, oversized type, three chapter colors.
+      OWN-WORLD: Ink idea slides, light data slides, oversized type, four chapter colors.
       STORY: Choose any topic, advance one slide at a time, pause for a real demo.
       FIRST VIEWPORT: The report's 2024–2026 pushes comparison opens the talk; compact controls frame it.
       FORM: Nonlinear chapter selection with linear slides inside each chosen topic.

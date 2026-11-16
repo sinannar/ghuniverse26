@@ -23,3 +23,35 @@ and reclassification; `/re-label` is not a configured alias.
 
 Confirmed PR selection summary: automatic review when opened non-draft or
 marked ready, plus `/review`.
+
+## Universe sessions chapter request
+
+**Request (summary):** A co-host for the Auckland, New Zealand, Universe recap
+meetup wanted to talk about a few Universe 2026 sessions and asked for proposed
+additions to the existing deck. A clarifying question about session choice and
+placement received no answer, so the first response was a proposal only.
+
+After the full catalog was retrieved, the presenter chose these sessions
+(verbatim):
+
+> How we optimize GitHub Copilot for every new model
+>
+> Stop waiting on your own pull requests: Stacked PRs in practice
+>
+> The factory mindset: Agentic workflows in production
+>
+> Supercharge Copilot code review with custom review instructions
+>
+> And **What's worth building when AI can build anything**
+
+**Implementation decision:** Add the five sessions as a separate fourth
+Sessions chapter, as proposed, linking each to a related existing slide where
+one exists. The presenter did not separately confirm the chapter placement.
+
+**Follow-up request (verbatim):**
+
+> open the page and I will sign in for you
+
+**Result:** The presenter signed in personally in the automation browser. The
+signed-in pages exposed the speakers' slide PDFs and AI-generated session
+summaries, which replaced the abstracts as the content source.

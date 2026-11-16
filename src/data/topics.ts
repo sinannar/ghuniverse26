@@ -25,6 +25,13 @@ export const categories = [
     description: 'Models, projects, automations, and tools that make room for a different way of building.',
     invitation: 'Choose a Copilot announcement',
   },
+  {
+    id: 'sessions',
+    name: 'Sessions',
+    headline: 'From the stage.\nA closer look.',
+    description: 'Five recorded Universe sessions that go deeper on the announcements, and ask what is worth building at all.',
+    invitation: 'Choose a session',
+  },
 ] as const;
 
 export type CategoryId = (typeof categories)[number]['id'];
@@ -55,6 +62,11 @@ export interface Topic {
   charts?: Chart[];
   examples?: { name: string; description: string; url: string }[];
   caveat?: string;
+  session?: {
+    speakers: string[];
+    format: string;
+    related?: { category: CategoryId; id: string; title: string };
+  };
   sources: Source[];
 }
 
@@ -67,6 +79,15 @@ const release = (slug: string, label: string): Source => ({
   label,
   url: `https://github.blog/changelog/${slug}/`,
 });
+const sessionPage = (id: string): Source => ({
+  label: 'Universe session page (sign-in required for recording)',
+  url: `https://reg.githubuniverse.com/flow/github/universe26/attendee-portal/page/sessioncatalog/session/${id}`,
+});
+const sessionSlides = (path: string): Source => ({
+  label: 'Speaker slides (PDF)',
+  url: `https://static.rainfocus.com/github/universe26/sess/${path}`,
+});
+const sessionCaveat = 'Based on the speakers’ published slides and the event’s AI-generated session summary; the recording was not reviewed. Figures are as presented by the session.';
 
 const topicContent: Topic[] = [
   {
@@ -306,6 +327,124 @@ const topicContent: Topic[] = [
     ],
     caveat: 'These are selected examples from separately defined lists, not an overall popularity ranking or an endorsement.',
     sources: [report],
+  },
+  {
+    id: 'stacked-prs-in-practice', category: 'sessions',
+    title: 'Stacked PRs in practice', headline: 'Stop waiting on\nyour own pull requests.',
+    summary: 'Agents produce larger, more parallel changes. Stacks break them into a chain of focused pull requests that share one merge target, so each layer is reviewed on its own. Stacked PRs are now generally available on all GitHub.com plans.',
+    takeaway: 'When agents write more code, the unit of review has to get smaller.',
+    points: [
+      { title: 'Smaller reviews', text: 'The talk contrasts one +1,200 / -400 pull request taking five days to review with three focused pull requests of about an hour each.' },
+      { title: 'Stack-aware tools', text: 'The gh stack CLI handles cascading rebases, supports Git worktrees for parallel agent work, and installs as an agent skill: gh skill install github/gh-stack.' },
+      { title: 'Safe merges', text: 'Upstack PRs stay blocked until lower ones pass; merges are atomic and retarget dependent branches. AutoMerge for stacks was also announced.' },
+    ],
+    flow: ['Build the stack with gh', 'Review each layer', 'Merge atomically'],
+    session: {
+      speakers: ['Sameen Karim, Senior Product Manager, GitHub'],
+      format: 'Product demo · October 28',
+      related: { category: 'platform', id: 'stacked-pull-requests', title: 'Stacked pull requests' },
+    },
+    caveat: `${sessionCaveat} The slides report 9% more merged code on repositories using stacks and 5% faster time to merge on the most active repositories.`,
+    sources: [
+      sessionPage('1777610662772001qS4e'),
+      sessionSlides('1777610662772001qS4e/sessionppt/BLD1485D_Stop%20waiting%20on%20your%20own%20pull%20requests%3A%20GitHub%20Stacked%20PRs%20in%20practice_presentation_1793312756664001XDWe.pdf'),
+      docs('en/pull-requests/how-tos/stacked-pull-requests'),
+    ],
+  },
+  {
+    id: 'custom-review-instructions', category: 'sessions',
+    title: 'Custom code review instructions', headline: 'Teach the reviewer\nwhat your team knows.',
+    summary: 'Copilot code review already catches real bugs out of the box. GitHub’s Dependabot team added 13 instruction files so it also knows their conventions, failure modes, and domain context.',
+    takeaway: 'Teach Copilot how your team thinks about reviews, and keep your own review for the decisions that need judgment.',
+    points: [
+      { title: 'One topic per file', text: 'Markdown files in .github/instructions, each scoped with applyTo front matter, for example testing rules for spec/**/*.rb.' },
+      { title: 'Built from real feedback', text: 'Ask Copilot to mine recently merged PRs and their review comments, then turn recurring explanations into instructions.' },
+      { title: 'How the prompt is built', text: 'Each review combines the PR changes, repository-wide guidance, and matching instructions, read from the PR’s head branch so changes can be tested first.' },
+    ],
+    flow: ['Review history', 'Instruction files', 'Matching by applyTo', 'Copilot code review'],
+    session: {
+      speakers: ['Nish Sinha, Software Engineer III, GitHub'],
+      format: 'Product demo · October 28',
+      related: { category: 'octoverse', id: 'agentic-workflows', title: 'The agentic workflow shift' },
+    },
+    caveat: `${sessionCaveat} The talk contrasts instructions (active context) with Copilot Memories (passive, learned over time); review comments note when custom instructions were used.`,
+    sources: [
+      sessionPage('1777688857786001ZKKR'),
+      sessionSlides('1777688857786001ZKKR/sessionppt/LDR1662D_Supercharge%20Copilot%20code%20review%20with%20custom%20review%20instructions_presentation_1793311598838001HPtE.pdf'),
+    ],
+  },
+  {
+    id: 'model-harness', category: 'sessions',
+    title: 'Optimizing Copilot for every new model', headline: 'Agent = model + harness.\nThe harness is the product.',
+    summary: 'The model supplies reasoning. The harness (prompts, tool schemas, the agent loop, context, permissions, and skills) turns it into completed tasks. The same model in a different harness gives a different product.',
+    takeaway: 'Model choice is only real when every model is tuned into the harness, and the tuning never stops.',
+    points: [
+      { title: 'Every model drop is tuning', text: 'Dropping a stronger model into an untuned harness can still lower quality. With new models every four to six weeks, retuning is a routine discipline.' },
+      { title: 'Offline evals', text: 'A curated benchmark portfolio: regression runs per change and every three hours, daily and weekly suites, and on-demand baselines.' },
+      { title: 'Online evals', text: 'Each harness change is a hypothesis: benchmarked on the PR, A/B tested with staff, then with customers, measured on task success, latency, tokens, and cost.' },
+    ],
+    flow: ['New model', 'Tune the harness', 'Offline evals', 'Online A/B'],
+    session: {
+      speakers: ['Julia Kasper, Product Manager, GitHub'],
+      format: 'Product demo · October 29',
+      related: { category: 'copilot', id: 'fusion', title: 'Copilot Fusion' },
+    },
+    caveat: sessionCaveat,
+    sources: [
+      sessionPage('1777584211997001vbxd'),
+      sessionSlides('1777584211997001vbxd/sessionppt/LDR1434D_How%20we%20optimize%20GitHub%20Copilot%20for%20every%20new%20model._1794237677335001JPcY.pdf'),
+      { label: 'Copilot benchmarks', url: 'https://benchmarks.github.com/' },
+    ],
+  },
+  {
+    id: 'factory-mindset', category: 'sessions',
+    title: 'The factory mindset', headline: 'Stop translating intent.\nEngineer the process.',
+    summary: 'GitHub Agentic Workflows turn Markdown (intent plus guardrails) into GitHub Actions that run agents in a sandbox. Developers become process engineers: agents do the toil, and humans keep intent, judgment, and the merge.',
+    takeaway: 'Automate the toil around engineers. Keep the judgment with people.',
+    points: [
+      { title: 'The factory', text: 'Peli de Halleux (GitHub Next): agent PRs pass parallel reviewers for code, tests, security, and specs before a final agentic step. If every PR needs deep human review, improve the process.' },
+      { title: 'At enterprise scale', text: 'Tim Mason (Marks & Spencer): a curated workflow catalogue and agentic control plane. Pick a workflow, click deploy, and it arrives as a reviewable PR in under 30 seconds.' },
+      { title: 'In regulated healthcare', text: 'Paul Snider (Provation): lift the trusted developer harness into agentic workflows, make the process produce its own evidence, and instrument with OpenTelemetry before scaling.' },
+    ],
+    flow: ['Markdown intent', 'GitHub Actions', 'Sandboxed agents', 'Human merge'],
+    session: {
+      speakers: [
+        'Peli de Halleux, Agentic Engineer, GitHub Next, Microsoft',
+        'Tim Mason, Principal Engineer, Marks and Spencer',
+        'Paul Snider, CTO, Provation / Fortive',
+      ],
+      format: 'Main stage · October 28',
+      related: { category: 'copilot', id: 'automations', title: 'Copilot Automations' },
+    },
+    caveat: sessionCaveat,
+    sources: [
+      sessionPage('1785161525956001tBix'),
+      sessionSlides('1785161525956001tBix/sessionppt/LDR1786M%20_%20The%20factory%20mindset%3A%20Agentic%20workflows%20in%20production_1793381031548001jNza.pdf'),
+    ],
+  },
+  {
+    id: 'worth-building', category: 'sessions',
+    title: 'What’s worth building?', headline: 'AI can build anything.\nWhat’s worth building?',
+    summary: 'Kent C. Dodds and Sue Black asked what is worth building when one developer and their agents can ship and maintain systems that once needed several teams.',
+    takeaway: 'What could you do to make life better for a million people?',
+    points: [
+      { title: 'Restraint creates value', text: 'Kent describes building with an implementer agent backed by ADRs, CI, AI reviewers, previews, feature flags, and observability. The value still comes from restraint: deleting features and staying close to users.' },
+      { title: 'Systems, not syntax', text: 'Sue’s research on the software “ripple effect” asks how far one change reaches. Teaching is shifting toward systems thinking, entrepreneurship, and teamwork; juniors still matter because engineering is problem-solving.' },
+      { title: 'Whose values ship?', text: 'AI widens who can build, but a solo builder with agents risks losing diversity of perspective. Collaboration and community still matter.' },
+    ],
+    flow: ['What to build', 'Who builds it', 'How far it ripples', 'Who benefits'],
+    session: {
+      speakers: [
+        'Sue Black, Professor of Computer Science and Technology Evangelist, Durham University',
+        'Kent C. Dodds, Product Engineer, kody.codes',
+      ],
+      format: 'Main stage conversation · October 29',
+    },
+    caveat: sessionCaveat,
+    sources: [
+      sessionPage('1789650872339001QXAF'),
+      sessionSlides('1789650872339001QXAF/sessionppt/BLD1886M_What%27s%20worth%20building%20when%20AI%20can%20build%20anything_1793379965498001I6i9.pdf'),
+    ],
   },
 ];
 

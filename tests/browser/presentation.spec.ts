@@ -8,7 +8,7 @@ test('opens on real report evidence, not a title or a recap landing page', async
   await expect(page.locator('[data-slide]:visible')).toHaveCount(1);
   await expect(page.locator('#chart-1')).toBeVisible();
   for (const value of ['5.2B', '6.7B', '17.9B']) await expect(page.locator('#chart-1')).toContainText(value);
-  await expect(page.locator('.category-tab')).toHaveText(['Octoverse', 'Platform', 'Copilot']);
+  await expect(page.locator('.category-tab')).toHaveText(['Octoverse', 'Platform', 'Copilot', 'Sessions']);
   await expect(page.getByRole('button', { name: 'Previous slide', exact: true })).toBeDisabled();
   await page.screenshot({ path: test.info().outputPath('opening-desktop.png') });
   await page.setViewportSize({ width: 390, height: 844 });
@@ -77,6 +77,23 @@ test('demo pauses are opt-in and Fusion uses the actual creation story', async (
   await expect(page.locator('#creation')).toBeVisible();
   await page.goto('./copilot/projects/');
   await expect(page.locator('[data-optional]')).toHaveCount(0);
+});
+
+test('session slides credit speakers and link back to the related announcement', async ({ page }) => {
+  await page.goto('./sessions/');
+  await expect(page.locator('.topic-door')).toHaveCount(5);
+  await page.goto('./sessions/stacked-prs-in-practice/');
+  await expect(page.locator('#idea .session-byline')).toContainText('Sameen Karim');
+  await page.getByText('Sources & context', { exact: true }).click();
+  await expect(page.locator('.source-popover')).toContainText('AI-generated session summary');
+  await expect(page.locator('.source-popover')).toContainText('Speaker slides (PDF)');
+  await expect(page.locator('.source-popover')).not.toContainText('Universe 2026 recap');
+  await page.getByText('Sources & context', { exact: true }).click();
+  await page.getByRole('link', { name: /Related slide: Stacked pull requests/ }).click();
+  await expect(page).toHaveURL(/\/platform\/stacked-pull-requests\/$/);
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto('./sessions/factory-mindset/');
+  expect(await page.evaluate(() => document.documentElement.scrollWidth - innerWidth)).toBeLessThanOrEqual(1);
 });
 
 test('creation timeline keeps review evidence and records on-page at desktop and mobile sizes', async ({ page }) => {
@@ -198,7 +215,7 @@ test('iteration 02 timeline groups reviews and exposes its records', async ({ pa
 });
 
 test('source and interactive controls own their keys; end-of-talk does not loop', async ({ page }) => {
-  await page.goto('./copilot/automations/');
+  await page.goto('./sessions/worth-building/');
   await page.locator('.source-popover summary').click();
   await page.keyboard.press('ArrowRight');
   await expect(page.locator('#idea')).toBeVisible();
@@ -214,7 +231,7 @@ test('source and interactive controls own their keys; end-of-talk does not loop'
   expect(await page.evaluate(() => (window as Window & { selectorKeyPrevented?: boolean }).selectorKeyPrevented)).toBe(false);
   await expect(page.locator('[data-slide-select]')).toHaveValue('discussion');
   await expect(page.locator('#discussion')).toBeVisible();
-  await expect(page).toHaveURL(/\/copilot\/automations\/#discussion$/);
+  await expect(page).toHaveURL(/\/sessions\/worth-building\/#discussion$/);
   await page.locator('[data-slide-select]').selectOption('idea');
   await expect(page.locator('#idea')).toBeVisible();
   await page.locator('#idea h2').click();
@@ -222,7 +239,7 @@ test('source and interactive controls own their keys; end-of-talk does not loop'
   await expect(page.getByRole('button', { name: 'End of presentation' })).toBeDisabled();
   await page.keyboard.press('ArrowRight');
   await expect(page.locator('#discussion')).toBeVisible();
-  await expect(page).toHaveURL(/\/copilot\/automations\/#discussion$/);
+  await expect(page).toHaveURL(/\/sessions\/worth-building\/#discussion$/);
 });
 
 test('all regular slides fit projector viewports and stay horizontally readable on mobile', async ({ page }) => {

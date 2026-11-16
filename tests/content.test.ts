@@ -37,6 +37,18 @@ test('track navigation stays inside its category and has explicit boundaries', (
   assert.throws(() => neighbors(topics, 'missing-topic'), /Unknown topic/);
 });
 
+test('session topics credit speakers, disclose their abstract basis, and link to existing slides', () => {
+  const sessions = topics.filter((topic) => topic.category === 'sessions');
+  assert.equal(sessions.length, 5);
+  for (const topic of sessions) {
+    assert.ok(topic.session?.speakers.length);
+    assert.match(topic.caveat ?? '', /published slides and the event’s AI-generated session summary/);
+    assert.ok(topic.sources.some((source) => source.url.startsWith('https://reg.githubuniverse.com/')));
+    const related = topic.session!.related;
+    if (related) assert.ok(topics.some((t) => t.id === related.id && t.category === related.category), `${topic.id}: missing related slide`);
+  }
+});
+
 test('Pages paths work at root and at the repository base without doubled separators', () => {
   for (const base of ['/ghuniverse26', '/ghuniverse26/']) {
     assert.equal(withBase('copilot/fusion/', base), '/ghuniverse26/copilot/fusion/');
