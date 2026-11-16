@@ -67,3 +67,13 @@ expand it into a four-topic journey through hardware, event apps, and building
 for the badge. No badge-specific event photos were available in the repository
 or the public sources checked; approved photo files or source links were
 requested before adding imagery.
+
+**Follow-up request (verbatim):**
+
+> @copilot for the badge itself, grab some visuals from github.com etc. this is presentation, some visuals would be good
+
+Decision summary: use a verified visual from the badge's public GitHub
+repository. The available physical-device image depicts the Tufty 2350
+reference platform, so the slide identifies it as the Universe badge's base
+platform rather than implying it shows the final event enclosure. Preserve
+the upstream MIT license with the copied asset.

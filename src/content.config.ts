@@ -29,6 +29,12 @@ const topicsCollection = defineCollection({
       name: z.string(), description: z.string(), url: z.string().url(),
     })).optional(),
     caveat: z.string().optional(),
+    visual: z.object({
+      src: z.string().startsWith('/'),
+      alt: z.string().min(1),
+      caption: z.string().min(1),
+      source: z.object({ label: z.string(), url: z.string().url() }),
+    }).optional(),
     session: z.object({
       speakers: z.array(z.string()).min(1),
       format: z.string(),

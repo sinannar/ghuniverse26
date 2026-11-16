@@ -70,6 +70,7 @@ export interface Topic {
   charts?: Chart[];
   examples?: { name: string; description: string; url: string }[];
   caveat?: string;
+  visual?: { src: string; alt: string; caption: string; source: Source };
   session?: {
     speakers: string[];
     format: string;
@@ -171,9 +172,19 @@ const topicContent: Topic[] = [
     ],
     flow: ['Meet the hardware', 'Explore the event apps', 'Make and test an app'],
     caveat: 'Hardware and app details here refer to the Universe 2026 badge; earlier Universe badges differ.',
+    visual: {
+      src: '/badge-visuals/tufty-platform.png',
+      alt: 'Tufty 2350 color-screen badge with its app launcher displayed.',
+      caption: 'Tufty 2350 reference device. The Universe 2026 badge is a custom derivative, not this exact enclosure.',
+      source: {
+        label: 'Badge platform photo on GitHub',
+        url: 'https://github.com/badger/home/blob/c095061d3483a2504a67a1f37ed4d7ee71edad5a/badge/assets/tufty.png',
+      },
+    },
     sources: [
       { label: 'Badger 2026 Field Guide', url: 'https://badger.github.io/' },
       { label: 'Universe 2026 badge hardware reference', url: 'https://github.com/badger/home/blob/main/hardware/README.md' },
+      { label: 'Badge platform photo on GitHub', url: 'https://github.com/badger/home/blob/c095061d3483a2504a67a1f37ed4d7ee71edad5a/badge/assets/tufty.png' },
       { label: 'Badge hardware and apps on GitHub', url: 'https://github.com/badger/home' },
     ],
   },

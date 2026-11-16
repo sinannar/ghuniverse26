@@ -99,5 +99,11 @@ topics; the data-first opening and chapter structure do not change.
 its own flow and event pictures. The badge is now a fifth chapter with four
 topics: hardware, interactive controls, event apps, and a build path. Platform
 returns to its four recap announcements, and the presentation has five chapters
-and 23 topics. No badge-specific event photos were found in the repository or
-the public sources checked; approved photos or a source link are still needed.
+and 23 topics. No event photography was found at that point; the later
+GitHub-visual follow-up below supersedes the need for presenter-supplied assets.
+
+**Superseded by follow-up:** The presenter asked to use visuals from GitHub.
+The Badge introduction now includes `badger/home`'s Tufty 2350 platform image,
+with a caption clarifying that it is the badge's base platform and not the
+finished Universe 2026 enclosure. The source is pinned to a GitHub commit and
+its MIT license is included with the image.

@@ -63,6 +63,8 @@ test('the Universe badge has its own chapter with a researched hardware-to-build
   assert.match(badgeTopics[1].points[2].text, /Infrared transmit and receive hardware/);
   assert.match(badgeTopics[2].points[1].text, /exchanges cards with nearby badges/);
   assert.match(badgeTopics[3].caveat ?? '', /does not exactly model/);
+  assert.match(badgeTopics[0].visual?.caption ?? '', /not this exact enclosure/);
+  assert.equal(badgeTopics[0].visual?.source.url, 'https://github.com/badger/home/blob/c095061d3483a2504a67a1f37ed4d7ee71edad5a/badge/assets/tufty.png');
   assert.ok(badgeTopics[0].sources.some((source) => source.url === 'https://badger.github.io/'));
   assert.ok(badgeTopics[3].sources.some((source) => source.url === 'https://badger.github.io/editor'));
   assert.ok(badgeTopics[0].sources.some((source) => source.url === 'https://github.com/badger/home'));

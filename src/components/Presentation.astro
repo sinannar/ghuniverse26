@@ -46,20 +46,33 @@ const previousSlideId = previous && presentationSlides(previous.data).filter((sl
           class:list={['slide', `slide--${slide.kind}`, { 'slide--opening': entry.id === 'momentum' && slide.id === 'chart-1' }]}
           aria-label={slide.label}
         >
-          {slide.kind === 'idea' && <>
-            <h2 tabindex="-1">{topic.headline}</h2>
-            <p class="slide-lead">{topic.summary}</p>
-            {topic.session?.steps && (
-              <ol class="session-flow" aria-label="Process">{topic.session.steps.map((step) => <li>{step}</li>)}</ol>
-            )}
-            {topic.session && (
-              <div class="session-byline">
-                <p>{topic.session.format}</p>
-                <ul aria-label="Speakers">{topic.session.speakers.map((speaker) => <li>{speaker}</li>)}</ul>
-                {topic.session.related && <a href={href(topicPath(topic.session.related.category, topic.session.related.id))}>Related slide: {topic.session.related.title} →</a>}
+          {slide.kind === 'idea' && (
+            <div class:list={['slide-idea', { 'slide-idea--visual': topic.visual }]}>
+              <div>
+                <h2 tabindex="-1">{topic.headline}</h2>
+                <p class="slide-lead">{topic.summary}</p>
+                {topic.session?.steps && (
+                  <ol class="session-flow" aria-label="Process">{topic.session.steps.map((step) => <li>{step}</li>)}</ol>
+                )}
+                {topic.session && (
+                  <div class="session-byline">
+                    <p>{topic.session.format}</p>
+                    <ul aria-label="Speakers">{topic.session.speakers.map((speaker) => <li>{speaker}</li>)}</ul>
+                    {topic.session.related && <a href={href(topicPath(topic.session.related.category, topic.session.related.id))}>Related slide: {topic.session.related.title} →</a>}
+                  </div>
+                )}
               </div>
-            )}
-          </>}
+              {topic.visual && (
+                <figure class="slide-visual">
+                  <img src={href(topic.visual.src)} alt={topic.visual.alt} />
+                  <figcaption>
+                    {topic.visual.caption}
+                    <a href={topic.visual.source.url} target="_blank" rel="noreferrer">Source: {topic.visual.source.label} ↗<span class="sr-only"> (opens in a new tab)</span></a>
+                  </figcaption>
+                </figure>
+              )}
+            </div>
+          )}
           {slide.kind === 'chart' && <>
             {entry.id === 'momentum' && slide.id === 'chart-1' && (
               <div class="opening-statement">

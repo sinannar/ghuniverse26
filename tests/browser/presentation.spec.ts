@@ -40,6 +40,21 @@ test('the Badge chapter presents a distinct four-topic journey and build resourc
   expect(await page.evaluate(() => document.documentElement.scrollWidth - innerWidth)).toBeLessThanOrEqual(1);
 });
 
+test('the badge introduction shows its sourced platform image with an accurate caption', async ({ page }) => {
+  await page.goto('./badge/universe-badge/');
+  const visual = page.locator('.slide-visual');
+  await expect(visual).toBeVisible();
+  await expect(visual.locator('img')).toHaveAttribute('alt', /Tufty 2350/);
+  await expect(visual.locator('img')).toHaveJSProperty('naturalWidth', 320);
+  await expect(visual).toContainText('not this exact enclosure');
+  await expect(visual.getByRole('link', { name: /Badge platform photo on GitHub/ })).toHaveAttribute(
+    'href',
+    'https://github.com/badger/home/blob/c095061d3483a2504a67a1f37ed4d7ee71edad5a/badge/assets/tufty.png',
+  );
+  await page.setViewportSize({ width: 320, height: 720 });
+  expect(await page.evaluate(() => document.documentElement.scrollWidth - innerWidth)).toBeLessThanOrEqual(1);
+});
+
 test('keys traverse slides, cross topics, preserve hashes, and return to the chooser', async ({ page }) => {
   await page.goto('./');
   await page.keyboard.press('ArrowRight');

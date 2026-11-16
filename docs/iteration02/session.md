@@ -274,11 +274,27 @@ simulator does not model every custom 2026 hardware feature.
 
 No badge-specific event photos were found in the repository or the public
 sources checked. The presenter was asked for approved image files or source
-links; imagery remains pending that response.
+links. The presenter later directed the work to use available GitHub visuals;
+the included reference-device image is distinct from an event photograph.
+
+Validation for the earlier Badge chapter update:
 
 Astro check reported no errors, warnings, or hints. All 14 unit tests, the
 static build, all four production-output tests, and all 17 Chromium tests
 passed. The production checks verified generated topic routes and links; the
 browser test also checked for horizontal overflow at 320px.
+
+## Badge visuals from GitHub
+
+The presenter then asked to use public GitHub visuals. The opening badge slide
+now includes the Tufty 2350 reference-device image from `badger/home`, captioned
+to distinguish the base platform from the final Universe 2026 enclosure. The
+asset is pinned to its upstream commit and the upstream MIT license is included
+beside the image.
+
+Astro check reported no errors, warnings, or hints. All 14 unit tests, the
+static build, all four production-output tests, and all 18 Chromium tests
+passed. The new browser regression confirmed the image loads, its attribution
+and caption are visible, and the slide has no horizontal overflow at 320px.
 
 </details>
