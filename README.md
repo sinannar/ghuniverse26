@@ -1,5 +1,9 @@
 [![Deploy presentation to GitHub Pages](https://github.com/sinannar/ghuniverse26/actions/workflows/deploy.yml/badge.svg)](https://github.com/sinannar/ghuniverse26/actions/workflows/deploy.yml)
 
+[![Issue labeler](https://github.com/sinannar/ghuniverse26/actions/workflows/issue-labeler.lock.yml/badge.svg)](https://github.com/sinannar/ghuniverse26/actions/workflows/issue-labeler.lock.yml)
+
+[![Pull request reviewer](https://github.com/sinannar/ghuniverse26/actions/workflows/pr-reviewer.lock.yml/badge.svg)](https://github.com/sinannar/ghuniverse26/actions/workflows/pr-reviewer.lock.yml)
+
 # Universe 2026: the presentation
 
 An independent browser-based slide deck built with Astro and TypeScript.
