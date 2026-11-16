@@ -247,4 +247,18 @@ The model talk's idea slide shows its four-step change evaluation loop. Its
 headline was shortened to fit projector screens. Astro check, thirteen unit
 tests, four generated-output tests, and fifteen Chromium tests passed.
 
+## Universe badge outcome (issue #14)
+
+The presentation now includes a Platform topic about the Universe 2026 badge
+as a programmable small computer. It describes the built-in apps and how the
+Badger Field Guide's browser simulator supports trying code, with links to the
+guide, simulator, and badge repository. This adds one topic beyond the
+previously scoped four Platform recap announcements; the four chapters remain
+unchanged.
+
+Astro check reported no diagnostics. All 14 unit tests, the static build, all
+four generated-output tests, and all 16 Chromium tests passed. The generated-link
+check also verified the topic and exposed records after distinct headings were
+used for the plan and outcome.
+
 </details>

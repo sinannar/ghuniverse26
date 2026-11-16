@@ -15,7 +15,7 @@ export const categories = [
     id: 'platform',
     name: 'Platform',
     headline: 'Less friction.\nMore forward.',
-    description: 'Smaller changes, richer context, and a clearer path from an idea to a merged pull request.',
+    description: 'Smaller changes, richer context, a clearer path to merge, and a hackable event badge.',
     invitation: 'Choose a platform announcement',
   },
   {
@@ -150,6 +150,24 @@ const topicContent: Topic[] = [
     sources: [
       docs('en/pull-requests'),
       release('2026-11-05-new-pull-request-overview-page-in-public-preview', 'Changelog: pull request overview'),
+    ],
+  },
+  {
+    id: 'universe-badge', category: 'platform',
+    title: 'Universe badge', headline: 'A computer\non your lanyard.',
+    summary: 'The Universe 2026 badge is a programmable small computer, with built-in apps and hardware for interactive experiences—not just an event credential.',
+    takeaway: 'The badge is both a keepsake and a platform attendees can explore and build for.',
+    points: [
+      { title: 'A real computer', text: 'It runs MonaOS and MicroPython apps on an RP2350 processor, with a color screen, physical and touch controls, motion sensing, and wireless connectivity.' },
+      { title: 'Part of the event', text: 'Built-in apps show your GitHub profile, exchange contact details, and unlock locations around Universe.' },
+      { title: 'Make something for it', text: 'The Badger Field Guide links to apps, hardware details, and a browser simulator for trying code before using a physical badge.' },
+    ],
+    flow: ['Wear the badge', 'Explore its apps', 'Build and try your own'],
+    caveat: 'Hardware and app details here refer to the Universe 2026 badge; earlier Universe badges differ.',
+    sources: [
+      { label: 'Badger 2026 Field Guide', url: 'https://badger.github.io/' },
+      { label: 'Badge simulator', url: 'https://badger.github.io/simulator/' },
+      { label: 'Badge hardware and apps on GitHub', url: 'https://github.com/badger/home' },
     ],
   },
   {

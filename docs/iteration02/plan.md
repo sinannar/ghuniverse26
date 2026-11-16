@@ -86,3 +86,11 @@ AI-generated session summaries, which are available on the signed-in session
 pages. The recordings were not watched. Each topic's caveat names both sources,
 and each topic links to its session page and slide PDF. Where the slides and
 abstracts differ, follow the slides.
+
+## Universe badge scope (issue #14)
+
+The requested presentation section explains the Universe 2026 badge as a
+programmable small computer and points to the Badger Field Guide, browser
+simulator, and source repository. This adds one Platform topic beyond the four
+recap announcements, bringing the existing four-chapter presentation to 20
+topics; the data-first opening and chapter structure do not change.

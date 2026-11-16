@@ -16,6 +16,16 @@ test('opens on real report evidence, not a title or a recap landing page', async
   expect(errors).toEqual([]);
 });
 
+test('the Platform chapter presents the programmable Universe badge and its guide', async ({ page }) => {
+  await page.goto('./platform/');
+  await expect(page.locator('.topic-door')).toHaveCount(5);
+  await page.getByRole('link', { name: /Universe badge/ }).click();
+  await expect(page.locator('#idea .slide-lead')).toContainText('programmable small computer');
+  await page.getByText('Sources & context', { exact: true }).click();
+  await expect(page.locator('.source-popover a[href="https://badger.github.io/"]')).toBeVisible();
+  await expect(page.locator('.source-popover a[href="https://badger.github.io/simulator/"]')).toBeVisible();
+});
+
 test('keys traverse slides, cross topics, preserve hashes, and return to the chooser', async ({ page }) => {
   await page.goto('./');
   await page.keyboard.press('ArrowRight');

@@ -52,6 +52,16 @@ test('session topics credit speakers, disclose their abstract basis, and link to
   assert.deepEqual(stacked.charts!.map((chart) => chart.rows.map((row) => row.display)), [['5 days', '~1 hour'], ['+9%', '5% faster']]);
 });
 
+test('the Universe badge topic describes the programmable badge and links its guide and simulator', () => {
+  const badge = topics.find((topic) => topic.id === 'universe-badge');
+  assert.ok(badge);
+  assert.equal(badge.category, 'platform');
+  assert.match(badge.summary, /programmable small computer/);
+  assert.match(badge.caveat ?? '', /Universe 2026 badge/);
+  assert.ok(badge.sources.some((source) => source.url === 'https://badger.github.io/'));
+  assert.ok(badge.sources.some((source) => source.url === 'https://badger.github.io/simulator/'));
+});
+
 test('Pages paths work at root and at the repository base without doubled separators', () => {
   for (const base of ['/ghuniverse26', '/ghuniverse26/']) {
     assert.equal(withBase('copilot/fusion/', base), '/ghuniverse26/copilot/fusion/');

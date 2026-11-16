@@ -11,10 +11,10 @@ const pages = files.filter((file) => file.endsWith('.html')).sort();
 const read = (file: string) => readFileSync(path.join(dist, file), 'utf8');
 const basePath = `${(process.env.ASTRO_BASE || '/').replace(/\/$/, '')}/`;
 
-test('the build contains exactly the four approved chapters and nineteen chosen topics', () => {
+test('the build contains exactly the four approved chapters and twenty chosen topics', () => {
   const expected = {
     octoverse: ['momentum', 'global-growth', 'industries', 'agentic-workflows', 'model-choice', 'languages', 'open-source'],
-    platform: ['stacked-pull-requests', 'cli-attachments', 'issue-artifacts', 'pull-request-overview'],
+    platform: ['stacked-pull-requests', 'cli-attachments', 'issue-artifacts', 'pull-request-overview', 'universe-badge'],
     copilot: ['fusion', 'projects', 'automations'],
     sessions: ['stacked-prs-in-practice', 'custom-review-instructions', 'model-harness', 'factory-mindset', 'worth-building'],
   };
