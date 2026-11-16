@@ -1,8 +1,78 @@
-# Iteration 02: Agentic Workflow session
+# Iteration 02: building Agentic Workflows
 
 This public-safe record summarizes the Copilot CLI session that added the
 repository's issue-labeling and pull-request review workflows. It is a curated
 account, not a raw session export.
+
+The presenter describes installing the **gh-stack** and **gh-aw** skills,
+then using Copilot CLI to plan and create two GitHub Agentic Workflows and
+open [PR #7](https://github.com/sinannar/ghuniverse26/pull/7). A separate
+CLI review and a cloud review provided review tracks; a cloud agent addressed
+or commented on the feedback. They share a review stage rather than implying
+an exact sequence of sessions.
+
+<ol class="creation-timeline" aria-label="Iteration 02 timeline">
+<li data-session-type="change">
+
+## Skills · prepare the tools
+
+The presenter installed the **gh-stack** and **gh-aw** skills. The
+agentic-workflows skill was later moved to `.agents/skills` alongside gh-stack.
+
+</li>
+<li data-session-type="change">
+
+## Copilot CLI · plan workflows and open PR #7
+
+Copilot CLI planned and created an issue labeler and a pull-request reviewer
+using **GitHub Agentic Workflows** and GitHub Actions. Their agent jobs use
+read-only access and constrained safe outputs for GitHub writes.
+
+</li>
+<li data-session-type="review">
+
+## Parallel reviews · PR #7
+
+The local CLI and cloud reviews are separate tracks in one review stage.
+The cloud review covered an earlier revision than the later CLI review; their
+records do not establish an exact CLI time.
+
+<ul class="creation-reviews" aria-label="Iteration 02 parallel reviews">
+<li data-session-type="review">
+
+### Copilot CLI · local review
+
+The CLI review inspected the PR with GitHub CLI and reported a
+[reviewer bootstrap failure](https://github.com/sinannar/ghuniverse26/pull/7#discussion_r4580921412).
+It did not modify workflow code.
+
+</li>
+<li data-session-type="review">
+
+### Cloud Code Review · issue labeler review
+
+The [cloud review](https://github.com/sinannar/ghuniverse26/pull/7#pullrequestreview-5913526033)
+identified reporter admission and label-removal limits in an earlier revision.
+The successful [Actions review run](https://github.com/sinannar/ghuniverse26/actions/runs/43775484590)
+means the review ran, not that it found no issues.
+
+</li>
+</ul>
+</li>
+<li data-session-type="change">
+
+## Cloud agent · address review feedback
+
+The cloud agent was used to fix or comment on PR feedback. The recorded fixes
+include reporter admission, the managed-label removal limit, and the reviewer
+bootstrap exception for PR #7. Strict compilation checks configuration; the
+records do not establish a successful live workflow run.
+
+</li>
+</ol>
+
+<details>
+<summary>Read the iteration 02 session record</summary>
 
 ## Issue classification
 
@@ -118,3 +188,5 @@ production-output tests, and all browser tests passed in this session.
 The pull request for the work is [#7](https://github.com/sinannar/ghuniverse26/pull/7).
 It is open at the time of this record. No claim is made that either workflow
 has completed a production run.
+
+</details>

@@ -25,10 +25,11 @@ conversation](iteration01/questions-and-answers.md), and [plan](iteration01/plan
 remain rendered by `src/pages/making-of.astro`, alongside the
 [CLI side-review record](iteration01-review/session.md). That supporting folder
 belongs to iteration 01; it is not a new numbered iteration.
-The [iteration 02 local CLI review](iteration02-review/localreview.md) and
+The [iteration 02 session](iteration02/session.md), [plan](iteration02/plan.md),
+and [discovery conversation](iteration02/questions-and-answers.md) are rendered
+on the same page. Its [local CLI review](iteration02-review/localreview.md) and
 [cloud Code Review](iteration02-review/cloudreview.md) records document
-separate reviews of PR #7. They support iteration 02 and are not part of
-iteration 01's making-of page.
+separate review tracks for PR #7.
 The session story is a timeline with inline explanations and expandable records,
 not a set of separate reading pages. Edit the Markdown source rather than
 maintaining a separate copy of the story in a page template.

@@ -159,6 +159,44 @@ test('creation timeline and its disclosures work without JavaScript', async ({ b
   await context.close();
 });
 
+test('iteration 02 timeline groups reviews and exposes its records', async ({ page, browser, baseURL }) => {
+  await page.goto('./making-of/');
+  const timeline = page.getByRole('list', { name: 'Iteration 02 timeline' });
+  const steps = timeline.locator(':scope > li');
+  await expect(steps.locator(':scope > h2')).toHaveText([
+    'Skills · prepare the tools',
+    'Copilot CLI · plan workflows and open PR #7',
+    'Parallel reviews · PR #7',
+    'Cloud agent · address review feedback',
+  ]);
+  const colors = ['rgb(52, 125, 59)', 'rgb(52, 125, 59)', 'rgb(154, 77, 0)', 'rgb(52, 125, 59)'];
+  for (const [index, color] of colors.entries()) {
+    await expect(steps.nth(index).locator(':scope > h2')).toHaveCSS('color', color);
+    expect(await steps.nth(index).evaluate(element => getComputedStyle(element, '::before').color)).toBe(color);
+  }
+  const reviews = steps.nth(2).getByRole('list', { name: 'Iteration 02 parallel reviews' });
+  await expect(reviews.locator(':scope > li > h3')).toHaveText(['Copilot CLI · local review', 'Cloud Code Review · issue labeler review']);
+  for (const heading of await reviews.locator('h3').all()) await expect(heading).toHaveCSS('color', colors[2]);
+  for (const viewport of [{ width: 1440, height: 900 }, { width: 390, height: 844 }]) {
+    await page.setViewportSize(viewport);
+    for (const summary of ['Read the iteration 02 session record', 'Read the iteration 02 local CLI review', 'Read the iteration 02 cloud review', 'Read the iteration 02 discovery conversation', 'Read the iteration 02 implementation plan']) {
+      const control = page.getByText(summary, { exact: true });
+      await control.focus();
+      await page.keyboard.press('Enter');
+      await expect(control.locator('..')).toHaveAttribute('open');
+      expect(await page.evaluate(() => document.documentElement.scrollWidth - innerWidth)).toBeLessThanOrEqual(1);
+      await page.keyboard.press('Enter');
+    }
+  }
+  const context = await browser.newContext({ javaScriptEnabled: false });
+  const noJsPage = await context.newPage();
+  await noJsPage.goto(`${baseURL}making-of/`);
+  await expect(noJsPage.getByRole('list', { name: 'Iteration 02 timeline' }).locator(':scope > li')).toHaveCount(4);
+  await noJsPage.getByText('Read the iteration 02 cloud review', { exact: true }).click();
+  await expect(noJsPage.getByRole('heading', { name: 'Copilot Code Review — iteration 02' })).toBeVisible();
+  await context.close();
+});
+
 test('source and interactive controls own their keys; end-of-talk does not loop', async ({ page }) => {
   await page.goto('./copilot/automations/');
   await page.locator('.source-popover summary').click();
