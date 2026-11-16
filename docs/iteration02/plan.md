@@ -10,7 +10,8 @@ the presenter explicitly moved the workflow work out of iteration 01.
 
 ### Issue labeler
 
-- Trigger on issue opening and title or body edits.
+- Trigger on issue opening and title or body edits, plus `/label` in issue
+  comments to request recomputation.
 - Recompute the managed labels: `bug`, `enhancement`, `documentation`,
   `accessibility`, `question`, and `maintenance`.
 - Remove and add only those managed labels. Preserve maintainer workflow and
@@ -21,7 +22,9 @@ the presenter explicitly moved the workflow work out of iteration 01.
 
 ### Pull-request reviewer
 
-- Trigger on same-repository pull request openings and new commits.
+- Trigger on same-repository non-draft pull request openings and transitions
+  from draft to ready, plus `/review` in PR comments for explicit re-review.
+  This supersedes the original opening-and-new-commits trigger.
 - Read the title, description, changed files, and diff.
 - Post one current safe-output comment, replacing the prior workflow comment.
 - Assess concrete diff risks and whether the pull-request description explains
@@ -49,6 +52,7 @@ runtime skill-directory defaults.
 
 ## Validation
 
+- `gh aw compile --strict` also regenerates the shared command dispatcher.
 - `gh aw compile issue-labeler --strict`
 - `gh aw compile pr-reviewer --strict`
 - `npm run check`

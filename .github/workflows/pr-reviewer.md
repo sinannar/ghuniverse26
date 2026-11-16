@@ -1,12 +1,22 @@
 ---
 emoji: 🔎
 name: Pull request reviewer
-description: Post one current assessment for opened and updated pull requests.
+description: Assess reviewable pull requests and explicit re-review requests.
 intent: Improve reviewer confidence in pull requests by surfacing actionable change and description gaps without redundant commentary.
 on:
   pull_request:
-    types: [opened, synchronize]
-if: github.event.pull_request.number != 7
+    types: [opened, ready_for_review]
+  slash_command:
+    name: review
+    strategy: centralized
+    events: [pull_request_comment]
+  status-comment: false
+if: >-
+  (github.event.pull_request.number || github.event.issue.number ||
+  fromJSON(inputs.aw_context || '{}').item_number) != 7 &&
+  (github.event_name != 'pull_request' || github.event.pull_request.draft == false) &&
+  (github.event_name != 'workflow_dispatch' ||
+  fromJSON(inputs.aw_context || '{}').item_type == 'pull_request')
 permissions:
   contents: read
   pull-requests: read
@@ -30,7 +40,10 @@ safe-outputs:
 
 # Pull request reviewer
 
-Review the triggering pull request when it opens or receives new commits. Read
+Review the triggering pull request when it opens non-draft, becomes ready for
+review, or receives a PR-comment `/review` request. On command-triggered runs,
+read the current pull request through GitHub and call `noop` if its head
+repository differs from the triggering repository. Read
 the pull request title, description, changed files, and diff before reaching a
 conclusion. Read repository guidance or `GLOSSARY.md` only when present and
 relevant. Do not execute or modify pull-request code.

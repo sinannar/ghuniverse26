@@ -6,6 +6,11 @@ intent: Reduce maintainer effort required to consistently categorize actionable 
 on:
   issues:
     types: [opened, edited]
+  slash_command:
+    name: label
+    strategy: centralized
+    events: [issue_comment]
+  status-comment: false
   roles: all
 permissions:
   contents: read
@@ -34,7 +39,8 @@ safe-outputs:
 
 # Issue labeler
 
-Classify the triggering issue from its title and description only. The managed
+Classify the triggering issue on opening, edits, or an issue-comment `/label`
+request, using its current title and description only. The managed
 labels are `bug`, `enhancement`, `documentation`, `accessibility`, and
 `question`, and `maintenance`; never add, remove, create, or infer any other
 label.

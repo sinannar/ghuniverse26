@@ -70,6 +70,44 @@ were performed for this relocation; these iteration records are not imported
 by the site. Dependency installation reported five audit vulnerabilities;
 no dependencies were changed.
 
+## Trigger refinement: automatic readiness and explicit commands
+
+The user approved retaining automatic issue classification on opening and
+edits, adding `/label` in issue comments, and replacing PR review on every
+new commit with review on non-draft opening or draft-to-ready transition.
+PR comments containing `/review` request an assessment of the current PR.
+This supersedes the original PR trigger described above; later commits do
+not automatically refresh the assessment.
+
+Command triggers are scoped to their respective issue or PR comments.
+Issue classification still uses only the current title and description, not
+comment content. PR #7 remains excluded for both automatic and command events;
+automatic draft openings are excluded before activation. Command-triggered
+review explicitly checks the current PR's head repository and does not assess
+forks. Existing role admission, constrained safe outputs, and hiding of older
+assessment comments remain in place. Command status comments are disabled so
+the issue labeler does not start posting comments and the reviewer does not
+add extra status commentary.
+
+The compiler requires centralized slash-command routing to combine commands
+with these automatic events. The generated `agentic_commands.yml` dispatcher
+routes `/label` only from issue comments and `/review` only from PR comments;
+commands must be the first word. Its lightweight routing job may run on other
+comments without starting an AI assessment. It also provides the compiler's
+built-in `/help` command. Dispatch context supplies the target item number,
+including for the PR #7 exclusion.
+
+Validation for this refinement: the initial inline-command compilation failed
+because inline commands conflict with the automatic issue and PR events.
+After selecting centralized routing, strict compilation passed for both
+workflows and generated the shared dispatcher. Astro check reported no
+diagnostics, all 12 unit tests passed, and the diff whitespace check passed.
+The regressions cover readiness triggers, comment routing, command target
+context, draft exclusion, the PR #7 exception, and existing label bounds.
+No live command or automatic workflow run was performed. Site build,
+production-output tests, and browser tests were not run; these iteration 02
+records are not imported by the site, and no routes, site content, or UI changed.
+
 ## Outcomes and validation
 
 Both workflows keep their main agent jobs read-only and route their only GitHub
