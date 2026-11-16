@@ -189,4 +189,18 @@ The pull request for the work is [#7](https://github.com/sinannar/ghuniverse26/p
 It is open at the time of this record. No claim is made that either workflow
 has completed a production run.
 
+## Making-of page enhancement (issue #9)
+
+The presenter requested that the page include iteration 02's skills,
+workflow creation, separate CLI and cloud reviews, and cloud-agent response.
+The page now renders this timeline and the iteration 02 plan, discovery, and
+review records alongside iteration 01. This supersedes the earlier notes that
+the iteration 02 records were not imported by the site.
+
+Astro check reported no diagnostics; all 12 unit tests, four generated-output
+tests, and 14 browser tests passed. The static build and generated-link checks
+passed. A focused browser test and manual inspection also checked the new
+timeline and cloud-review disclosure. Dependency installation reported five
+audit vulnerabilities; no dependencies were changed.
+
 </details>
