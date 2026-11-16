@@ -60,3 +60,29 @@ runtime skill-directory defaults.
 - `npm run build`
 - `npm run test:production`
 - `npm run test:browser`
+
+## Universe sessions chapter
+
+A co-host for the Auckland Universe recap meetup asked to add selected
+Universe 2026 sessions to the presentation. This extends iteration 02 beyond
+workflows because it is the active iteration. It supersedes iteration 01's
+"three chapters and 14 topics" scope: add a fourth **Sessions** chapter after
+Copilot, giving four chapters and 19 topics. Security and Connectors stay
+excluded, and the data-first opening does not change.
+
+| Session topic | Speakers | Related existing slide |
+| --- | --- | --- |
+| Stacked PRs in practice | Sameen Karim | Platform: stacked pull requests |
+| Custom code review instructions | Nish Sinha | Octoverse: agentic workflow shift |
+| Optimizing Copilot for every new model | Julia Kasper | Copilot: Fusion |
+| The factory mindset | Peli de Halleux, Tim Mason, Paul Snider | Copilot: Automations |
+| What's worth building? | Sue Black, Kent C. Dodds | None; closing discussion |
+
+Session idea slides add a byline with format, speakers, and a link to the
+related announcement slide. They add no demo pauses. Sessions use teal.
+
+Content comes from the speakers' published slide PDFs and the event's
+AI-generated session summaries, which are available on the signed-in session
+pages. The recordings were not watched. Each topic's caveat names both sources,
+and each topic links to its session page and slide PDF. Where the slides and
+abstracts differ, follow the slides.

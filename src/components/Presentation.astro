@@ -28,7 +28,7 @@ const previousSlideId = previous && presentationSlides(previous.data).filter((sl
         <details class="source-popover">
           <summary>Sources & context</summary>
           <div>
-            {category.id !== 'octoverse' && <a href={recapUrl} target="_blank" rel="noreferrer">Universe 2026 recap ↗<span class="sr-only"> (opens in a new tab)</span></a>}
+            {(category.id === 'platform' || category.id === 'copilot') && <a href={recapUrl} target="_blank" rel="noreferrer">Universe 2026 recap ↗<span class="sr-only"> (opens in a new tab)</span></a>}
             {topic.sources.map((source) => <a href={source.url} target="_blank" rel="noreferrer">{source.label} ↗<span class="sr-only"> (opens in a new tab)</span></a>)}
             {topic.caveat && <p>{topic.caveat}</p>}
             <small>Reviewed November 15, 2026. Product availability may change.</small>
@@ -49,6 +49,16 @@ const previousSlideId = previous && presentationSlides(previous.data).filter((sl
           {slide.kind === 'idea' && <>
             <h2 tabindex="-1">{topic.headline}</h2>
             <p class="slide-lead">{topic.summary}</p>
+            {topic.session?.steps && (
+              <ol class="session-flow" aria-label="Process">{topic.session.steps.map((step) => <li>{step}</li>)}</ol>
+            )}
+            {topic.session && (
+              <div class="session-byline">
+                <p>{topic.session.format}</p>
+                <ul aria-label="Speakers">{topic.session.speakers.map((speaker) => <li>{speaker}</li>)}</ul>
+                {topic.session.related && <a href={href(topicPath(topic.session.related.category, topic.session.related.id))}>Related slide: {topic.session.related.title} →</a>}
+              </div>
+            )}
           </>}
           {slide.kind === 'chart' && <>
             {entry.id === 'momentum' && slide.id === 'chart-1' && (

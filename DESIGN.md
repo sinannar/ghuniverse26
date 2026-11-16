@@ -13,6 +13,8 @@ colors:
   copilot-strong: "#b92961"
   octoverse: "#e5d36a"
   octoverse-strong: "#7d6a11"
+  sessions: "#8fd8e8"
+  sessions-strong: "#0f6b7d"
 typography:
   display:
     fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif'
@@ -43,7 +45,7 @@ of the official recap. Real demonstrations happen in the presenter's own tools.
 ## Colors
 
 Paper and ink carry the interface. Mustard identifies Octoverse, green Platform,
-and pink Copilot. Each chapter pairs a light accent with a stronger color for
+pink Copilot, and teal Sessions. Each chapter pairs a light accent with a stronger color for
 chart bars and headings. Idea and demo slides invert to ink; Fusion's creation
 story uses a full pink field. Comparison bars are neutral rather than competing
 with the current observation.
@@ -91,6 +93,8 @@ are circular; avoid decorative cards, gradients, or unrelated illustrations.
 accessible HTML/CSS bars with explicit units, values, reporting notes, and sources.
 Chapter navigation provides quick jumps without becoming a dominant category rail.
 Optional demos are explicitly labeled and skipped by normal progression.
+Session idea slides add a byline with format, speakers, and a link to the
+related announcement slide, rather than a separate slide.
 
 Visible focus rings, source links, hash-based slide destinations, fullscreen,
 and ordinary navigation without JavaScript are part of the interface.

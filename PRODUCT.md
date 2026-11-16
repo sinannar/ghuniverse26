@@ -24,7 +24,7 @@ including demonstrations of building parts of this same site.
 
 ## Capabilities and Constraints
 
-Astro, static GitHub Pages hosting, three curated chapters, individual topic
+Astro, static GitHub Pages hosting, four curated chapters, individual topic
 selection, and returnable slide deep links. No backend or simulated GitHub features.
 Exact live-demo repositories and commands are not supplied and must not be invented.
 
@@ -53,9 +53,11 @@ information, not the page structure. Use a single visible slide, presentation
 controls, and optional demo pauses instead of scrolling announcement articles.
 Coverage was decided in planning, not through an audience-facing questionnaire:
 Octoverse (seven stories, including developer trends) first, Platform (all four
-recap topics), and Copilot (Fusion, Projects, Automations). No Security or
-Connectors. Fusion's initial creation of this site is narrative context; stacked
-PRs and CLI attachments are optional demo candidates, not promised demonstrations.
+recap topics), Copilot (Fusion, Projects, Automations), and a co-host's Sessions
+chapter (five recorded Universe sessions, summarized from the speakers' slides
+and AI-generated session summaries). No Security or Connectors. Fusion's initial creation of this site is
+narrative context; stacked PRs and CLI attachments are optional demo candidates,
+not promised demonstrations.
 
 ## Creation Story and Iterations
 
