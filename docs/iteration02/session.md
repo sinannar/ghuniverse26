@@ -53,6 +53,23 @@ regressions, Astro check, and unit tests passed. Diagnostic dry-run compilation
 passed shellcheck but could not complete its model-inventory check in this
 environment. No live workflow test was performed.
 
+## Repository skill relocation (issue #10)
+
+User request summary: keep repository skills under `.agents/skills`, alongside
+`gh-stack`, rather than the CLI-created `.github/skills` location.
+The agentic-workflows `SKILL.md` moved to
+`.agents/skills/agentic-workflows/SKILL.md` with byte-for-byte identical contents.
+No references to the old skill path needed updating; generated workflow runtime
+skill-directory defaults remain unchanged.
+
+The focused regression test verifies the new location, the absence of the old
+file, and the skill's discovery front matter. It passed, as did Astro check
+(no diagnostics) and all 10 unit tests. The diff whitespace check passed.
+No site build, production-output tests, browser tests, or live workflow runs
+were performed for this relocation; these iteration records are not imported
+by the site. Dependency installation reported five audit vulnerabilities;
+no dependencies were changed.
+
 ## Outcomes and validation
 
 Both workflows keep their main agent jobs read-only and route their only GitHub
