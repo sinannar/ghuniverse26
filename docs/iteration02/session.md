@@ -24,6 +24,10 @@ write access. The workflow now explicitly allows all reporter roles while
 retaining its constrained safe outputs. Strict compilation with gh-aw v1.2.2
 passed; this does not establish a successful live run.
 
+The review also found that the removal limit could truncate a request to
+remove multiple managed labels. The limit is now six, matching the managed
+set; the allowed labels and triggering-issue restriction remain unchanged.
+
 ## Pull-request assessment
 
 The session then added a separate workflow that runs when a same-repository
@@ -36,6 +40,18 @@ The assessment standards were adapted from the user-requested grilling and
 pull-request skills. Those installed skills are not added as runtime
 dependencies; their applicable standards are written directly into the
 workflow prompt.
+
+### Reviewer bootstrap
+
+The reviewer's activation failed on its introducing pull request because the
+trusted base revision did not yet contain the workflow prompt. The reviewer
+now skips PR #7 itself; later pull requests continue to load the prompt from
+their base revision. This exception does not use PR content as a prompt.
+
+For these review fixes, both strict compilations, the workflow configuration
+regressions, Astro check, and unit tests passed. Diagnostic dry-run compilation
+passed shellcheck but could not complete its model-inventory check in this
+environment. No live workflow test was performed.
 
 ## Outcomes and validation
 

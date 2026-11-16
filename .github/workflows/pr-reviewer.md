@@ -6,6 +6,7 @@ intent: Improve reviewer confidence in pull requests by surfacing actionable cha
 on:
   pull_request:
     types: [opened, synchronize]
+if: github.event.pull_request.number != 7
 permissions:
   contents: read
   pull-requests: read

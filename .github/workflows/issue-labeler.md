@@ -21,7 +21,7 @@ tools:
 safe-outputs:
   remove-labels:
     allowed: [bug, enhancement, documentation, accessibility, question, maintenance]
-    max: 1
+    max: 6
     target: triggering
   add-labels:
     allowed: [bug, enhancement, documentation, accessibility, question, maintenance]
