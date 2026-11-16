@@ -38,6 +38,15 @@ the presenter explicitly moved the workflow work out of iteration 01.
   comments; it leaves one bounded summary comment.
 - Compilation verifies configuration only. It does not prove a production run.
 
+## Repository skill location refinement
+
+Issue [#10](https://github.com/sinannar/ghuniverse26/issues/10) requests that
+repository skills live under `.agents/skills`, consistent with `gh-stack`.
+Move the CLI-created agentic-workflows skill from `.github/skills` to
+`.agents/skills/agentic-workflows/SKILL.md` without changing its guidance.
+This changes the repository skill location, not the generated workflows'
+runtime skill-directory defaults.
+
 ## Validation
 
 - `gh aw compile issue-labeler --strict`
