@@ -6,6 +6,7 @@ intent: Reduce maintainer effort required to consistently categorize actionable 
 on:
   issues:
     types: [opened, edited]
+  roles: all
 permissions:
   contents: read
   issues: read

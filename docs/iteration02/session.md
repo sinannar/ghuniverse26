@@ -17,6 +17,13 @@ The workflow manages `bug`, `enhancement`, `documentation`, `accessibility`,
 `question`, and `maintenance`. It can apply multiple labels where evidence
 supports each classification.
 
+### Reporter admission review
+
+The PR review found that the default role gate excluded reporters without
+write access. The workflow now explicitly allows all reporter roles while
+retaining its constrained safe outputs. Strict compilation with gh-aw v1.2.2
+passed; this does not establish a successful live run.
+
 ## Pull-request assessment
 
 The session then added a separate workflow that runs when a same-repository
