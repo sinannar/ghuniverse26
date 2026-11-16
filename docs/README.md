@@ -1,9 +1,8 @@
 # Iteration guide
 
-**Active iteration: `iteration01`**. This is still the first iteration, including
-the presentation redesign, coverage decisions, and the site's creation story.
-A new chat, app session, correction, or code revision does not start another
-iteration. Start `iteration02` only when the user explicitly requests it.
+**Active iteration: `iteration02`**. This iteration adds repository Agentic
+Workflows for issue classification and pull-request assessment. Iteration 01
+remains the presentation redesign, coverage decisions, and creation story.
 
 ## Records for each iteration
 
@@ -23,9 +22,13 @@ Do not treat unfinished work, proposed demos, or checks not run as completed.
 
 The [first iteration's session story](iteration01/session.md), [discovery
 conversation](iteration01/questions-and-answers.md), and [plan](iteration01/plan.md)
-are rendered by `src/pages/making-of.astro`, alongside the
+remain rendered by `src/pages/making-of.astro`, alongside the
 [CLI side-review record](iteration01-review/session.md). That supporting folder
 belongs to iteration 01; it is not a new numbered iteration.
+The [iteration 02 local CLI review](iteration02-review/localreview.md) and
+[cloud Code Review](iteration02-review/cloudreview.md) records document
+separate reviews of PR #7. They support iteration 02 and are not part of
+iteration 01's making-of page.
 The session story is a timeline with inline explanations and expandable records,
 not a set of separate reading pages. Edit the Markdown source rather than
 maintaining a separate copy of the story in a page template.
