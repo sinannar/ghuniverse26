@@ -49,6 +49,9 @@ const previousSlideId = previous && presentationSlides(previous.data).filter((sl
           {slide.kind === 'idea' && <>
             <h2 tabindex="-1">{topic.headline}</h2>
             <p class="slide-lead">{topic.summary}</p>
+            {topic.session?.steps && (
+              <ol class="session-flow" aria-label="Process">{topic.session.steps.map((step) => <li>{step}</li>)}</ol>
+            )}
             {topic.session && (
               <div class="session-byline">
                 <p>{topic.session.format}</p>

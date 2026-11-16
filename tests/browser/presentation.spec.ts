@@ -83,6 +83,9 @@ test('session slides credit speakers and link back to the related announcement',
   await page.goto('./sessions/');
   await expect(page.locator('.topic-door')).toHaveCount(5);
   await page.goto('./sessions/stacked-prs-in-practice/');
+  await expect(page.locator('#chart-1')).toBeVisible();
+  await expect(page.locator('#chart-1 .chart-source')).toContainText('Sameen Karim');
+  await page.goto('./sessions/stacked-prs-in-practice/#idea');
   await expect(page.locator('#idea .session-byline')).toContainText('Sameen Karim');
   await page.getByText('Sources & context', { exact: true }).click();
   await expect(page.locator('.source-popover')).toContainText('AI-generated session summary');

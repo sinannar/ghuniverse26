@@ -238,4 +238,13 @@ committed content was already LF; the CRLF came from a global `core.autocrlf`
 setting at checkout. Afterwards, all thirteen unit tests passed, along with
 Astro check, the build, four generated-output tests, and fifteen Chromium tests.
 
+The presenter has a 25-minute slot and agreed to add visuals to the Sessions
+chapter. Stacked PRs in practice now opens with two charts from the speaker's
+slides. The first shows the illustrative review time of one large PR versus
+focused PRs; the second shows the reported +9% merged code and 5% faster merge.
+Charts accept a source, so these credit the session slides instead of Octoverse.
+The model talk's idea slide shows its four-step change evaluation loop. Its
+headline was shortened to fit projector screens. Astro check, thirteen unit
+tests, four generated-output tests, and fifteen Chromium tests passed.
+
 </details>

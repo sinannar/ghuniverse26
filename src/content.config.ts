@@ -23,6 +23,7 @@ const topicsCollection = defineCollection({
         comparison: z.boolean().optional(),
       })).min(1),
       note: z.string(),
+      source: z.object({ label: z.string(), url: z.string().url() }).optional(),
     })).optional(),
     examples: z.array(z.object({
       name: z.string(), description: z.string(), url: z.string().url(),
@@ -31,6 +32,7 @@ const topicsCollection = defineCollection({
     session: z.object({
       speakers: z.array(z.string()).min(1),
       format: z.string(),
+      steps: z.array(z.string()).optional(),
       related: z.object({
         category: z.enum(['octoverse', 'platform', 'copilot', 'sessions']),
         id: z.string(),

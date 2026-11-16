@@ -32,7 +32,8 @@ test('the opening slide is report evidence and only the selected demos have opti
     assert.equal(new Set(slides.map((slide) => slide.id)).size, slides.length);
     assert.ok(slides.filter((slide) => !slide.optional).length >= 2);
     if (topic.category !== 'octoverse') {
-      assert.equal(slides.filter((slide) => !slide.optional).length, topic.creationStory ? 3 : 2);
+      const expected = (topic.charts?.length ?? 0) + (topic.creationStory ? 3 : 2);
+      assert.equal(slides.filter((slide) => !slide.optional).length, expected);
     }
   }
 });

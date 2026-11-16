@@ -139,6 +139,9 @@
   .session-byline p { color: var(--accent); font-weight: 600; }
   .session-byline ul { margin: 0.4rem 0 0; padding: 0; list-style: none; }
   .session-byline a { display: inline-block; margin-top: 1rem; color: var(--white); }
+  .session-flow { display: flex; flex-wrap: wrap; gap: 0.4rem; margin: 1rem 0 0; padding: 0; list-style: none; }
+  .session-flow li { padding: 0.25rem 0.6rem; border: 1px solid var(--accent); color: var(--white); font-size: 0.85rem; }
+  .session-flow li + li::before { content: "→ "; color: var(--accent); }
   .discussion-takeaway { margin-top: 2.5rem; padding-top: 1.25rem; border-top: 1px solid var(--line); font-size: clamp(1rem, 1.6vw, 1.5rem); color: var(--accent-strong); max-width: 80ch; }
   .slide--discussion h2 { margin-bottom: 3rem; }
   .slide-points { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 3rem; }

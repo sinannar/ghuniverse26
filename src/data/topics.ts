@@ -46,6 +46,7 @@ export interface Chart {
   unit: string;
   rows: { label: string; value: number; display: string; comparison?: boolean }[];
   note: string;
+  source?: Source;
 }
 
 export interface Topic {
@@ -65,6 +66,7 @@ export interface Topic {
   session?: {
     speakers: string[];
     format: string;
+    steps?: string[];
     related?: { category: CategoryId; id: string; title: string };
   };
   sources: Source[];
@@ -88,6 +90,8 @@ const sessionSlides = (path: string): Source => ({
   url: `https://static.rainfocus.com/github/universe26/sess/${path}`,
 });
 const sessionCaveat = 'Based on the speakers’ published slides and the event’s AI-generated session summary; the recording was not reviewed. Figures are as presented by the session.';
+const stackedSlides = sessionSlides('1777610662772001qS4e/sessionppt/BLD1485D_Stop%20waiting%20on%20your%20own%20pull%20requests%3A%20GitHub%20Stacked%20PRs%20in%20practice_presentation_1793312756664001XDWe.pdf');
+const stackedSource: Source = { label: 'Sameen Karim’s Universe slides', url: stackedSlides.url };
 
 const topicContent: Topic[] = [
   {
@@ -339,15 +343,25 @@ const topicContent: Topic[] = [
       { title: 'Safe merges', text: 'Upstack PRs stay blocked until lower ones pass; merges are atomic and retarget dependent branches. AutoMerge for stacks was also announced.' },
     ],
     flow: ['Build the stack with gh', 'Review each layer', 'Merge atomically'],
+    charts: [
+      { title: 'One big PR or three focused ones', unit: 'Time to review, hours', rows: [
+        { label: 'One PR: schema + API + UI (+1,200 / −400)', value: 120, display: '5 days', comparison: true },
+        { label: 'Each focused PR (about +400)', value: 1, display: '~1 hour' },
+      ], note: 'Illustrative example from the speaker’s slide, not a measured benchmark. Five days is drawn as 120 hours for scale.', source: stackedSource },
+      { title: 'Reported effect of stacking', unit: 'Change reported on the slide, %', rows: [
+        { label: 'Merged code, repositories using stacked PRs', value: 9, display: '+9%' },
+        { label: 'Time to merge, most active repositories', value: 5, display: '5% faster' },
+      ], note: 'As presented by GitHub; the two figures cover different sets of repositories and do not establish cause.', source: stackedSource },
+    ],
     session: {
       speakers: ['Sameen Karim, Senior Product Manager, GitHub'],
       format: 'Product demo · October 28',
       related: { category: 'platform', id: 'stacked-pull-requests', title: 'Stacked pull requests' },
     },
-    caveat: `${sessionCaveat} The slides report 9% more merged code on repositories using stacks and 5% faster time to merge on the most active repositories.`,
+    caveat: sessionCaveat,
     sources: [
       sessionPage('1777610662772001qS4e'),
-      sessionSlides('1777610662772001qS4e/sessionppt/BLD1485D_Stop%20waiting%20on%20your%20own%20pull%20requests%3A%20GitHub%20Stacked%20PRs%20in%20practice_presentation_1793312756664001XDWe.pdf'),
+      stackedSlides,
       docs('en/pull-requests/how-tos/stacked-pull-requests'),
     ],
   },
@@ -375,8 +389,8 @@ const topicContent: Topic[] = [
   },
   {
     id: 'model-harness', category: 'sessions',
-    title: 'Optimizing Copilot for every new model', headline: 'Agent = model + harness.\nThe harness is the product.',
-    summary: 'The model supplies reasoning. The harness (prompts, tool schemas, the agent loop, context, permissions, and skills) turns it into completed tasks. The same model in a different harness gives a different product.',
+    title: 'Optimizing Copilot for every new model', headline: 'Agent =\nmodel + harness.',
+    summary: 'The model supplies reasoning; the harness (prompts, tools, agent loop, context, permissions) turns it into finished tasks. Each harness change is tested in four steps:',
     takeaway: 'Model choice is only real when every model is tuned into the harness, and the tuning never stops.',
     points: [
       { title: 'Every model drop is tuning', text: 'Dropping a stronger model into an untuned harness can still lower quality. With new models every four to six weeks, retuning is a routine discipline.' },
@@ -387,6 +401,7 @@ const topicContent: Topic[] = [
     session: {
       speakers: ['Julia Kasper, Product Manager, GitHub'],
       format: 'Product demo · October 29',
+      steps: ['Hypothesis in an issue', 'Benchmarks on the PR', 'Staff A/B', 'Customer A/B'],
       related: { category: 'copilot', id: 'fusion', title: 'Copilot Fusion' },
     },
     caveat: sessionCaveat,
