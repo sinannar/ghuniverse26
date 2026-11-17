@@ -99,13 +99,13 @@ const securityContext: Scene[] = [
     steps: 0,
     notes: {
       talk: [
-        "NVD listed 49,972 records published in 2025 and 101,000 in 2026 through 17 November at 03:24 UTC. The 2026 year is not complete.",
-        "A CVE is a public record, not proof of exploitation. These totals include records later rejected; discovery and reporting changes affect the count.",
-        "Separately, Sonatype identified more than 454,600 malicious packages in 2025 across five ecosystems. Its dataset includes registry abuse and potentially unwanted packages.",
+        "GitHub's CVE Numbering Authority published 1,047 CVE records in 2021, rising to 2,903 in 2025—a 35% increase from 2024.",
+        "The chart counts only records published by GitHub's CNA, not all CVEs. A published CVE is not proof of exploitation.",
+        "Microsoft reported that the ChainDrop npm supply-chain attack affected more than 400 packages. Its self-propagating worm targeted credentials and typically ran during installation.",
       ],
       tech: [
-        `NVD snapshot: ${SECURITY_SOURCES.cve.url}`,
-        `Sonatype report and definitions: ${SECURITY_SOURCES.packages.url}`,
+        `GitHub's 2025 advisory and CVE trends: ${SECURITY_SOURCES.cve.url}`,
+        `Microsoft's ChainDrop investigation, August 2026: ${SECURITY_SOURCES.chainDrop.url}`,
       ],
     },
   },
