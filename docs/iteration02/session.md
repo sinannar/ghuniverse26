@@ -247,4 +247,92 @@ The model talk's idea slide shows its four-step change evaluation loop. Its
 headline was shortened to fit projector screens. Astro check, thirteen unit
 tests, four generated-output tests, and fifteen Chromium tests passed.
 
+## Universe badge outcome (issue #14)
+
+The presentation now includes a Platform topic about the Universe 2026 badge
+as a programmable small computer. It describes the built-in apps and how the
+Badger Field Guide's browser simulator supports trying code, with links to the
+guide, simulator, and badge repository. This adds one topic beyond the
+previously scoped four Platform recap announcements; the four chapters remain
+unchanged.
+
+This original outcome was superseded by the Badge chapter refinement below.
+
+Astro check reported no diagnostics. All 14 unit tests, the static build, all
+four generated-output tests, and all 16 Chromium tests passed. The generated-link
+check also verified the topic and exposed records after distinct headings were
+used for the plan and outcome.
+
+## Universe badge chapter refinement
+
+The presenter requested a separate Badge tab, a more detailed flow, and event
+photos. The badge now has its own chapter with four topics covering the
+hardware, interactive controls, shipped apps, and a build path. Platform again
+contains only its four recap announcements. The simulator link follows the
+current badge repository guide, and the content notes that the browser
+simulator does not model every custom 2026 hardware feature.
+
+No badge-specific event photos were found in the repository or the public
+sources checked. The presenter was asked for approved image files or source
+links. The presenter later directed the work to use available GitHub visuals;
+the included reference-device image is distinct from an event photograph.
+
+Validation for the earlier Badge chapter update:
+
+Astro check reported no errors, warnings, or hints. All 14 unit tests, the
+static build, all four production-output tests, and all 17 Chromium tests
+passed. The production checks verified generated topic routes and links; the
+browser test also checked for horizontal overflow at 320px.
+
+## Badge visuals from GitHub
+
+The presenter then asked to use public GitHub visuals. The opening badge slide
+now includes the Tufty 2350 reference-device image from `badger/home`, captioned
+to distinguish the base platform from the final Universe 2026 enclosure. The
+asset is pinned to its upstream commit and the upstream MIT license is included
+beside the image.
+
+Astro check reported no errors, warnings, or hints. All 14 unit tests, the
+static build, all four production-output tests, and all 18 Chromium tests
+passed. The new browser regression confirmed the image loads, its attribution
+and caption are visible, and the slide has no horizontal overflow at 320px.
+
+## Badge specification and simulator implementation
+
+The presenter supplied two image links, badge specifications, and a request to
+make the Badge chapter more vivid. A fifth topic, “Inside the badge,” now
+summarizes the published computer, display/input, connectivity, power, and
+expansion specifications. The runtime wording retains “up to” and notes that
+actual battery life depends on use.
+
+The simulator explanation now reflects the Badger Field Guide: MonaOS 4.0 and
+stock apps run in the browser, HTTP requests may depend on CORS, and socket-based
+Camera and Copilot apps require a physical badge. The Guide/about page was
+unavailable for direct retrieval in this environment, so its indexed page
+content was checked alongside the `badger/home` hardware reference and README.
+
+Both supplied GitHub user-attachment URLs returned HTTP 404 when fetched from
+the implementation environment. No broken remote image was added; the
+previously licensed Tufty 2350 reference photo remains, captioned as the base
+platform rather than the finished Universe badge. The presenter was asked to
+provide image files or accessible links before those badge-specific images can
+be incorporated.
+
+Validation for this follow-up:
+
+- `npm run check`: no errors, warnings, or hints.
+- `npm test`: all 14 tests passed.
+- `npm run build`: succeeded; generated the new badge hardware route.
+- `npm run test:production`: all 4 tests passed.
+- `npm run test:browser`: all 18 tests passed, including the badge flow and
+  projector/mobile layout checks.
+
+## Supplied badge image retry
+
+The presenter supplied a new badge-photo attachment after the previous links
+were unavailable. This URL also returned HTTP 404 from the implementation
+environment, including through GitHub's `raw` and `download` URL variants.
+The existing Tufty 2350 reference photo therefore remains; the new badge photo
+is not embedded. An accessible file or working URL is needed to continue.
+
 </details>

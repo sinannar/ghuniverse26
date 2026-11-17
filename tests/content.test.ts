@@ -52,6 +52,29 @@ test('session topics credit speakers, disclose their abstract basis, and link to
   assert.deepEqual(stacked.charts!.map((chart) => chart.rows.map((row) => row.display)), [['5 days', '~1 hour'], ['+9%', '5% faster']]);
 });
 
+test('the Universe badge has its own chapter with a researched hardware-to-building flow', () => {
+  assert.deepEqual(categories.map((category) => category.id), ['octoverse', 'platform', 'badge', 'copilot', 'sessions']);
+  const badgeTopics = topics.filter((topic) => topic.category === 'badge');
+  assert.deepEqual(badgeTopics.map((topic) => topic.id), [
+    'universe-badge', 'badge-hardware', 'badge-interactions', 'badge-apps', 'build-for-the-badge',
+  ]);
+  assert.equal(topics.filter((topic) => topic.category === 'platform').length, 4);
+  assert.match(badgeTopics[0].summary, /programmable computer/);
+  assert.match(badgeTopics[1].points[0].text, /RP2350 dual-core Arm Cortex-M33 at 200 MHz/);
+  assert.match(badgeTopics[1].points[1].text, /320 × 240 full-color IPS/);
+  assert.match(badgeTopics[1].points[3].text, /up to 8 hours/);
+  assert.match(badgeTopics[2].points[2].text, /Infrared transmit and receive hardware/);
+  assert.match(badgeTopics[3].points[1].text, /exchanges cards with nearby badges/);
+  assert.match(badgeTopics[4].points[1].text, /MonaOS 4.0 and stock apps/);
+  assert.match(badgeTopics[4].points[1].text, /depend on CORS/);
+  assert.match(badgeTopics[0].visual?.caption ?? '', /not this exact enclosure/);
+  assert.equal(badgeTopics[0].visual?.source.url, 'https://github.com/badger/home/blob/c095061d3483a2504a67a1f37ed4d7ee71edad5a/badge/assets/tufty.png');
+  assert.ok(badgeTopics[0].sources.some((source) => source.url === 'https://badger.github.io/'));
+  assert.ok(badgeTopics[4].sources.some((source) => source.url === 'https://badger.github.io/about-badge/#badge-simulator'));
+  assert.ok(badgeTopics[4].sources.some((source) => source.url === 'https://badger.github.io/editor'));
+  assert.ok(badgeTopics[0].sources.some((source) => source.url === 'https://github.com/badger/home'));
+});
+
 test('Pages paths work at root and at the repository base without doubled separators', () => {
   for (const base of ['/ghuniverse26', '/ghuniverse26/']) {
     assert.equal(withBase('copilot/fusion/', base), '/ghuniverse26/copilot/fusion/');

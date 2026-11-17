@@ -8,12 +8,59 @@ test('opens on real report evidence, not a title or a recap landing page', async
   await expect(page.locator('[data-slide]:visible')).toHaveCount(1);
   await expect(page.locator('#chart-1')).toBeVisible();
   for (const value of ['5.2B', '6.7B', '17.9B']) await expect(page.locator('#chart-1')).toContainText(value);
-  await expect(page.locator('.category-tab')).toHaveText(['Octoverse', 'Platform', 'Copilot', 'Sessions']);
+  await expect(page.locator('.category-tab')).toHaveText(['Octoverse', 'Platform', 'Badge', 'Copilot', 'Sessions']);
   await expect(page.getByRole('button', { name: 'Previous slide', exact: true })).toBeDisabled();
   await page.screenshot({ path: test.info().outputPath('opening-desktop.png') });
   await page.setViewportSize({ width: 390, height: 844 });
   await page.screenshot({ path: test.info().outputPath('opening-mobile.png') });
   expect(errors).toEqual([]);
+});
+
+test('the Platform chapter keeps its four announcement topics', async ({ page }) => {
+  await page.goto('./platform/');
+  await expect(page.locator('.topic-door')).toHaveCount(4);
+  await expect(page.getByRole('link', { name: /Universe badge/ })).toHaveCount(0);
+});
+
+test('the Badge chapter presents a distinct five-topic journey and build resources', async ({ page }) => {
+  await page.goto('./badge/');
+  await expect(page.locator('.topic-door h2')).toHaveText([
+    'Meet the badge', 'Inside the badge', 'Built to interact', 'Apps for the event', 'Build for the badge',
+  ]);
+  await page.getByRole('link', { name: /Inside the badge/ }).click();
+  await expect(page.locator('#idea .slide-lead')).toContainText('wireless connections');
+  await page.getByRole('button', { name: 'Next slide' }).click();
+  await expect(page.locator('#discussion .slide-points')).toContainText('RP2350 dual-core Arm Cortex-M33 at 200 MHz');
+  await expect(page.locator('#discussion .slide-points')).toContainText('up to 8 hours');
+  await page.goto('./badge/');
+  await page.getByRole('link', { name: /Built to interact/ }).click();
+  await expect(page.locator('#idea .slide-lead')).toContainText('sensors and controls');
+  await page.getByText('Sources & context', { exact: true }).click();
+  await expect(page.locator('.source-popover a[href="https://github.com/badger/home/blob/main/hardware/README.md"]')).toBeVisible();
+  await page.goto('./badge/build-for-the-badge/');
+  await page.getByText('Sources & context', { exact: true }).click();
+  await expect(page.locator('.source-popover a[href="https://badger.github.io/"]')).toBeVisible();
+  await expect(page.locator('.source-popover a[href="https://badger.github.io/about-badge/#badge-simulator"]')).toBeVisible();
+  await expect(page.locator('.source-popover a[href="https://badger.github.io/editor"]')).toBeVisible();
+  await expect(page.locator('.source-popover')).toContainText('not a substitute for hardware testing');
+  await expect(page.locator('.source-popover')).toContainText('depend on CORS');
+  await page.setViewportSize({ width: 320, height: 720 });
+  expect(await page.evaluate(() => document.documentElement.scrollWidth - innerWidth)).toBeLessThanOrEqual(1);
+});
+
+test('the badge introduction shows its sourced platform image with an accurate caption', async ({ page }) => {
+  await page.goto('./badge/universe-badge/');
+  const visual = page.locator('.slide-visual');
+  await expect(visual).toBeVisible();
+  await expect(visual.locator('img')).toHaveAttribute('alt', /Tufty 2350/);
+  await expect(visual.locator('img')).toHaveJSProperty('naturalWidth', 320);
+  await expect(visual).toContainText('not this exact enclosure');
+  await expect(visual.getByRole('link', { name: /Badge platform photo on GitHub/ })).toHaveAttribute(
+    'href',
+    'https://github.com/badger/home/blob/c095061d3483a2504a67a1f37ed4d7ee71edad5a/badge/assets/tufty.png',
+  );
+  await page.setViewportSize({ width: 320, height: 720 });
+  expect(await page.evaluate(() => document.documentElement.scrollWidth - innerWidth)).toBeLessThanOrEqual(1);
 });
 
 test('keys traverse slides, cross topics, preserve hashes, and return to the chooser', async ({ page }) => {

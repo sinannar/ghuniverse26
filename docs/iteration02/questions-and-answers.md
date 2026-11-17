@@ -55,3 +55,55 @@ one exists. The presenter did not separately confirm the chapter placement.
 **Result:** The presenter signed in personally in the automation browser. The
 signed-in pages exposed the speakers' slide PDFs and AI-generated session
 summaries, which replaced the abstracts as the content source.
+
+## Universe badge chapter request
+
+User request (verbatim):
+
+> I think badge should be a seperate tab like copilot, platform, octaverse... It should have its own flow and pictures from event. more detailed presentation, instead of being part of platform
+
+Decision summary: move the badge from Platform into its own Badge chapter and
+expand it into a four-topic journey through hardware, event apps, and building
+for the badge. No badge-specific event photos were available in the repository
+or the public sources checked; approved photo files or source links were
+requested before adding imagery.
+
+**Follow-up request (verbatim):**
+
+> @copilot for the badge itself, grab some visuals from github.com etc. this is presentation, some visuals would be good
+
+Decision summary: use a verified visual from the badge's public GitHub
+repository. The available physical-device image depicts the Tufty 2350
+reference platform, so the slide identifies it as the Universe badge's base
+platform rather than implying it shows the final event enclosure. Preserve
+the upstream MIT license with the copied asset.
+
+## Badge images, specifications, and simulator follow-up
+
+User request (verbatim):
+
+> @copilot use these images
+
+The presenter supplied one badge image and one 3D specification illustration,
+provided a detailed specification list, and asked for a more vivid badge
+presentation. The two GitHub user-attachment URLs both returned HTTP 404 from
+the implementation environment, so their image files could not be copied or
+verified. The existing licensed Tufty 2350 reference photo remains in place;
+the supplied badge-specific images should replace or supplement it once
+accessible image files or URLs are available.
+
+Implementation summary: add a fifth Badge topic for the hardware profile and
+include its published processor, memory/storage, display/input, connectivity,
+battery/runtime, and expansion details. Update the simulator explanation using
+the Field Guide's current information: MonaOS 4.0 and stock apps run in the
+browser, HTTP requests may depend on CORS, and socket-based Camera and Copilot
+apps require a physical badge.
+
+**Latest image request (verbatim):**
+
+> @copilot you didnt use the picture :) use the picture below for the badge ,that is best presentation of badge
+
+The new attachment URL returned HTTP 404 when fetched from the implementation
+environment, including with GitHub's `raw` and `download` URL variants. The
+image cannot be included until it is accessible as an uploaded file or working
+URL.

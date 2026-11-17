@@ -15,8 +15,15 @@ export const categories = [
     id: 'platform',
     name: 'Platform',
     headline: 'Less friction.\nMore forward.',
-    description: 'Smaller changes, richer context, and a clearer path from an idea to a merged pull request.',
+    description: 'Smaller changes, richer context, and a clearer path to merge.',
     invitation: 'Choose a platform announcement',
+  },
+  {
+    id: 'badge',
+    name: 'Badge',
+    headline: 'A computer\non your lanyard.',
+    description: 'Meet the Universe 2026 badge, explore its event apps, and follow a path from interactive hardware to your own code.',
+    invitation: 'Follow the badge from event to code',
   },
   {
     id: 'copilot',
@@ -63,6 +70,7 @@ export interface Topic {
   charts?: Chart[];
   examples?: { name: string; description: string; url: string }[];
   caveat?: string;
+  visual?: { src: string; alt: string; caption: string; source: Source };
   session?: {
     speakers: string[];
     format: string;
@@ -150,6 +158,108 @@ const topicContent: Topic[] = [
     sources: [
       docs('en/pull-requests'),
       release('2026-11-05-new-pull-request-overview-page-in-public-preview', 'Changelog: pull request overview'),
+    ],
+  },
+  {
+    id: 'universe-badge', category: 'badge',
+    title: 'Meet the badge', headline: 'A computer\non your lanyard.',
+    summary: 'The Universe 2026 badge is a programmable computer attendees can wear, explore, and build for—not just an event credential.',
+    takeaway: 'The badge is both a keepsake and a platform attendees can explore and build for.',
+    points: [
+      { title: 'Made to explore', text: 'MonaOS and MicroPython apps make this a small computer, ready to use and open to build on.' },
+      { title: 'Made to interact', text: 'A color screen, physical and touch controls, motion sensing, Wi-Fi, Bluetooth, and infrared bring apps off the screen.' },
+      { title: 'A starting point', text: 'The event apps are open to explore, and the badge’s software and hardware references are published for builders.' },
+    ],
+    flow: ['Meet the computer', 'See what it can do', 'Make and test an app'],
+    caveat: 'Hardware and app details here refer to the Universe 2026 badge; earlier Universe badges differ.',
+    visual: {
+      src: '/badge-visuals/tufty-platform.png',
+      alt: 'Tufty 2350 color-screen badge with its app launcher displayed.',
+      caption: 'Tufty 2350 reference device. The Universe 2026 badge is a custom derivative, not this exact enclosure.',
+      source: {
+        label: 'Badge platform photo on GitHub',
+        url: 'https://github.com/badger/home/blob/c095061d3483a2504a67a1f37ed4d7ee71edad5a/badge/assets/tufty.png',
+      },
+    },
+    sources: [
+      { label: 'Badger 2026 Field Guide', url: 'https://badger.github.io/' },
+      { label: 'About the badge', url: 'https://badger.github.io/about-badge/' },
+      { label: 'Universe 2026 badge hardware reference', url: 'https://github.com/badger/home/blob/main/hardware/README.md' },
+      { label: 'Badge platform photo on GitHub', url: 'https://github.com/badger/home/blob/c095061d3483a2504a67a1f37ed4d7ee71edad5a/badge/assets/tufty.png' },
+      { label: 'Badge hardware and apps on GitHub', url: 'https://github.com/badger/home' },
+    ],
+  },
+  {
+    id: 'badge-hardware', category: 'badge',
+    title: 'Inside the badge', headline: 'Small board.\nBig possibilities.',
+    summary: 'A compact computer pairs a vivid display and interactive controls with wireless connections, a rechargeable battery, and room to expand.',
+    takeaway: 'Every spec points to another way to use, connect, or build for the badge.',
+    points: [
+      { title: 'Compute & storage', text: 'RP2350 dual-core Arm Cortex-M33 at 200 MHz, 512 kB SRAM, and 16 MB QSPI XiP flash run MonaOS and MicroPython apps.' },
+      { title: 'See & sense', text: 'A 320 × 240 full-color IPS display with four-zone LED backlight sits alongside five buttons, eight capacitive touch sensors, and an accelerometer.' },
+      { title: 'Connect', text: '2.4 GHz Wi-Fi, Bluetooth 5, and infrared transmit and receive support network apps, nearby projects, and beacons.' },
+      { title: 'Power through the day', text: 'A rechargeable 1,000 mAh battery is rated for up to 8 hours, with battery-voltage and charge-status monitoring.' },
+      { title: 'Built to take along', text: 'USB-C handles charging and programming; Qw/ST adds accessories; SWD supports debugging. A polycarbonate enclosure and lanyard fixings make it wearable.' },
+    ],
+    flow: ['Compute', 'Display & input', 'Connect', 'Go portable', 'Expand'],
+    caveat: 'Battery runtime is an “up to” specification; actual runtime depends on use. Specs describe the Universe 2026 badge, not earlier event badges.',
+    sources: [
+      { label: 'About the badge: specifications', url: 'https://badger.github.io/about-badge/' },
+      { label: 'Universe 2026 badge hardware reference', url: 'https://github.com/badger/home/blob/main/hardware/README.md' },
+    ],
+  },
+  {
+    id: 'badge-interactions', category: 'badge',
+    title: 'Built to interact', headline: 'Touch, move,\nconnect.',
+    summary: 'The Universe badge adds sensors and controls that let developers build beyond a static screen.',
+    takeaway: 'The controls and sensors make the badge an input device as well as a display.',
+    points: [
+      { title: 'Press or touch', text: 'Five physical buttons work alongside capacitive touch controls, including a directional pad and Select, Back, Menu, and Home.' },
+      { title: 'Move it', text: 'An accelerometer and gyroscope report motion and help the firmware adapt to badge orientation.' },
+      { title: 'Connect nearby', text: 'Infrared transmit and receive hardware supports experiences such as the badge quest, where badges exchange beacons.' },
+    ],
+    flow: ['Press or touch', 'Move the badge', 'Exchange signals'],
+    caveat: 'Hardware details refer to the Universe 2026 badge. Use a physical badge to verify hardware-specific behavior.',
+    sources: [
+      { label: 'Universe 2026 badge hardware reference', url: 'https://github.com/badger/home/blob/main/hardware/README.md' },
+      { label: 'About the badge: hardware and simulator', url: 'https://badger.github.io/about-badge/#badge-simulator' },
+      { label: 'Badge quest app', url: 'https://github.com/badger/home/tree/main/badge/apps/quest' },
+    ],
+  },
+  {
+    id: 'badge-apps', category: 'badge',
+    title: 'Apps for the event', headline: 'The event\nruns on the badge.',
+    summary: 'The shipped apps turn the badge into a personal profile, a way to exchange contacts, and a playful quest.',
+    takeaway: 'The event experience is a set of small apps, not a single fixed screen.',
+    points: [
+      { title: 'Show your GitHub', text: 'The Badge app displays a GitHub profile and contribution graph.' },
+      { title: 'Share a contact card', text: 'The Contacts app exchanges cards with nearby badges.' },
+      { title: 'Play the quest', text: 'The Quest app uses infrared beacons to collect progress.' },
+    ],
+    flow: ['Show your profile', 'Share a contact', 'Find the next beacon'],
+    sources: [
+      { label: 'Badge app source', url: 'https://github.com/badger/home/tree/main/badge/apps/badge' },
+      { label: 'Contacts app source', url: 'https://github.com/badger/home/tree/main/badge/apps/contacts' },
+      { label: 'Quest app source', url: 'https://github.com/badger/home/tree/main/badge/apps/quest' },
+    ],
+  },
+  {
+    id: 'build-for-the-badge', category: 'badge',
+    title: 'Build for the badge', headline: 'From a browser\ninto your hands.',
+    summary: 'Start with the Badger Field Guide, experiment in the browser, then explore the published apps and hardware references.',
+    takeaway: 'The badge is designed to invite attendees from using it to making something for it.',
+    points: [
+      { title: 'Explore the guide', text: 'The Field Guide collects the paths into badge apps, capabilities, and development resources.' },
+      { title: 'Try the browser simulator', text: 'Run MonaOS 4.0 and stock apps in the browser. HTTP requests depend on CORS, while socket apps such as Camera and Copilot require a physical badge.' },
+      { title: 'Keep building', text: 'The badge repository publishes the shipped apps and hardware references so developers can inspect how it works.' },
+    ],
+    flow: ['Read the guide', 'Try an app in the browser', 'Test on the badge'],
+    caveat: 'The browser simulator is a useful starting point, not a substitute for hardware testing. Its HTTP requests may depend on CORS, and socket-based Camera and Copilot apps require a physical badge.',
+    sources: [
+      { label: 'Badger 2026 Field Guide', url: 'https://badger.github.io/' },
+      { label: 'About the badge and browser simulator', url: 'https://badger.github.io/about-badge/#badge-simulator' },
+      { label: 'Browser simulator', url: 'https://badger.github.io/editor' },
+      { label: 'Badge hardware and apps on GitHub', url: 'https://github.com/badger/home' },
     ],
   },
   {

@@ -9,6 +9,8 @@ colors:
   line: "#d7dad4"
   platform: "#88e797"
   platform-strong: "#347d3b"
+  badge: "#d9c6f2"
+  badge-strong: "#684493"
   copilot: "#f3a5c3"
   copilot-strong: "#b92961"
   octoverse: "#e5d36a"
@@ -45,10 +47,10 @@ of the official recap. Real demonstrations happen in the presenter's own tools.
 ## Colors
 
 Paper and ink carry the interface. Mustard identifies Octoverse, green Platform,
-pink Copilot, and teal Sessions. Each chapter pairs a light accent with a stronger color for
-chart bars and headings. Idea and demo slides invert to ink; Fusion's creation
-story uses a full pink field. Comparison bars are neutral rather than competing
-with the current observation.
+violet the Badge chapter, pink Copilot, and teal Sessions. Each chapter pairs a
+light accent with a stronger color for chart bars and headings. Idea and demo
+slides invert to ink; Fusion's creation story uses a full pink field. Comparison
+bars are neutral rather than competing with the current observation.
 
 The making-of timeline uses session semantics instead of chapter colors:
 code changes (`data-session-type="change"`) are green `#347d3b`, reviews
