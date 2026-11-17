@@ -166,11 +166,11 @@ const topicContent: Topic[] = [
     summary: 'The Universe 2026 badge is a programmable computer attendees can wear, explore, and build for—not just an event credential.',
     takeaway: 'The badge is both a keepsake and a platform attendees can explore and build for.',
     points: [
-      { title: 'A computer to take home', text: 'The badge combines an RP2350B microcontroller, a color screen, and a rechargeable battery in a wearable format.' },
-      { title: 'Made for more than display', text: 'Physical buttons, touch controls, motion sensing, and infrared hardware give apps ways to respond and connect.' },
+      { title: 'Made to explore', text: 'MonaOS and MicroPython apps make this a small computer, ready to use and open to build on.' },
+      { title: 'Made to interact', text: 'A color screen, physical and touch controls, motion sensing, Wi-Fi, Bluetooth, and infrared bring apps off the screen.' },
       { title: 'A starting point', text: 'The event apps are open to explore, and the badge’s software and hardware references are published for builders.' },
     ],
-    flow: ['Meet the hardware', 'Explore the event apps', 'Make and test an app'],
+    flow: ['Meet the computer', 'See what it can do', 'Make and test an app'],
     caveat: 'Hardware and app details here refer to the Universe 2026 badge; earlier Universe badges differ.',
     visual: {
       src: '/badge-visuals/tufty-platform.png',
@@ -183,9 +183,29 @@ const topicContent: Topic[] = [
     },
     sources: [
       { label: 'Badger 2026 Field Guide', url: 'https://badger.github.io/' },
+      { label: 'About the badge', url: 'https://badger.github.io/about-badge/' },
       { label: 'Universe 2026 badge hardware reference', url: 'https://github.com/badger/home/blob/main/hardware/README.md' },
       { label: 'Badge platform photo on GitHub', url: 'https://github.com/badger/home/blob/c095061d3483a2504a67a1f37ed4d7ee71edad5a/badge/assets/tufty.png' },
       { label: 'Badge hardware and apps on GitHub', url: 'https://github.com/badger/home' },
+    ],
+  },
+  {
+    id: 'badge-hardware', category: 'badge',
+    title: 'Inside the badge', headline: 'Small board.\nBig possibilities.',
+    summary: 'A compact computer pairs a vivid display and interactive controls with wireless connections, a rechargeable battery, and room to expand.',
+    takeaway: 'Every spec points to another way to use, connect, or build for the badge.',
+    points: [
+      { title: 'Compute & storage', text: 'RP2350 dual-core Arm Cortex-M33 at 200 MHz, 512 kB SRAM, and 16 MB QSPI XiP flash run MonaOS and MicroPython apps.' },
+      { title: 'See & sense', text: 'A 320 × 240 full-color IPS display with four-zone LED backlight sits alongside five buttons, eight capacitive touch sensors, and an accelerometer.' },
+      { title: 'Connect', text: '2.4 GHz Wi-Fi, Bluetooth 5, and infrared transmit and receive support network apps, nearby projects, and beacons.' },
+      { title: 'Power through the day', text: 'A rechargeable 1,000 mAh battery is rated for up to 8 hours, with battery-voltage and charge-status monitoring.' },
+      { title: 'Built to take along', text: 'USB-C handles charging and programming; Qw/ST adds accessories; SWD supports debugging. A polycarbonate enclosure and lanyard fixings make it wearable.' },
+    ],
+    flow: ['Compute', 'Display & input', 'Connect', 'Go portable', 'Expand'],
+    caveat: 'Battery runtime is an “up to” specification; actual runtime depends on use. Specs describe the Universe 2026 badge, not earlier event badges.',
+    sources: [
+      { label: 'About the badge: specifications', url: 'https://badger.github.io/about-badge/' },
+      { label: 'Universe 2026 badge hardware reference', url: 'https://github.com/badger/home/blob/main/hardware/README.md' },
     ],
   },
   {
@@ -199,9 +219,10 @@ const topicContent: Topic[] = [
       { title: 'Connect nearby', text: 'Infrared transmit and receive hardware supports experiences such as the badge quest, where badges exchange beacons.' },
     ],
     flow: ['Press or touch', 'Move the badge', 'Exchange signals'],
-    caveat: 'Hardware details refer to the Universe 2026 badge; the browser simulator does not model all of its custom sensors and controls.',
+    caveat: 'Hardware details refer to the Universe 2026 badge. Use a physical badge to verify hardware-specific behavior.',
     sources: [
       { label: 'Universe 2026 badge hardware reference', url: 'https://github.com/badger/home/blob/main/hardware/README.md' },
+      { label: 'About the badge: hardware and simulator', url: 'https://badger.github.io/about-badge/#badge-simulator' },
       { label: 'Badge quest app', url: 'https://github.com/badger/home/tree/main/badge/apps/quest' },
     ],
   },
@@ -229,13 +250,14 @@ const topicContent: Topic[] = [
     takeaway: 'The badge is designed to invite attendees from using it to making something for it.',
     points: [
       { title: 'Explore the guide', text: 'The Field Guide collects the paths into badge apps, capabilities, and development resources.' },
-      { title: 'Try the browser simulator', text: 'Use the simulator as a first look at badge app development, then test hardware-specific behavior on a physical Universe badge.' },
+      { title: 'Try the browser simulator', text: 'Run MonaOS 4.0 and stock apps in the browser. HTTP requests depend on CORS, while socket apps such as Camera and Copilot require a physical badge.' },
       { title: 'Keep building', text: 'The badge repository publishes the shipped apps and hardware references so developers can inspect how it works.' },
     ],
     flow: ['Read the guide', 'Try an app in the browser', 'Test on the badge'],
-    caveat: 'The browser simulator does not exactly model the Universe 2026 badge’s custom graphics, accelerometer, infrared, capacitive controls, or firmware APIs.',
+    caveat: 'The browser simulator is a useful starting point, not a substitute for hardware testing. Its HTTP requests may depend on CORS, and socket-based Camera and Copilot apps require a physical badge.',
     sources: [
       { label: 'Badger 2026 Field Guide', url: 'https://badger.github.io/' },
+      { label: 'About the badge and browser simulator', url: 'https://badger.github.io/about-badge/#badge-simulator' },
       { label: 'Browser simulator', url: 'https://badger.github.io/editor' },
       { label: 'Badge hardware and apps on GitHub', url: 'https://github.com/badger/home' },
     ],

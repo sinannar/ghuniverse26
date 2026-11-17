@@ -100,10 +100,26 @@ its own flow and event pictures. The badge is now a fifth chapter with four
 topics: hardware, interactive controls, event apps, and a build path. Platform
 returns to its four recap announcements, and the presentation has five chapters
 and 23 topics. No event photography was found at that point; the later
-GitHub-visual follow-up below supersedes the need for presenter-supplied assets.
+GitHub-visual follow-up below added a reference-platform image, not a finished
+Universe 2026 badge photograph.
 
 **Superseded by follow-up:** The presenter asked to use visuals from GitHub.
 The Badge introduction now includes `badger/home`'s Tufty 2350 platform image,
 with a caption clarifying that it is the badge's base platform and not the
 finished Universe 2026 enclosure. The source is pinned to a GitHub commit and
 its MIT license is included with the image.
+
+## Badge specification and simulator scope
+
+The presenter asked to use two supplied badge images and make the Badge chapter
+more vivid and detailed. Expand the chapter from four to five topics by adding
+a hardware profile alongside the existing introduction, interaction, event-app,
+and build topics. Summarize the published computing, display/input, connectivity,
+power, and expansion specifications with the “up to” runtime caveat. The guide's
+browser simulator runs MonaOS 4.0 and stock apps; HTTP behavior can depend on
+CORS, and socket-based Camera and Copilot apps require a physical badge.
+
+The two supplied `github.com/user-attachments/assets/` links returned HTTP 404
+when checked from the implementation environment. Do not embed broken remote
+images; retain the attributed Tufty 2350 reference photo until accessible copies
+of the supplied badge images are available.

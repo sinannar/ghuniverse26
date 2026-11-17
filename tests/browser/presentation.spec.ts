@@ -22,11 +22,17 @@ test('the Platform chapter keeps its four announcement topics', async ({ page })
   await expect(page.getByRole('link', { name: /Universe badge/ })).toHaveCount(0);
 });
 
-test('the Badge chapter presents a distinct four-topic journey and build resources', async ({ page }) => {
+test('the Badge chapter presents a distinct five-topic journey and build resources', async ({ page }) => {
   await page.goto('./badge/');
   await expect(page.locator('.topic-door h2')).toHaveText([
-    'Meet the badge', 'Built to interact', 'Apps for the event', 'Build for the badge',
+    'Meet the badge', 'Inside the badge', 'Built to interact', 'Apps for the event', 'Build for the badge',
   ]);
+  await page.getByRole('link', { name: /Inside the badge/ }).click();
+  await expect(page.locator('#idea .slide-lead')).toContainText('wireless connections');
+  await page.getByRole('button', { name: 'Next slide' }).click();
+  await expect(page.locator('#discussion .slide-points')).toContainText('RP2350 dual-core Arm Cortex-M33 at 200 MHz');
+  await expect(page.locator('#discussion .slide-points')).toContainText('up to 8 hours');
+  await page.goto('./badge/');
   await page.getByRole('link', { name: /Built to interact/ }).click();
   await expect(page.locator('#idea .slide-lead')).toContainText('sensors and controls');
   await page.getByText('Sources & context', { exact: true }).click();
@@ -34,8 +40,10 @@ test('the Badge chapter presents a distinct four-topic journey and build resourc
   await page.goto('./badge/build-for-the-badge/');
   await page.getByText('Sources & context', { exact: true }).click();
   await expect(page.locator('.source-popover a[href="https://badger.github.io/"]')).toBeVisible();
+  await expect(page.locator('.source-popover a[href="https://badger.github.io/about-badge/#badge-simulator"]')).toBeVisible();
   await expect(page.locator('.source-popover a[href="https://badger.github.io/editor"]')).toBeVisible();
-  await expect(page.locator('.source-popover')).toContainText('does not exactly model');
+  await expect(page.locator('.source-popover')).toContainText('not a substitute for hardware testing');
+  await expect(page.locator('.source-popover')).toContainText('depend on CORS');
   await page.setViewportSize({ width: 320, height: 720 });
   expect(await page.evaluate(() => document.documentElement.scrollWidth - innerWidth)).toBeLessThanOrEqual(1);
 });

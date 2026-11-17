@@ -297,4 +297,34 @@ static build, all four production-output tests, and all 18 Chromium tests
 passed. The new browser regression confirmed the image loads, its attribution
 and caption are visible, and the slide has no horizontal overflow at 320px.
 
+## Badge specification and simulator implementation
+
+The presenter supplied two image links, badge specifications, and a request to
+make the Badge chapter more vivid. A fifth topic, “Inside the badge,” now
+summarizes the published computer, display/input, connectivity, power, and
+expansion specifications. The runtime wording retains “up to” and notes that
+actual battery life depends on use.
+
+The simulator explanation now reflects the Badger Field Guide: MonaOS 4.0 and
+stock apps run in the browser, HTTP requests may depend on CORS, and socket-based
+Camera and Copilot apps require a physical badge. The Guide/about page was
+unavailable for direct retrieval in this environment, so its indexed page
+content was checked alongside the `badger/home` hardware reference and README.
+
+Both supplied GitHub user-attachment URLs returned HTTP 404 when fetched from
+the implementation environment. No broken remote image was added; the
+previously licensed Tufty 2350 reference photo remains, captioned as the base
+platform rather than the finished Universe badge. The presenter was asked to
+provide image files or accessible links before those badge-specific images can
+be incorporated.
+
+Validation for this follow-up:
+
+- `npm run check`: no errors, warnings, or hints.
+- `npm test`: all 14 tests passed.
+- `npm run build`: succeeded; generated the new badge hardware route.
+- `npm run test:production`: all 4 tests passed.
+- `npm run test:browser`: all 18 tests passed, including the badge flow and
+  projector/mobile layout checks.
+
 </details>

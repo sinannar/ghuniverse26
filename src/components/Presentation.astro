@@ -18,7 +18,7 @@ const { previous, next, index } = neighbors(entries, entry.id);
 const previousSlideId = previous && presentationSlides(previous.data).filter((slide) => !slide.optional).at(-1)!.id;
 ---
 <BaseLayout title={`${topic.title} — Universe 2026 presentation`} category={category.id} description={topic.summary}>
-  <article class="slide-deck" data-deck>
+  <article class="slide-deck" data-deck data-topic-id={entry.id}>
     <h1 class="sr-only">{topic.title}</h1>
     <div class="deck-topline">
       <a data-overview href={href(categoryPath(category.id))}>☷ Choose a topic</a>

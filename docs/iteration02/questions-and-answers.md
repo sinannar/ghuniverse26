@@ -77,3 +77,24 @@ repository. The available physical-device image depicts the Tufty 2350
 reference platform, so the slide identifies it as the Universe badge's base
 platform rather than implying it shows the final event enclosure. Preserve
 the upstream MIT license with the copied asset.
+
+## Badge images, specifications, and simulator follow-up
+
+User request (verbatim):
+
+> @copilot use these images
+
+The presenter supplied one badge image and one 3D specification illustration,
+provided a detailed specification list, and asked for a more vivid badge
+presentation. The two GitHub user-attachment URLs both returned HTTP 404 from
+the implementation environment, so their image files could not be copied or
+verified. The existing licensed Tufty 2350 reference photo remains in place;
+the supplied badge-specific images should replace or supplement it once
+accessible image files or URLs are available.
+
+Implementation summary: add a fifth Badge topic for the hardware profile and
+include its published processor, memory/storage, display/input, connectivity,
+battery/runtime, and expansion details. Update the simulator explanation using
+the Field Guide's current information: MonaOS 4.0 and stock apps run in the
+browser, HTTP requests may depend on CORS, and socket-based Camera and Copilot
+apps require a physical badge.

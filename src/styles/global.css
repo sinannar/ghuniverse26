@@ -154,6 +154,12 @@
   .slide-points { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 3rem; }
   .slide-points h3 { padding-top: 1rem; border-top: 4px solid var(--accent-strong); font-size: clamp(1.25rem, 2vw, 1.9rem); }
   .slide-points p { font-size: clamp(1rem, 1.5vw, 1.35rem); line-height: 1.65; margin-top: 1rem; color: var(--muted); max-width: 40ch; }
+  @media (min-width: 1001px) {
+    .slide-deck[data-topic-id="badge-hardware"] .slide--discussion h2 { font-size: clamp(2rem, 4vw, 3rem); margin-bottom: 1.5rem; }
+    .slide-deck[data-topic-id="badge-hardware"] .slide-points { grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 1.25rem; }
+    .slide-deck[data-topic-id="badge-hardware"] .slide-points h3 { font-size: clamp(1rem, 1.3vw, 1.2rem); }
+    .slide-deck[data-topic-id="badge-hardware"] .slide-points p { font-size: clamp(0.85rem, 1vw, 0.95rem); line-height: 1.45; margin-top: 0.5rem; }
+  }
   .slide--demo { background: var(--ink); color: white; }
   .slide--demo h2 { font-size: clamp(2.75rem, 5vw, 5.75rem); color: var(--accent); max-width: 22ch; }
   .demo-return { font-size: 0.8rem; color: #b6b3c2; margin-top: 2rem; }
