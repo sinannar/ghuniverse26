@@ -107,3 +107,13 @@ The new attachment URL returned HTTP 404 when fetched from the implementation
 environment, including with GitHub's `raw` and `download` URL variants. The
 image cannot be included until it is accessible as an uploaded file or working
 URL.
+
+## Supplied keynote deployment request
+
+**Request (summary):** Unpack the supplied completed web app, make it ready,
+test it locally, and open a pull request so that the supplied app becomes the
+GitHub Pages site when the owner merges it.
+
+**Implementation decision:** Use the supplied keynote as the default site and
+retain the earlier presentation and creation story as accessible companion
+routes. The supplied app's scripted demonstrations are labeled as simulations.

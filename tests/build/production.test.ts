@@ -25,7 +25,11 @@ test('the build contains exactly the five approved chapters and twenty-four chos
       `${category}/index.html`, ...ids.map((id) => `${category}/${id}/index.html`),
     ]),
   ].sort());
-  const opening = read('index.html');
+  const keynote = read('index.html');
+  assert.match(keynote, /id="root"/);
+  assert.match(keynote, /interactive keynote requires JavaScript/);
+  assert.match(keynote, /<script type="module" src="[^"]+\.js"><\/script>/);
+  const opening = read('octoverse/momentum/index.html');
   assert.match(opening, /data-slide-title="Pushes to GitHub"/);
   assert.ok(opening.indexOf('id="chart-1"') < opening.indexOf('id="chart-2"'));
   assert.match(opening, /17\.9B/);

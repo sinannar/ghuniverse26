@@ -6,10 +6,13 @@
 
 # Universe 2026: the presentation
 
-An independent browser-based slide deck built with Astro and TypeScript.
-**This website replaces PowerPoint**—it is the presentation, not a recap landing
-page. Open it to start directly with Octoverse report data, then present the
-selected topics and switch to real tools for live demonstrations.
+The supplied interactive keynote is the default GitHub Pages site. Its React
+and TypeScript presentation runs inside the existing Astro site and offers
+41 announcements, Highlights, Explore, and a synced presenter window. Its
+interactive demos are scripted **simulations**, not live GitHub services.
+
+The original Astro presentation, Badge and Sessions chapters, and creation
+story remain available through the keynote's **More controls** menu.
 
 ## Run locally
 
@@ -37,19 +40,30 @@ layout at desktop, projector, and mobile sizes:
 npx playwright install chromium
 npm run build
 npm run test:browser
+npm run test:dev
 ```
 
-The browser suite uses its own production preview on port 4322.
+The browser suite uses a production preview on port 4322; the development
+smoke test uses port 4323.
 
-## Present
+## Present the keynote
 
-The opening slide shows the report's 2024–2026 pushes comparison. The default
-order is **Octoverse → Platform → Copilot → Sessions**, with 19 curated topics:
+Open the site at `/` and choose **Highlights** or **Announcements**. Use
+Left/Right or Space to navigate, **G** for the map, **O** for Explore, **P**
+for the presenter window, and **?** for help. The
+[keynote guide](docs/keynote-guide.md) covers the full controls and content.
+
+## Original Astro presentation
+
+The preserved presentation starts at `/octoverse/momentum/` with the report's
+2024–2026 pushes comparison. Its order is **Octoverse → Platform → Badge →
+Copilot → Sessions**, with 24 curated topics:
 
 | Chapter | Topics |
 | --- | --- |
 | Octoverse | Momentum, global growth, industries, agentic workflows, model choice, language trends, open source |
 | Platform | Stacked PRs, CLI attachments, issue artifacts, PR overview |
+| Badge | The badge, hardware, interaction, event apps, and building for the badge |
 | Copilot | Fusion, Projects, Automations |
 | Sessions | Stacked PRs in practice, custom code review instructions, optimizing Copilot for every new model, the factory mindset, what's worth building |
 
@@ -57,7 +71,8 @@ Session slides summarize the speakers' published slides and the event's
 AI-generated session summaries, credit the speakers, and link to the related
 announcement slide. The recordings were not reviewed.
 
-Security and Connectors are deliberately outside this talk. Developer trends
+Security and Connectors are outside the original talk, but are included in the
+supplied keynote. Developer trends
 remain inside Octoverse rather than becoming a duplicate chapter. Coverage was
 chosen during planning; there is no runtime all-or-selected questionnaire.
 
@@ -81,7 +96,7 @@ between topics and reinitializes the controls after each route change.
 Printing or saving to PDF includes all slides in the current topic, including
 optional demo slides, rather than only the selected slide.
 
-The website is not a simulation of GitHub or Copilot. Stacked PRs and CLI
+The original presentation is not a simulation of GitHub or Copilot. Stacked PRs and CLI
 attachments have **optional** demo pauses, accessible from "Optional demo" or
 the slide dropdown. Normal presentation navigation skips these pauses.
 Fusion uses the site's actual initial creation as its example. No live demos
@@ -92,17 +107,18 @@ to GitHub, Copilot, Git, or Copilot CLI.
 
 ## How this was built
 
-Use **How this was built** in the footer, or follow the link on Fusion's creation
-slide, to open `/making-of/`. It explains how the first version was created using
+Use **How this was built** in the keynote's More controls menu or the original
+presentation's footer to open `/making-of/`. It explains how the first version was created using
 Copilot Fusion in the GitHub Copilot app, including the first attempt, feedback,
 scope decisions, and the Astro implementation.
 
-The page renders the preserved Markdown in `docs/iteration01/`, with expandable
-discovery Q&A and implementation plan. It is a curated public account, not a raw
-session export or a claim about unseen models, effort settings, or costs.
+The page renders the preserved Markdown in `docs/iteration01/` and
+`docs/iteration02/`, with expandable discovery Q&A and implementation plans.
+It is a curated public account, not a raw session export or a claim about
+unseen models, effort settings, or costs.
 
-This is still **iteration 01**. [The iteration guide](docs/README.md) identifies
-the active records. `AGENTS.md`, `.github/copilot-instructions.md`, and
+The [iteration guide](docs/README.md) identifies the active records.
+`AGENTS.md`, `.github/copilot-instructions.md`, and
 `.github/github-app.yml` direct future agent sessions to read and update those
 records without automatically starting another iteration.
 
@@ -112,10 +128,13 @@ configuration in the GitHub Copilot app before expecting it to take effect.
 
 ## Edit the presentation
 
-- `src/data/topics.ts`: chapter order, curated topics, explanations, optional handoff
+- `src/keynote/data/`: the new keynote's announcements, sections, takeaways, and report data.
+- `src/keynote/deck/`, `src/keynote/stage/`, `src/keynote/scenes/`, and
+  `src/keynote/demos/`: the keynote's navigation, presentation, and simulations.
+- `src/pages/index.astro`: the keynote's Astro shell and client entry point.
+- `src/data/topics.ts`: the original presentation's chapter order, curated topics, explanations, optional handoff
   cues, official source links, chart data, caveats, and real project examples.
 - `src/content.config.ts`: Astro's validated content collection schema.
-- `src/pages/index.astro`: the data-first opening, sharing the report slide component.
 - `src/pages/[category]/`: generated category overviews and topic presentations.
 - `src/components/Presentation.astro`: the shared slide canvas and presentation controls.
 - `src/lib/slides.ts`: topic-specific slide composition and keyboard destinations.
@@ -123,7 +142,7 @@ configuration in the GitHub Copilot app before expecting it to take effect.
 - `docs/iteration01/`: the approved plan and verbatim discovery Q&A.
 - `src/pages/making-of.astro`: the public creation story, rendering the iteration records.
 
-To add a topic, add a uniquely named entry to `topics` with its category and
+To add a topic to the original presentation, add a uniquely named entry to `topics` with its category and
 sources. The collection, category page, static route, and Previous/Next order
 follow that array. No page template duplication is needed. The selected announcement topics follow the official recap. Octoverse has
 seven stories rather than one compressed report slide. Topics with data start
@@ -148,16 +167,18 @@ repository path unless a custom domain or root-site configuration changes it.
 1. In the repository's **Settings → Pages**, select **GitHub Actions** as the source.
 2. Push/merge the site to `main`, or run **Deploy presentation to GitHub Pages**
    from the Actions tab. Repository environment rules may require approval.
-3. The workflow checks types and content, runs tests, builds static pages,
-   checks generated routes/links and browser presentation behavior, and deploys the `dist/` artifact with the
-   Pages deployment action.
+3. Pull requests run the same checks and build without deploying. On `main`,
+   the workflow checks types and content, runs tests, builds static pages,
+   verifies generated links and browser behavior, and deploys the `dist/`
+   artifact with the Pages deployment action.
 
 No secrets, API tokens, runtime data services, or server rewrites are required.
 `astro.config.mjs` reads `ASTRO_SITE` and `ASTRO_BASE` for deployment. Internal
 links and assets use `src/lib/navigation.ts` so deep links work at root or under
 a Pages base. To reproduce a project-path build locally, use
 `ASTRO_BASE=/example npm run build`, and supply the same variable to production
-and browser tests. Rebuild without the variable to return to a root preview.
+and browser tests. In PowerShell, set `$env:ASTRO_BASE = '/example'` before
+running those commands. Clear the variable and rebuild to return to a root preview.
 
 ## Sources and attribution
 

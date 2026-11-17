@@ -1,10 +1,10 @@
 import { expect, test } from '@playwright/test';
 import { topics } from '../../src/data/topics';
 
-test('opens on real report evidence, not a title or a recap landing page', async ({ page }) => {
+test('the original presentation opens on real report evidence', async ({ page }) => {
   const errors: string[] = [];
   page.on('pageerror', (error) => errors.push(error.message));
-  await page.goto('./');
+  await page.goto('./octoverse/momentum/');
   await expect(page.locator('[data-slide]:visible')).toHaveCount(1);
   await expect(page.locator('#chart-1')).toBeVisible();
   for (const value of ['5.2B', '6.7B', '17.9B']) await expect(page.locator('#chart-1')).toContainText(value);
@@ -64,7 +64,7 @@ test('the badge introduction shows its sourced platform image with an accurate c
 });
 
 test('keys traverse slides, cross topics, preserve hashes, and return to the chooser', async ({ page }) => {
-  await page.goto('./');
+  await page.goto('./octoverse/momentum/');
   await page.keyboard.press('ArrowRight');
   await expect(page).toHaveURL(/#chart-2$/);
   await expect(page.locator('#chart-2')).toBeVisible();
@@ -321,7 +321,7 @@ test('all regular slides fit projector viewports and stay horizontally readable 
 test('without JavaScript, the report and ordinary topic links remain readable', async ({ browser, baseURL }) => {
   const context = await browser.newContext({ javaScriptEnabled: false });
   const page = await context.newPage();
-  await page.goto(baseURL!);
+  await page.goto(`${baseURL}octoverse/momentum/`);
   await expect(page.locator('#chart-1')).toBeVisible();
   await expect(page.locator('#chart-2')).toBeVisible();
   await expect(page.locator('[data-next-topic]')).toBeVisible();
