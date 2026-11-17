@@ -98,3 +98,12 @@ battery/runtime, and expansion details. Update the simulator explanation using
 the Field Guide's current information: MonaOS 4.0 and stock apps run in the
 browser, HTTP requests may depend on CORS, and socket-based Camera and Copilot
 apps require a physical badge.
+
+**Latest image request (verbatim):**
+
+> @copilot you didnt use the picture :) use the picture below for the badge ,that is best presentation of badge
+
+The new attachment URL returned HTTP 404 when fetched from the implementation
+environment, including with GitHub's `raw` and `download` URL variants. The
+image cannot be included until it is accessible as an uploaded file or working
+URL.

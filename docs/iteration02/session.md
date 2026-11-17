@@ -327,4 +327,12 @@ Validation for this follow-up:
 - `npm run test:browser`: all 18 tests passed, including the badge flow and
   projector/mobile layout checks.
 
+## Supplied badge image retry
+
+The presenter supplied a new badge-photo attachment after the previous links
+were unavailable. This URL also returned HTTP 404 from the implementation
+environment, including through GitHub's `raw` and `download` URL variants.
+The existing Tufty 2350 reference photo therefore remains; the new badge photo
+is not embedded. An accessible file or working URL is needed to continue.
+
 </details>

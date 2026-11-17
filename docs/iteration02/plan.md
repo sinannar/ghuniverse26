@@ -123,3 +123,8 @@ The two supplied `github.com/user-attachments/assets/` links returned HTTP 404
 when checked from the implementation environment. Do not embed broken remote
 images; retain the attributed Tufty 2350 reference photo until accessible copies
 of the supplied badge images are available.
+
+**Latest image follow-up:** The presenter supplied a replacement badge-photo
+attachment URL. It also returned HTTP 404, including with GitHub's `raw` and
+`download` URL variants. Keep the existing reference photo until the replacement
+is available as an uploaded file or working URL.
