@@ -2,6 +2,19 @@
 
 <!-- impeccable:product-schema 1 -->
 
+## Current release: supplied interactive keynote
+
+The presenter supplied a complete interactive keynote and asked for it to be
+the default GitHub Pages site. It uses a React client within the existing Astro
+site, with 41 announcements across Copilot, developer workflow, automation and
+integrations, security, and enterprise and platform. Its demos are scripted
+simulations, not live services. The original Astro presentation and its Badge,
+Sessions, and making-of pages remain accessible from the keynote.
+
+This supersedes the earlier opening, coverage, and no-simulation choices for
+the default site. The following sections describe the retained original
+presentation; their decisions remain recorded in the iteration documents.
+
 ## Platform
 
 web
@@ -73,6 +86,6 @@ session record from `docs/iteration01/`, plus the supporting
 `docs/iteration01-review/session.md`. It is a curated account, not a raw session
 export; unavailable evidence is labeled rather than reconstructed.
 
-The active iteration is identified in `docs/README.md`; this work remains
-iteration 01 until the user explicitly starts a new one. Repository agent and
-Copilot setup point to that shared workflow.
+The active iteration is identified in `docs/README.md`; a new session or
+revision does not start a new iteration. Repository agent and Copilot setup
+point to that shared workflow.

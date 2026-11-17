@@ -14,7 +14,7 @@ const topics = entries.sort((a, b) => topicOrder.findIndex((t) => t.id === a.id)
 <BaseLayout title={`${category.name} — Universe 2026`} category={category.id} description={category.description}>
   <section class="topic-chooser deck-canvas">
     <div class="chooser-heading">
-      <a class="back-link" href={href()}>← Back to the opening data</a>
+      <a class="back-link" href={href('octoverse/momentum/')}>← Back to the opening data</a>
       <h1>{category.name}<span aria-hidden="true">.</span></h1>
       <p>{category.description}</p>
     </div>

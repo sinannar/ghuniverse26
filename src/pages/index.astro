@@ -1,11 +1,32 @@
 ---
-import { getCollection } from 'astro:content';
-import Presentation from '../components/Presentation.astro';
-import { topics } from '../data/topics';
-
-const entries = (await getCollection('topics'))
-  .sort((a, b) => topics.findIndex((topic) => topic.id === a.id) - topics.findIndex((topic) => topic.id === b.id));
-const opening = entries.find((entry) => entry.id === 'momentum');
-if (!opening) throw new Error('The presentation must open with the Octoverse momentum story.');
+import { href } from '../lib/navigation';
+import '../keynote/index.css';
 ---
-<Presentation entry={opening} entries={entries} />
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="color-scheme" content="dark" />
+    <meta name="theme-color" content="#050608" />
+    <meta
+      name="description"
+      content="A keyboard-driven, interactive keynote covering GitHub Universe 2026 announcements, with simulated demos and an explore mode."
+    />
+    <title>GitHub Universe 2026 · Interactive keynote</title>
+    <link rel="icon" type="image/svg+xml" href={href('favicon.svg')} />
+  </head>
+  <body style="background: #050608">
+    <div id="root"></div>
+    <noscript>
+      <p style="padding: 2rem; color: white; font-family: sans-serif">
+        The interactive keynote requires JavaScript.
+        <a style="color: #c4b5fd" href={href('octoverse/momentum/')}>Open the original presentation</a>
+        or <a style="color: #c4b5fd" href={href('making-of/')}>read how it was built</a>.
+      </p>
+    </noscript>
+    <script>
+      import '../keynote/main';
+    </script>
+  </body>
+</html>

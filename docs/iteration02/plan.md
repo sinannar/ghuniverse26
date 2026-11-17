@@ -128,3 +128,15 @@ of the supplied badge images are available.
 attachment URL. It also returned HTTP 404, including with GitHub's `raw` and
 `download` URL variants. Keep the existing reference photo until the replacement
 is available as an uploaded file or working URL.
+
+## Supplied interactive keynote and Pages deployment
+
+The presenter supplied a complete interactive keynote and requested that it
+become the GitHub Pages site. This supersedes the earlier data-first opening,
+coverage, and no-simulation choices for the default site. The supplied keynote
+includes Security and integrations and uses clearly labeled scripted demos.
+
+Mount the supplied React application in the existing Astro site, preserve the
+original presentation and making-of routes, and use the existing Pages base
+configuration. Pull requests should run the site's checks without deploying;
+merging to `main` should continue to deploy through the existing Pages workflow.

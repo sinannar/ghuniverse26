@@ -335,4 +335,41 @@ environment, including through GitHub's `raw` and `download` URL variants.
 The existing Tufty 2350 reference photo therefore remains; the new badge photo
 is not embedded. An accessible file or working URL is needed to continue.
 
+## Supplied interactive keynote integration
+
+The presenter supplied a completed interactive keynote and asked for it to be
+the GitHub Pages site after review and merge. The React application now mounts
+at the Astro home route; the original presentation, Badge and Sessions
+chapters, and making-of page remain available. The supplied demonstrations
+are labeled as simulations rather than live GitHub services.
+
+The first development-server check exposed a missing React refresh preamble
+in the Astro page shell. The keynote entry now initializes that preamble, and
+a browser smoke test exercises development mode as well as the production
+preview.
+
+The existing Pages workflow now verifies pull requests without uploading or
+deploying a Pages artifact. Pushes to `main` and manual workflow runs retain
+the deployment path. The dependency lockfile was regenerated for the combined
+applications; the local package mirror lacked the previous Rollup patch, so
+the resolved version changed. Lockfile package URLs use the public npm registry.
+
+Validation with Node 22:
+
+- `npm ci` succeeded.
+- `npm run check` reported no errors or warnings and three deprecation hints.
+- `npm test` passed all 16 unit tests.
+- Root-path and `/ghuniverse26/` production builds passed, and each passed all
+  four generated-output and link checks.
+- The root-path keynote browser scenarios passed; all 24 Chromium tests passed
+  at the `/ghuniverse26/` Pages path. These covered keynote navigation, demo
+  scenes, Explore, presenter sync, mobile behavior, the no-JavaScript fallback,
+  and the preserved presentation.
+- `npm run test:dev` passed at both the root and `/ghuniverse26/` paths.
+
+The supplied announcement claims were not independently rechecked in this
+integration. No production deployment was run from this branch; deployment
+remains dependent on the pull request being merged and the Pages workflow
+completing successfully.
+
 </details>

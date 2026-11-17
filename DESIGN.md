@@ -38,6 +38,17 @@ components:
 
 # Universe presentation design
 
+## Current keynote
+
+The supplied keynote is the default home page. It uses a dark, 16:9 scaled
+stage, a bundled Geist font, section-colored accents, and a docked control bar.
+Its map, Explore mode, and presenter window retain the supplied interactive
+design. Scripted demos are identified as simulations.
+
+The remaining sections describe the retained original Astro presentation and
+its making-of page, rather than imposing that presentation's light layout on
+the supplied keynote.
+
 ## Overview
 
 The website is the presentation itself: evidence first, one topic at a time,

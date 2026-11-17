@@ -1,8 +1,10 @@
 # Iteration guide
 
-**Active iteration: `iteration02`**. This iteration adds repository Agentic
-Workflows for issue classification and pull-request assessment. Iteration 01
-remains the presentation redesign, coverage decisions, and creation story.
+**Active iteration: `iteration02`**. This iteration began with repository
+Agentic Workflows for issue classification and pull-request assessment and
+continues to record later presentation refinements and the supplied keynote
+integration. Iteration 01 remains the original presentation redesign,
+coverage decisions, and creation story.
 
 ## Records for each iteration
 

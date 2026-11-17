@@ -5,6 +5,15 @@ import test from 'node:test';
 const workflow = (name: string) =>
   readFileSync(new URL(`../.github/workflows/${name}.lock.yml`, import.meta.url), 'utf8');
 
+test('Pages verifies pull requests without deploying them', () => {
+  const pages = readFileSync(new URL('../.github/workflows/deploy.yml', import.meta.url), 'utf8');
+  assert.match(pages, /push:\s+branches: \[main\]/);
+  assert.match(pages, /pull_request:\s+branches: \[main\]/);
+  assert.match(pages, /npm run build\s+npm run test:production\s+npm run test:browser\s+npm run test:dev/);
+  assert.match(pages, /if: github\.event_name != 'pull_request'\s+uses: actions\/upload-pages-artifact@v3/);
+  assert.match(pages, /deploy:\s+if: github\.event_name != 'pull_request'/);
+});
+
 test('issue label removal is bounded to all six managed labels on the triggering issue', () => {
   const lock = workflow('issue-labeler');
   for (const variable of ['GH_AW_SAFE_OUTPUTS_CONFIG', 'GH_AW_SAFE_OUTPUTS_HANDLER_CONFIG']) {
