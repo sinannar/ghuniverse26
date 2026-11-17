@@ -59,6 +59,117 @@ test('deep-linked demos load for each section and identify simulations', async (
   expect(errors).toEqual([]);
 });
 
+test('Security presents sourced trends and real delayed-trigger incidents before announcements', async ({ page }) => {
+  const errors: string[] = [];
+  page.on('pageerror', (error) => errors.push(error.message));
+  await page.goto('./#scene=section-security');
+  await expect(page.locator('#stage-slide')).toHaveAttribute('aria-label', /^4\. Security/);
+  await page.keyboard.press('ArrowRight');
+  await page.keyboard.press('ArrowRight');
+  await expect(page).toHaveURL(/#scene=security-cve-growth$/);
+  let slide = page.locator('#stage-slide > div:not([data-exiting])');
+  await expect(slide.getByRole('heading', { name: 'Vulnerability disclosures are surging.' })).toBeVisible();
+  const cves = slide.getByRole('list', { name: 'CVE records published by year' });
+  await expect(cves.locator('li')).toHaveCount(5);
+  for (const [year, value] of [['2022', '26,431'], ['2023', '30,949'], ['2024', '40,704'], ['2025', '49,972'], ['2026', '101,000']]) {
+    await expect(cves.locator(`[data-cve-year="${year}"]`)).toContainText(value);
+  }
+  await expect(cves.locator('[data-cve-year="2026"]')).toContainText('YTD');
+  await expect(slide).toContainText('records later rejected');
+  await expect(slide).toContainText('not proof of exploitation');
+  await expect(slide).toContainText('454,600+');
+  await expect(slide.getByRole('link', { name: /NVD via Christensen/ })).toHaveAttribute('href', 'https://danielchristensen.no/en/tools/cve-statistics');
+  await expect(slide.getByRole('link', { name: /Sonatype 2026/ })).toHaveAttribute('href', 'https://www.sonatype.com/state-of-the-software-supply-chain/2026/open-source-malware');
+  const cveBars = await cves.locator('[data-chart-bar]').evaluateAll((bars) => bars.map((bar) => bar.getBoundingClientRect().height));
+  expect(cveBars[0] / cveBars[4]).toBeCloseTo(26_431 / 101_000, 2);
+  await expect(page.locator('#stage-slide [data-exiting]')).toHaveCount(0);
+  await page.screenshot({ path: test.info().outputPath('security-cve-growth.png') });
+
+  await page.keyboard.press('ArrowRight');
+  await expect(page).toHaveURL(/#scene=security-supply-chain$/);
+  slide = page.locator('#stage-slide > div:not([data-exiting])');
+  const breaches = slide.getByRole('list', { name: 'Third-party involvement in analyzed breaches' });
+  await expect(breaches.locator('li')).toHaveCount(3);
+  for (const [edition, value] of [['2024', '~15%'], ['2025', '30%'], ['2026', '48%']]) {
+    await expect(breaches.locator(`[data-dbir-edition="${edition}"]`)).toContainText(value);
+  }
+  const breachBars = await breaches.locator('[data-chart-bar]').evaluateAll((bars) => bars.map((bar) => bar.getBoundingClientRect().height));
+  expect(breachBars[1] / breachBars[2]).toBeCloseTo(30 / 48, 2);
+  const incidents = slide.getByRole('region', { name: 'Recent supply-chain incidents' });
+  await expect(incidents).toContainText('500+ compromised npm packages removed');
+  await expect(incidents).toContainText('5,561 repositories received poisoned workflow commits');
+  await expect(incidents).toContainText('waited for an on-demand trigger');
+  await expect(incidents).toContainText('ran when the library was imported, not installed');
+  await expect(slide).toContainText('broader than a software supply-chain attack');
+  await expect(slide.getByRole('link', { name: /Verizon 2026 DBIR/ })).toHaveAttribute('href', 'https://www.verizon.com/business/resources/Tc48/reports/2026-dbir-data-breach-investigations-report.pdf');
+  await expect(incidents.getByRole('link', { name: /GitHub/ })).toHaveAttribute('href', 'https://github.blog/security/supply-chain-security/our-plan-for-a-more-secure-npm-supply-chain/');
+  await expect(incidents.getByRole('link', { name: /SafeDep/ })).toHaveAttribute('href', 'https://safedep.io/blog/megalodon-mass-github-repo-backdooring-ci-workflows');
+  await expect(incidents.getByRole('link', { name: /StepSecurity/ })).toHaveAttribute('href', 'https://www.stepsecurity.io/blog/compromised-next-branch-pushes-malicious-asyncapi-generator-generator-helpers-and-generator-components-to-npm');
+  await expect(page.locator('#stage-slide [data-exiting]')).toHaveCount(0);
+  await page.screenshot({ path: test.info().outputPath('security-supply-chain.png') });
+
+  await page.keyboard.press('ArrowRight');
+  await expect(page).toHaveURL(/#scene=ai-scan-reveal$/);
+  await page.keyboard.press('g');
+  await page.getByLabel('Search the keynote').fill('time bomb');
+  await expect(page.getByRole('dialog', { name: 'Map' }).getByRole('button', { name: /Supply-chain attacks: the time bomb/ })).toBeVisible();
+  await page.keyboard.press('Enter');
+  await expect(page).toHaveURL(/#scene=security-supply-chain$/);
+  await page.reload();
+  await expect(page.locator('#stage-slide')).toHaveAttribute('aria-label', /^Supply-chain attacks: the time bomb/);
+  await page.keyboard.press('g');
+  await page.getByLabel('Search the keynote').fill('CVE disclosures');
+  await expect(page.getByRole('dialog', { name: 'Map' }).getByRole('button', { name: /CVE disclosures are rising/ })).toBeVisible();
+  await page.keyboard.press('Enter');
+  await expect(page).toHaveURL(/#scene=security-cve-growth$/);
+  expect(errors).toEqual([]);
+});
+
+test('the Security context slides fit projector viewports and work in presenter view', async ({ page }) => {
+  for (const viewport of [{ width: 1440, height: 900 }, { width: 1280, height: 720 }]) {
+    await page.setViewportSize(viewport);
+    for (const id of ['security-cve-growth', 'security-supply-chain']) {
+      await page.goto(`./?fit=${viewport.width}-${id}#scene=${id}`);
+      await expect(page).toHaveURL(new RegExp(`#scene=${id}$`));
+      await expect(page.locator('#stage-slide')).toHaveAttribute('aria-label', id === 'security-cve-growth'
+        ? /^CVE disclosures are rising/
+        : /^Supply-chain attacks: the time bomb/);
+      const current = page.locator('#stage-slide > div:not([data-exiting])');
+      await expect(current.locator('figure')).toBeVisible();
+      const bounds = await current.evaluate((element) => {
+        const slide = element.getBoundingClientRect();
+        return [...element.querySelectorAll('h2, figure, section[aria-label], p.absolute')].map((item) => {
+          const box = item.getBoundingClientRect();
+          return {
+            left: box.left - slide.left,
+            top: box.top - slide.top,
+            right: box.right - slide.right,
+            bottom: box.bottom - slide.bottom,
+          };
+        });
+      });
+      for (const box of bounds) {
+        expect(box.left).toBeGreaterThanOrEqual(-1);
+        expect(box.top).toBeGreaterThanOrEqual(-1);
+        expect(box.right).toBeLessThanOrEqual(1);
+        expect(box.bottom).toBeLessThanOrEqual(1);
+      }
+      if (viewport.width === 1280) {
+        await expect(page.locator('#stage-slide [data-exiting]')).toHaveCount(0);
+        await page.screenshot({ path: test.info().outputPath(`${id}-projector.png`) });
+      }
+    }
+  }
+
+  await page.setViewportSize({ width: 390, height: 844 });
+  expect(await page.evaluate(() => document.documentElement.scrollWidth - innerWidth)).toBeLessThanOrEqual(1);
+  const [presenter] = await Promise.all([page.waitForEvent('popup'), page.keyboard.press('p')]);
+  await expect(presenter.getByRole('heading', { name: 'Supply-chain attacks: the time bomb' })).toBeVisible();
+  await expect(presenter.getByText(/A targeted workflow variant could be triggered on demand/)).toBeVisible();
+  await presenter.getByRole('toolbar', { name: 'Remote controls' }).getByRole('button', { name: 'Next', exact: true }).click();
+  await expect(page).toHaveURL(/#scene=ai-scan-reveal$/);
+});
+
 test('Explore search can present a result and return to it', async ({ page }) => {
   await page.goto('./');
   await page.keyboard.press('o');

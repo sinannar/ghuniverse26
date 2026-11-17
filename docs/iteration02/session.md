@@ -372,4 +372,48 @@ integration. No production deployment was run from this branch; deployment
 remains dependent on the pull request being merged and the Pages workflow
 completing successfully.
 
+## Security threat context slides
+
+The presenter requested two researched slides before the Security
+announcements. The first charts published CVE records and separately shows
+the scale of Sonatype's malicious-package detections. The second charts
+third-party involvement in Verizon's analyzed breaches and illustrates
+install-time, on-demand workflow, and import-time attack triggers. The
+slides link to their sources and are searchable in the keynote map.
+
+Research and boundaries:
+
+- The [NVD-based snapshot](https://danielchristensen.no/en/tools/cve-statistics)
+  reports 26,431, 30,949, 40,704, and 49,972 records published in 2022–2025,
+  and 101,000 in 2026 through 17 November at 03:24 UTC. NVD API publication-date
+  queries reproduced the 2025 and partial-2026 totals. The incomplete 2026
+  figure includes records later rejected; counts can change and are not
+  counts of exploited vulnerabilities.
+- [Sonatype's 2026 report](https://www.sonatype.com/state-of-the-software-supply-chain/2026/open-source-malware)
+  identified over 454,600 malicious packages in 2025 across five ecosystems.
+  Its taxonomy includes registry abuse and potentially unwanted packages;
+  detections do not establish successful attacks.
+- Verizon's [2025](https://www.verizon.com/about/news/2025-data-breach-investigations-report)
+  and [2026 DBIR](https://www.verizon.com/business/resources/Tc48/reports/2026-dbir-data-breach-investigations-report.pdf)
+  report roughly 15%, 30%, and 48% third-party involvement in analyzed
+  breaches across the 2024–2026 report editions. Their samples differ, and
+  third-party involvement includes vendors and partners, not only software
+  supply-chain attacks.
+- [GitHub](https://github.blog/security/supply-chain-security/our-plan-for-a-more-secure-npm-supply-chain/)
+  reported removing more than 500 compromised npm packages in the 2025
+  Shai-Hulud response. [SafeDep](https://safedep.io/blog/megalodon-mass-github-repo-backdooring-ci-workflows)
+  documented malicious workflow commits in 5,561 repositories in the 2026
+  Megalodon campaign; a targeted variant waited for an on-demand trigger.
+  [StepSecurity](https://www.stepsecurity.io/blog/compromised-next-branch-pushes-malicious-asyncapi-generator-generator-helpers-and-generator-components-to-npm)
+  documented five poisoned AsyncAPI versions across four packages in 2026;
+  their payload activated on import rather than installation.
+
+Validation with Node 22: `npm run check` reported no errors or warnings and
+three existing deprecation hints; all 17 unit tests, four generated-output
+tests, 26 Chromium tests, and the development browser smoke test passed.
+The production build and browser checks used the `/ghuniverse26/` Pages base.
+The new slides were also inspected at desktop and 1280×720 projector sizes;
+the browser tests cover ordering, chart values, map search, presenter sync,
+source links, and mobile overflow.
+
 </details>

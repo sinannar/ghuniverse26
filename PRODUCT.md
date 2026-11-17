@@ -8,7 +8,8 @@ The presenter supplied a complete interactive keynote and asked for it to be
 the default GitHub Pages site. It uses a React client within the existing Astro
 site, with 41 announcements across Copilot, developer workflow, automation and
 integrations, security, and enterprise and platform. Its demos are scripted
-simulations, not live services. The original Astro presentation and its Badge,
+simulations, not live services. Security begins with two sourced context slides
+before its announcements. The original Astro presentation and its Badge,
 Sessions, and making-of pages remain accessible from the keynote.
 
 This supersedes the earlier opening, coverage, and no-simulation choices for

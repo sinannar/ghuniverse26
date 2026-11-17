@@ -117,3 +117,14 @@ GitHub Pages site when the owner merges it.
 **Implementation decision:** Use the supplied keynote as the default site and
 retain the earlier presentation and creation story as accessible companion
 routes. The supplied app's scripted demonstrations are labeled as simulations.
+
+## Security context slides
+
+**Request (summary):** Add two impactful, researched slides before the
+Security announcements, using graphs and recent evidence about supply-chain
+attacks, CVEs, and delayed or “time bomb” attacks. Test the changes and open
+a pull request.
+
+**Implementation decision:** Present CVE publication volume and third-party
+breach involvement as separate measures, then use documented package and
+workflow compromises to explain different activation triggers.

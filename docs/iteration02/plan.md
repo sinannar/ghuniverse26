@@ -140,3 +140,12 @@ Mount the supplied React application in the existing Astro site, preserve the
 original presentation and making-of routes, and use the existing Pages base
 configuration. Pull requests should run the site's checks without deploying;
 merging to `main` should continue to deploy through the existing Pages workflow.
+
+## Security threat context
+
+The presenter requested two researched, visual slides immediately before the
+Security announcements. Show the growth in published CVE records separately
+from supply-chain and third-party breach evidence, and explain real delayed
+activation examples without equating disclosures or detections with attacks.
+Keep source links, reporting periods, population definitions, and caveats
+visible. The existing announcement order and Highlights deck remain unchanged.
