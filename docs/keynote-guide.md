@@ -68,6 +68,10 @@ over between presenters easy:
 5. Enterprise & platform (Copilot in GitHub Enterprise, then the Octoverse and infrastructure
    data scenes)
 
+Security opens with two context slides before its announcements: an NVD CVE publication
+trend and recent supply-chain incidents, including delayed triggers. Their source links,
+reporting windows, and caveats are shown on the slides and in presenter notes.
+
 The keynote ends on the recap: five takeaways that light up one star at a time, then the line
 "You set the goal. Agents carry the work." There is no separate closing slide.
 

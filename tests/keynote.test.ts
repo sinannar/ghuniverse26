@@ -2,7 +2,7 @@ import assert from 'node:assert/strict';
 import test from 'node:test';
 import { ANNOUNCEMENTS, TOUR_IDS } from '../src/keynote/data/announcements';
 import { SECTIONS } from '../src/keynote/data/sections';
-import { DECKS } from '../src/keynote/deck/scenes';
+import { DECKS, sectionStartIndex } from '../src/keynote/deck/scenes';
 
 test('every keynote announcement has reachable, uniquely identified scenes and sources', () => {
   const announcementIds = new Set(ANNOUNCEMENTS.map((announcement) => announcement.id));
@@ -28,4 +28,16 @@ test('every keynote announcement has reachable, uniquely identified scenes and s
   for (const id of TOUR_IDS) {
     assert.ok(DECKS.future.some((scene) => scene.announcementId === id && scene.kind === 'demo'), id);
   }
+});
+
+test('Security introduces exactly two context scenes before its announcements', () => {
+  const start = sectionStartIndex(4);
+  const scenes = DECKS.main.slice(start, start + 4);
+  assert.deepEqual(scenes.map((scene) => scene.id), [
+    'section-security',
+    'security-cve-growth',
+    'security-supply-chain',
+    'ai-scan-reveal',
+  ]);
+  assert.ok(scenes.slice(1, 3).every((scene) => scene.section === 'security' && scene.steps === 0 && !scene.announcementId));
 });

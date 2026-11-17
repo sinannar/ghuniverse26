@@ -3,6 +3,7 @@ import { ANNOUNCEMENTS, ANNOUNCEMENT_BY_ID, TOUR_IDS, announcementsIn } from "@/
 import { SECTIONS } from "@/data/sections";
 import { RECAP_TAKEAWAYS, RECAP_THESIS } from "@/data/takeaways";
 import { DATA_SCENES } from "@/deck/data-scenes";
+import { SECURITY_SOURCES } from "@/data/security-context";
 
 // Builds the two decks from the content in src/data: "main" (Announcements, the
 // full keynote) and "future" (Highlights, the five-moment tour). Scene components
@@ -89,6 +90,48 @@ function withTransitions(list: Scene[]): Scene[] {
   });
 }
 
+const securityContext: Scene[] = [
+  {
+    id: "security-cve-growth",
+    kind: "security-cves",
+    title: "CVE disclosures are rising",
+    section: "security",
+    steps: 0,
+    notes: {
+      talk: [
+        "NVD listed 49,972 records published in 2025 and 101,000 in 2026 through 17 November at 03:24 UTC. The 2026 year is not complete.",
+        "A CVE is a public record, not proof of exploitation. These totals include records later rejected; discovery and reporting changes affect the count.",
+        "Separately, Sonatype identified more than 454,600 malicious packages in 2025 across five ecosystems. Its dataset includes registry abuse and potentially unwanted packages.",
+      ],
+      tech: [
+        `NVD snapshot: ${SECURITY_SOURCES.cve.url}`,
+        `Sonatype report and definitions: ${SECURITY_SOURCES.packages.url}`,
+      ],
+    },
+  },
+  {
+    id: "security-supply-chain",
+    kind: "security-supply-chain",
+    title: "Supply-chain attacks: the time bomb",
+    section: "security",
+    steps: 0,
+    notes: {
+      talk: [
+        "Verizon's DBIR reports third-party involvement in about 15%, 30%, and 48% of analyzed breaches in the 2024, 2025, and 2026 editions. The samples differ and the category includes vendors and partners, not just software dependencies.",
+        "GitHub removed over 500 compromised npm packages in the September 2025 Shai-Hulud response; its install-time worm stole secrets and propagated.",
+        "In May 2026, Megalodon placed malicious workflow commits in 5,561 repositories. A targeted workflow variant could be triggered on demand; this does not mean every affected workflow was dormant.",
+        "In July 2026, five poisoned AsyncAPI versions across four packages executed their payload when imported, rather than via an install hook.",
+      ],
+      tech: [
+        `Verizon reports: ${SECURITY_SOURCES.dbir2025.url} and ${SECURITY_SOURCES.dbir2026.url}`,
+        `Shai-Hulud: ${SECURITY_SOURCES.shaiHulud.url}`,
+        `Megalodon: ${SECURITY_SOURCES.megalodon.url}`,
+        `AsyncAPI: ${SECURITY_SOURCES.asyncapi.url}`,
+      ],
+    },
+  },
+];
+
 const sectionScenes: Scene[] = SECTIONS.flatMap((section) => {
   const items = announcementsIn(section.id);
   const intro: Scene = {
@@ -112,7 +155,7 @@ const sectionScenes: Scene[] = SECTIONS.flatMap((section) => {
       ],
     },
   };
-  return [intro, ...items.flatMap(scenesForAnnouncement)];
+  return [intro, ...(section.id === "security" ? securityContext : []), ...items.flatMap(scenesForAnnouncement)];
 });
 
 const MAIN: Scene[] = withTransitions([

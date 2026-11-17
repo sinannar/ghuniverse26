@@ -96,6 +96,8 @@ export type SceneKind =
   | "impact"
   | "feature"
   | "brief"
+  | "security-cves"
+  | "security-supply-chain"
   /** Section 5 data scenes (see deck/data-scenes.ts). */
   | "data-growth"
   | "data-agents"

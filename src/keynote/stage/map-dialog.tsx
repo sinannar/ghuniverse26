@@ -178,11 +178,14 @@ export function MapDialog() {
     () =>
       SECTIONS.map((sec) => {
         const intro = main.findIndex((s) => s.id === `section-${sec.id}`);
+        const context = main.map((s, i) => ({ s, i })).filter(
+          ({ s }) => s.section === sec.id && !s.announcementId && s.kind !== "section",
+        );
         const items = announcementsIn(sec.id).map((a) => ({
           a,
           scenes: main.map((s, i) => ({ s, i })).filter(({ s }) => s.announcementId === a.id),
         }));
-        return { sec, intro, items };
+        return { sec, intro, context, items };
       }),
     [main],
   );
@@ -193,19 +196,20 @@ export function MapDialog() {
   const after = visibleFraming(framing.after);
   const tourItems = future.map((s, i) => ({ s, i })).filter(({ s }) => matches(`${s.title} ${sceneText(s)} highlights tour`, q));
   const sectionView = sections
-    .map(({ sec, intro, items }) => {
+    .map(({ sec, intro, context, items }) => {
       const secHit = matches(`${sec.title} section ${sec.number}`, q);
+      const shownContext = context.filter(({ s }) => secHit || matches(sceneHay(s), q));
       // Every announcement has a demo; headline ones also have a reveal and an impact scene.
       const shown = items.filter(
         ({ a, scenes }) =>
           secHit ||
           matches(`${a.name} ${a.short ?? ""} ${a.oneLiner} demo ${scenes.length > 1 ? "reveal impact why it matters" : ""}`, q),
       );
-      return { sec, intro, items: shown, showIntro: secHit || shown.length > 0 };
+      return { sec, intro, context: shownContext, items: shown, showIntro: secHit || shownContext.length > 0 || shown.length > 0 };
     })
     .filter((s) => s.showIntro);
   const total =
-    before.length + after.length + tourItems.length + sectionView.reduce((n, s) => n + s.items.length + 1, 0);
+    before.length + after.length + tourItems.length + sectionView.reduce((n, s) => n + s.context.length + s.items.length + 1, 0);
 
   const bodyScope = useShortcutScope("map-body");
   const searchScope = useShortcutScope("map-search");
@@ -257,8 +261,10 @@ export function MapDialog() {
     .map((w) => BEAT_WORDS[w])
     .find(Boolean);
   const firstItem = q ? sectionView.flatMap((s) => s.items)[0] : undefined;
+  const firstContext = q ? sectionView.flatMap((s) => s.context)[0] : undefined;
   const firstHitId = q
     ? ((firstItem && (firstItem.scenes.find(({ s }) => s.kind === wantBeat) ?? firstItem.scenes[0]).s.id) ??
+      firstContext?.s.id ??
       (before[0] !== undefined ? main[before[0]].id : undefined))
     : undefined;
 
@@ -412,7 +418,7 @@ export function MapDialog() {
           {sectionView.length ? (
             <section aria-label="Sections">
               <div className="grid grid-cols-1 gap-x-5 gap-y-8 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
-                {sectionView.map(({ sec, intro, items }) => (
+                {sectionView.map(({ sec, intro, context, items }) => (
                   <div key={sec.id} style={{ ["--map-accent" as string]: sec.accent.hex }} className="min-w-0">
                     <Item
                       pos={{ deck: "main", index: intro }}
@@ -429,6 +435,21 @@ export function MapDialog() {
                       <span aria-hidden="true" className="mt-2 block h-0.5 w-full rounded-full" style={{ background: sec.accent.hex }} />
                     </Item>
                     <ul className="space-y-1">
+                      {context.map(({ s, i }) => (
+                        <li key={s.id}>
+                          <Item
+                            pos={{ deck: "main", index: i }}
+                            current={isCurrent({ deck: "main", index: i })}
+                            onGo={go}
+                            className="block w-full px-2 py-1.5"
+                          >
+                            <span data-match-first={firstHitId === s.id ? "" : undefined} className="block text-[15px] leading-snug text-zinc-100">
+                              {s.title}
+                              {isCurrent({ deck: "main", index: i }) ? <HereTag /> : null}
+                            </span>
+                          </Item>
+                        </li>
+                      ))}
                       {items.map(({ a, scenes }) => {
                         const headline = scenes.length > 1;
                         const here = scenes.some(({ i }) => isCurrent({ deck: "main", index: i }));

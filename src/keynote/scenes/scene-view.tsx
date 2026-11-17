@@ -4,6 +4,7 @@ import { RecapScene } from "@/scenes/recap";
 import { BriefScene, DemoScene, FeatureScene, ImpactScene, RevealScene } from "@/scenes/announcement-scenes";
 import { TourCardScene, TourFinaleScene, TourIntroScene } from "@/scenes/tour";
 import { DataScene } from "@/scenes/visual-registry";
+import { SecurityCveScene, SecuritySupplyChainScene } from "@/scenes/security-context";
 
 /** Renders one scene of the deck at its current reveal step. */
 export function SceneView(props: SceneProps) {
@@ -14,6 +15,10 @@ export function SceneView(props: SceneProps) {
       return <AgendaScene {...props} />;
     case "section":
       return <SectionIntroScene {...props} />;
+    case "security-cves":
+      return <SecurityCveScene {...props} />;
+    case "security-supply-chain":
+      return <SecuritySupplyChainScene {...props} />;
     case "reveal":
       return <RevealScene {...props} />;
     case "demo":
