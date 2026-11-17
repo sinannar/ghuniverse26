@@ -149,3 +149,11 @@ from supply-chain and third-party breach evidence, and explain real delayed
 activation examples without equating disclosures or detections with attacks.
 Keep source links, reporting periods, population definitions, and caveats
 visible. The existing announcement order and Highlights deck remain unchanged.
+
+### Source and layout follow-up
+
+The presenter asked to remove the standalone bottom notes from both context
+slides and replace the first slide's NVD/Sonatype presentation with GitHub
+and Microsoft sources. This supersedes those sources and figures on the first
+slide. Keep the essential scope alongside each chart or in presenter notes,
+and retain the keynote's navigation controls.

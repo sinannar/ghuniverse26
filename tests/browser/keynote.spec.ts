@@ -69,19 +69,27 @@ test('Security presents sourced trends and real delayed-trigger incidents before
   await expect(page).toHaveURL(/#scene=security-cve-growth$/);
   let slide = page.locator('#stage-slide > div:not([data-exiting])');
   await expect(slide.getByRole('heading', { name: 'Vulnerability disclosures are surging.' })).toBeVisible();
-  const cves = slide.getByRole('list', { name: 'CVE records published by year' });
+  const cves = slide.getByRole('list', { name: "CVE records published by GitHub's CNA by year" });
   await expect(cves.locator('li')).toHaveCount(5);
-  for (const [year, value] of [['2022', '26,431'], ['2023', '30,949'], ['2024', '40,704'], ['2025', '49,972'], ['2026', '101,000']]) {
+  for (const [year, value] of [['2021', '1,047'], ['2022', '1,297'], ['2023', '1,784'], ['2024', '2,152'], ['2025', '2,903']]) {
     await expect(cves.locator(`[data-cve-year="${year}"]`)).toContainText(value);
   }
-  await expect(cves.locator('[data-cve-year="2026"]')).toContainText('YTD');
-  await expect(slide).toContainText('records later rejected');
-  await expect(slide).toContainText('not proof of exploitation');
-  await expect(slide).toContainText('454,600+');
-  await expect(slide.getByRole('link', { name: /NVD via Christensen/ })).toHaveAttribute('href', 'https://danielchristensen.no/en/tools/cve-statistics');
-  await expect(slide.getByRole('link', { name: /Sonatype 2026/ })).toHaveAttribute('href', 'https://www.sonatype.com/state-of-the-software-supply-chain/2026/open-source-malware');
+  await expect(slide).toContainText('+35% vs 2024');
+  await expect(slide).toContainText("GitHub's CVE Numbering Authority only");
+  await expect(slide).toContainText('Not all CVEs; published records do not establish exploitation.');
+  await expect(slide).toContainText('400+');
+  await expect(slide).toContainText('August 2026 ChainDrop');
+  await expect(slide.getByRole('link', { name: /GitHub · 2025 data/ })).toHaveAttribute('href', 'https://github.blog/security/supply-chain-security/a-year-of-open-source-vulnerability-trends-cves-advisories-and-malware/');
+  await expect(slide.getByRole('link', { name: /Microsoft · ChainDrop/ })).toHaveAttribute('href', 'https://www.microsoft.com/en-us/security/blog/2026/08/04/chaindrop-supply-chain-compromise-anatomy-self-propagating-worm/');
+  await expect(slide.locator('a[href*="sonatype"], a[href*="danielchristensen"]')).toHaveCount(0);
+  await expect(slide.locator(':scope > div > p.absolute')).toHaveCount(0);
   const cveBars = await cves.locator('[data-chart-bar]').evaluateAll((bars) => bars.map((bar) => bar.getBoundingClientRect().height));
-  expect(cveBars[0] / cveBars[4]).toBeCloseTo(26_431 / 101_000, 2);
+  expect(cveBars[0] / cveBars[4]).toBeCloseTo(1_047 / 2_903, 2);
+  await page.keyboard.press('n');
+  const notes = page.getByRole('complementary', { name: 'Presenter notes' });
+  await expect(notes).toContainText("GitHub's CVE Numbering Authority");
+  await expect(notes).toContainText('ChainDrop npm supply-chain attack affected more than 400 packages');
+  await page.getByRole('button', { name: 'Close presenter notes (N)' }).click();
   await expect(page.locator('#stage-slide [data-exiting]')).toHaveCount(0);
   await page.screenshot({ path: test.info().outputPath('security-cve-growth.png') });
 
@@ -100,7 +108,9 @@ test('Security presents sourced trends and real delayed-trigger incidents before
   await expect(incidents).toContainText('5,561 repositories received poisoned workflow commits');
   await expect(incidents).toContainText('waited for an on-demand trigger');
   await expect(incidents).toContainText('ran when the library was imported, not installed');
-  await expect(slide).toContainText('broader than a software supply-chain attack');
+  await expect(slide).toContainText('Third party includes vendors and partners—not only software dependencies.');
+  await expect(slide).toContainText('not a global census');
+  await expect(slide.locator(':scope > div > p.absolute')).toHaveCount(0);
   await expect(slide.getByRole('link', { name: /Verizon 2026 DBIR/ })).toHaveAttribute('href', 'https://www.verizon.com/business/resources/Tc48/reports/2026-dbir-data-breach-investigations-report.pdf');
   await expect(incidents.getByRole('link', { name: /GitHub/ })).toHaveAttribute('href', 'https://github.blog/security/supply-chain-security/our-plan-for-a-more-secure-npm-supply-chain/');
   await expect(incidents.getByRole('link', { name: /SafeDep/ })).toHaveAttribute('href', 'https://safedep.io/blog/megalodon-mass-github-repo-backdooring-ci-workflows');
@@ -154,6 +164,14 @@ test('the Security context slides fit projector viewports and work in presenter 
         expect(box.right).toBeLessThanOrEqual(1);
         expect(box.bottom).toBeLessThanOrEqual(1);
       }
+      const cardOverflow = await current.locator('figure').evaluate((figure) => {
+        const card = figure.getBoundingClientRect();
+        return [...figure.querySelectorAll('figcaption, p, li')].some((item) => {
+          const box = item.getBoundingClientRect();
+          return box.top < card.top - 1 || box.bottom > card.bottom + 1;
+        });
+      });
+      expect(cardOverflow).toBe(false);
       if (viewport.width === 1280) {
         await expect(page.locator('#stage-slide [data-exiting]')).toHaveCount(0);
         await page.screenshot({ path: test.info().outputPath(`${id}-projector.png`) });

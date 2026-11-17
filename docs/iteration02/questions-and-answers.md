@@ -128,3 +128,14 @@ a pull request.
 **Implementation decision:** Present CVE publication volume and third-party
 breach involvement as separate measures, then use documented package and
 workflow compromises to explain different activation triggers.
+
+## Security slide source and layout follow-up
+
+**Request (summary):** Remove the circled bottom note from the first Security
+slide and the corresponding footer from the second. Replace the first slide's
+third-party research with comparable GitHub and Microsoft evidence while
+retaining its visual impact.
+
+**Implementation decision:** Keep chart context inside the panels and retain
+the presentation navigation. Use GitHub's own CVE Numbering Authority
+publication series and Microsoft's ChainDrop investigation.

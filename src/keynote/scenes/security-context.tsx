@@ -1,7 +1,7 @@
 import { AlertTriangle, ArrowUpRight, Clock3, PackageSearch, ShieldAlert, type LucideIcon } from "lucide-react";
 import {
-  CVE_PUBLICATIONS,
-  MALICIOUS_PACKAGES_2025,
+  CHAINDROP_PACKAGES,
+  GITHUB_CNA_PUBLICATIONS,
   SECURITY_INCIDENTS,
   SECURITY_SOURCES,
   THIRD_PARTY_BREACHES,
@@ -33,7 +33,9 @@ function SourceLink({ source, preview }: { source: Source; preview?: boolean }) 
 }
 
 export function SecurityCveScene({ preview }: SceneProps) {
-  const max = Math.max(...CVE_PUBLICATIONS.map((point) => point.count));
+  const max = Math.max(...GITHUB_CNA_PUBLICATIONS.map((point) => point.count));
+  const [, , , previous, latest] = GITHUB_CNA_PUBLICATIONS;
+  const increase = Math.round(((latest.count - previous.count) / previous.count) * 100);
   return (
     <div className="absolute inset-0 overflow-hidden px-[112px] pt-[62px]">
       <ShieldAlert aria-hidden="true" className="absolute top-[48px] right-[112px] size-[120px] text-orange-400/15" />
@@ -47,16 +49,17 @@ export function SecurityCveScene({ preview }: SceneProps) {
 
       <div className="mt-9 grid grid-cols-[1.35fr_0.65fr] gap-8">
         <figure className="relative h-[575px] overflow-hidden rounded-[26px] border border-white/12 bg-[#101014]/90 px-9 pt-7">
-          <figcaption className="text-[23px] font-semibold tracking-[0.12em] text-zinc-300 uppercase">
-            CVE records published by year · NVD
+          <figcaption className="flex items-center justify-between gap-4 text-[23px] font-semibold tracking-[0.12em] text-zinc-300 uppercase">
+            <span>CVE records published by GitHub's CNA</span>
+            <span className="shrink-0 tracking-normal text-orange-200">+{increase}% vs {previous.year}</span>
           </figcaption>
           <div
             aria-hidden="true"
             className="absolute top-[112px] right-9 bottom-[94px] left-9 opacity-50"
             style={{ backgroundImage: "repeating-linear-gradient(to top, rgba(255,255,255,.12) 0 1px, transparent 1px 78px)" }}
           />
-          <ol aria-label="CVE records published by year" className="relative mt-5 grid h-[420px] grid-cols-5 items-end gap-5">
-            {CVE_PUBLICATIONS.map((point) => (
+          <ol aria-label="CVE records published by GitHub's CNA by year" className="relative mt-5 grid h-[390px] grid-cols-5 items-end gap-5">
+            {GITHUB_CNA_PUBLICATIONS.map((point) => (
               <li key={point.year} data-cve-year={point.year} className="flex h-full flex-col items-center justify-end">
                 <strong className="mb-3 text-[31px] font-semibold text-white tabular">
                   {point.count.toLocaleString("en-US")}
@@ -64,47 +67,42 @@ export function SecurityCveScene({ preview }: SceneProps) {
                 <span
                   data-chart-bar=""
                   aria-hidden="true"
-                  className={point.year === 2026
+                  className={point.year === 2025
                     ? "w-[112px] rounded-t-xl bg-gradient-to-t from-orange-700 to-amber-300"
                     : "w-[112px] rounded-t-xl bg-gradient-to-t from-orange-900 to-orange-400"}
                   style={{ height: `${(point.count / max) * 295}px` }}
                 />
                 <span className="mt-3 text-[27px] font-semibold text-white">{point.year}</span>
-                <span className="h-[24px] text-[19px] font-medium text-orange-200">
-                  {point.year === 2026 ? "YTD" : ""}
-                </span>
               </li>
             ))}
           </ol>
           <p className="mt-3 text-[20px] text-zinc-300">
-            <SourceLink source={SECURITY_SOURCES.cve} preview={preview} /> · 17 Nov 2026, 03:24 UTC
+            <SourceLink source={SECURITY_SOURCES.cve} preview={preview} /> · GitHub's CVE Numbering Authority only
+          </p>
+          <p className="mt-1 text-[19px] text-zinc-300">
+            Not all CVEs; published records do not establish exploitation.
           </p>
         </figure>
 
         <aside className="flex h-[575px] flex-col rounded-[26px] border border-orange-400/35 bg-orange-950/25 p-9">
           <PackageSearch aria-hidden="true" className="size-[60px] text-orange-300" />
           <p className="mt-7 text-[22px] font-semibold tracking-[0.15em] text-orange-200 uppercase">
-            A separate supply-chain signal
+            A real supply-chain attack
           </p>
           <p className="mt-5 text-[79px] leading-none font-bold tracking-[-0.045em] text-white tabular">
-            {MALICIOUS_PACKAGES_2025.minimum.toLocaleString("en-US")}+
+            {CHAINDROP_PACKAGES.moreThan.toLocaleString("en-US")}+
           </p>
           <p className="mt-4 text-[31px] leading-tight font-semibold text-zinc-100">
-            packages identified in 2025
+            npm packages affected
           </p>
           <p className="mt-5 text-[23px] leading-snug text-zinc-300">
-            Sonatype’s malicious-package detections across five ecosystems include registry abuse and unwanted packages.
+            Microsoft’s August 2026 ChainDrop investigation describes a credential-stealing worm that spreads through package installs.
           </p>
           <p className="mt-auto text-[21px]">
-            <SourceLink source={SECURITY_SOURCES.packages} preview={preview} />
+            <SourceLink source={SECURITY_SOURCES.chainDrop} preview={preview} />
           </p>
         </aside>
       </div>
-
-      <p className="absolute right-[112px] bottom-[43px] left-[112px] text-[20px] leading-snug text-zinc-300">
-        2026 is incomplete. NVD totals include records later rejected and can change. A CVE record is not proof of exploitation;
-        package detections are not a count of successful attacks.
-      </p>
     </div>
   );
 }
@@ -144,7 +142,7 @@ export function SecuritySupplyChainScene({ preview }: SceneProps) {
             ))}
           </ol>
           <p className="mt-5 text-[19px] leading-snug text-zinc-300">
-            Third party includes vendors and partners—not only software dependencies. Samples differ by report.
+            Third party includes vendors and partners—not only software dependencies. Samples differ; this is not a global census.
           </p>
           <p className="mt-auto flex flex-wrap gap-x-5 text-[19px]">
             <SourceLink source={SECURITY_SOURCES.dbir2025} preview={preview} />
@@ -179,10 +177,6 @@ export function SecuritySupplyChainScene({ preview }: SceneProps) {
         </section>
       </div>
 
-      <p className="absolute right-[112px] bottom-[43px] left-[112px] text-[20px] leading-snug text-zinc-300">
-        Third-party involvement is broader than a software supply-chain attack. The figures describe analyzed breaches,
-        not all breaches worldwide.
-      </p>
     </div>
   );
 }

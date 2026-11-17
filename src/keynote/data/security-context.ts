@@ -1,13 +1,12 @@
 import type { Source } from "@/deck/types";
 
-// NVD publication-date counts, including records later rejected. Snapshot:
-// 17 November 2026, 03:24 UTC. The 2026 figure is a partial year.
-export const CVE_PUBLICATIONS = [
-  { year: 2022, count: 26_431 },
-  { year: 2023, count: 30_949 },
-  { year: 2024, count: 40_704 },
-  { year: 2025, count: 49_972 },
-  { year: 2026, count: 101_000 },
+// CVE records published by GitHub's CVE Numbering Authority, not all CVEs.
+export const GITHUB_CNA_PUBLICATIONS = [
+  { year: 2021, count: 1_047 },
+  { year: 2022, count: 1_297 },
+  { year: 2023, count: 1_784 },
+  { year: 2024, count: 2_152 },
+  { year: 2025, count: 2_903 },
 ] as const;
 
 // Share of analyzed breaches involving a third party, by DBIR report edition.
@@ -17,16 +16,17 @@ export const THIRD_PARTY_BREACHES = [
   { edition: 2026, percent: 48, display: "48%" },
 ] as const;
 
-export const MALICIOUS_PACKAGES_2025 = { minimum: 454_600 } as const;
+// Microsoft Threat Intelligence's August 2026 ChainDrop investigation.
+export const CHAINDROP_PACKAGES = { moreThan: 400 } as const;
 
 export const SECURITY_SOURCES = {
   cve: {
-    label: "NVD via Christensen",
-    url: "https://danielchristensen.no/en/tools/cve-statistics",
+    label: "GitHub · 2025 data",
+    url: "https://github.blog/security/supply-chain-security/a-year-of-open-source-vulnerability-trends-cves-advisories-and-malware/",
   },
-  packages: {
-    label: "Sonatype 2026",
-    url: "https://www.sonatype.com/state-of-the-software-supply-chain/2026/open-source-malware",
+  chainDrop: {
+    label: "Microsoft · ChainDrop",
+    url: "https://www.microsoft.com/en-us/security/blog/2026/08/04/chaindrop-supply-chain-compromise-anatomy-self-propagating-worm/",
   },
   dbir2025: {
     label: "Verizon 2025 DBIR",

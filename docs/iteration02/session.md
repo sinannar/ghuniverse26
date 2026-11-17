@@ -416,4 +416,29 @@ The new slides were also inspected at desktop and 1280×720 projector sizes;
 the browser tests cover ordering, chart values, map search, presenter sync,
 source links, and mobile overflow.
 
+## Security slide source and layout outcome
+
+The presenter asked to remove the standalone bottom note from both Security
+slides and to use GitHub and Microsoft rather than the earlier sources for
+the first slide. This supersedes the first slide's NVD/Sonatype figures above;
+the earlier outcome remains as history. The second slide's chart, incidents,
+and sources are unchanged. Essential scope stays within the panels and
+presenter notes, and the keynote's navigation bar remains available.
+
+[GitHub's 2025 review](https://github.blog/security/supply-chain-security/a-year-of-open-source-vulnerability-trends-cves-advisories-and-malware/)
+reports 1,047, 1,297, 1,784, 2,152, and 2,903 CVE records published by
+GitHub's CVE Numbering Authority in 2021–2025. This is GitHub's subset, not
+all CVEs, and publication does not establish exploitation.
+[Microsoft's August 2026 investigation](https://www.microsoft.com/en-us/security/blog/2026/08/04/chaindrop-supply-chain-compromise-anatomy-self-propagating-worm/)
+reports ChainDrop affected more than 400 npm packages; its credential-stealing
+worm typically ran during installation and could republish poisoned packages.
+
+Validation with Node 22: type checking passed with three existing deprecation
+hints, all 17 unit tests passed, and the Pages-base build passed four
+generated-output tests, 26 Chromium tests, and the development browser smoke
+test. The first generated-link check found a duplicate heading in these
+records; distinct headings fixed it. Both slides were inspected at desktop and
+1280×720 projector sizes, including chart values, source links, presenter
+notes, navigation, and the absence of standalone bottom notes.
+
 </details>
